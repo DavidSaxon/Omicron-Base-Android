@@ -6,13 +6,15 @@
 
 package nz.co.withfire.omicronengine.omicron.logic.scene;
 
+import nz.co.withfire.omicronengine.omicron.logic.entity.EntityList;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import android.view.MotionEvent;
 
 public abstract class Scene {
 
 	//VARIABLES
-	//TODO: entity list
+	//the entity list
+	protected EntityList entityList = new EntityList();
 	
 	//PUBLIC METHODS
 	/**Initialises the scene*/
@@ -24,7 +26,8 @@ public abstract class Scene {
 	public boolean execute() {
 		
 		//update entities and collision data
-		//TODO:
+		entityList.update();
+		//TODO:collision data
 		
 		return false;
 	}
@@ -33,7 +36,8 @@ public abstract class Scene {
 	public Scene nextScene() {
 		
 		//clean up
-		//TODO:
+		entityList.clear();
+		//TODO:collision data
 		
 		return null;
 	}

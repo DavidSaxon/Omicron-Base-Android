@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.util.Log;
 import android.view.MotionEvent;
+import nz.co.withfire.omicronengine.entities.material_demo.BrickCube;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
@@ -57,10 +58,9 @@ public class MaterialDemoScene extends Scene {
 	/**Creates a new scene to demo materials*/
 	public MaterialDemoScene() {
 		
-		//set the camera
-		camera.setDimensions(OmicronRenderer.getCamera().getDimensions());
-		camera.setPostTrans(camPos);
-		OmicronRenderer.setCamera(camera);
+		//initialise the scene
+		initCamera();
+		initEntities();
 	}
 	
 	@Override
@@ -158,5 +158,19 @@ public class MaterialDemoScene extends Scene {
             pinchLast = true;
             pinchDis = pinch.getPos1().distance(pinch.getPos2());
         }
+	}
+	
+	/**Initialises the camera in the scene*/
+	private void initCamera() {
+		
+		camera.setDimensions(OmicronRenderer.getCamera().getDimensions());
+		camera.setPostTrans(camPos);
+		OmicronRenderer.setCamera(camera);
+	}
+	
+	/**Initialises the entities in the scene*/
+	private void initEntities() {
+		
+		entityList.add(new BrickCube());
 	}
 }
