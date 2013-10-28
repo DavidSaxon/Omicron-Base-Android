@@ -12,6 +12,7 @@ import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
 import android.util.Log;
+import nz.co.withfire.omicronengine.omicron.graphics.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.resources.ShaderLoader;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
@@ -33,7 +34,11 @@ public class Mesh extends Renderable {
 		NORMAL_DIM * ValuesUtil.FLOAT_SIZE;
 	
 	//the opengl program //TODO: in the shader
-	private int program;
+	//private int program;
+	
+	//TESTING
+	//the shaderS
+	private Shader shader;
 	
 	//TODO: remove
     private final String vertexShaderCode =
@@ -55,9 +60,9 @@ public class Mesh extends Renderable {
 
 	//TODO: in material in shader class
     //the vertex shader of the program
-	protected int vertexShader;
-    //the fragment shader of the program
-	protected int fragmentShader;
+//	protected int vertexShader;
+//    //the fragment shader of the program
+//	protected int fragmentShader;
 	
 	//the number of vertices the mesh has
 	private int vertexCount;
@@ -107,6 +112,7 @@ public class Mesh extends Renderable {
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
         
         //Set the OpenGL program to use
+        int program = shader.getProgram();
         GLES20.glUseProgram(program);
         
         //get a handle the vertex positions and enable them
@@ -138,22 +144,30 @@ public class Mesh extends Renderable {
 		//calculate the number of vertices
 		vertexCount = this.vertices.length / VERTEX_DIM;
 		
+		//------------------------------------------------
+		
 		//TODO: remove
 		//compile the shaders
-		vertexShader = ShaderLoader.compileShader(
+		int vertexShader = ShaderLoader.compileShader(
 			GLES20.GL_VERTEX_SHADER, vertexShaderCode);
-		fragmentShader = ShaderLoader.compileShader(
+		int fragmentShader = ShaderLoader.compileShader(
 			GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
 		
 		//TODO: in the shader
 		//create the openGL program
-        program = GLES20.glCreateProgram();
+        int program = GLES20.glCreateProgram();
         //attach the vertex shader to the program
         GLES20.glAttachShader(program, vertexShader);
         //attach the fragment shader to the program
         GLES20.glAttachShader(program, fragmentShader);
+        
         //create openGL program executables
         GLES20.glLinkProgram(program);
+        
+        //create the shader
+        shader = new Shader(vertexShader, fragmentShader, program);
+        
+        //------------------------------------------------
         
         //build the vertex buffer
         buildVertexBuffer();
@@ -161,7 +175,7 @@ public class Mesh extends Renderable {
         buildNormalBuffer();
 	}
 	
-	/**Builds the vertx buffer*/
+	/**Builds the vertex buffer*/
 	private void buildVertexBuffer() {
 		
         //initialise the byte buffer for the vertex buffer
