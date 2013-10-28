@@ -7,6 +7,7 @@
 package nz.co.withfire.omicronengine.omicron.graphics.material;
 
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
 import nz.co.withfire.omicronengine.omicron.graphics.shader.Shader;
 
 public class Material {
@@ -16,9 +17,9 @@ public class Material {
 	private Shader shader;
 	
 	//the colour of the material
-	private Vector4 colour = new Vector4();
+	private Vector4 colour = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	//the texture of the material
-	//TODO:
+	private Texture texture = null;
 	
 	//CONSTRUCTOR
 	/**Creates a new material
@@ -39,6 +40,12 @@ public class Material {
 		return colour;
 	}
 	
+	/**@return the texture of the material*/
+	public Texture getTexture() {
+		
+		return texture;
+	}
+	
 	/**@param shader the new shader of the material*/
 	public void setShader(Shader shader) {
 		
@@ -49,5 +56,11 @@ public class Material {
 	public void setColour(Vector4 colour) {
 		
 		this.colour = colour;
+	}
+	
+	/**@param texture the new texture of the material*/
+	public void setTexture(Texture texture) {
+		
+		this.texture = texture;
 	}
 }

@@ -11,14 +11,13 @@ import java.util.Scanner;
 
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
-import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import android.content.Context;
-import android.util.Log;
 
 public class MeshLoader {
 
+	//PUBLIC METHODS
 	/**Loads an OBJ file file as a mesh
 	NOTE: the OBJ file must consist of triangles
 	@param context the android context

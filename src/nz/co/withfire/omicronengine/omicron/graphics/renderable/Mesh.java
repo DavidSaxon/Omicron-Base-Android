@@ -11,11 +11,9 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
-import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
-import nz.co.withfire.omicronengine.omicron.graphics.shader.Shader;
-import nz.co.withfire.omicronengine.omicron.resources.loaders.ShaderLoader;
+import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
-import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.override.Values;
 
 public class Mesh extends Renderable {
 
@@ -23,33 +21,20 @@ public class Mesh extends Renderable {
 	
 	//the number of dimensions of vertices
 	private static final int VERTEX_DIM = 3;
+	//the number of dimensions of uv co-ordinates
+	private static final int UV_DIM = 2;
 	//the number of dimensions of normals
 	private static final int NORMAL_DIM = 3;
 	
 	//the stride of a vertex
 	private static final int VERTEX_STRIDE =
 		VERTEX_DIM * ValuesUtil.FLOAT_SIZE;
+	//the stide of uv co-ordinates
+	private static final int UV_STRIDE =
+		UV_DIM * ValuesUtil.FLOAT_SIZE;
 	//the stride of a normal
 	private static final int NORMAL_STRIDE =
 		NORMAL_DIM * ValuesUtil.FLOAT_SIZE;
-
-	//TODO: remove
-    private final String vertexShaderCode =
-        // This matrix member variable provides a hook to manipulate
-        // the coordinates of the objects that use this vertex shader
-        "uniform mat4 u_MVPMatrix;" +
-        "attribute vec4 a_Position;" +
-        "void main() {" +
-        // the matrix must be included as a modifier of gl_Position
-        "  gl_Position = u_MVPMatrix * a_Position;" +
-        "}";
-
-    private final String fragmentShaderCode =
-        "precision mediump float;" +
-        "uniform vec4 v_Colour;" +
-        "void main() {" +
-        "  gl_FragColor = v_Colour;" +
-        "}";
 
 	//the number of vertices the mesh has
 	private int vertexCount;
@@ -104,6 +89,7 @@ public class Mesh extends Renderable {
         int program = material.getShader().getProgram();
         GLES20.glUseProgram(program);
         
+        //VERTEX CO-ORDINATES
         //get a handle the vertex positions and enable them
         int positionHandle = GLES20.glGetAttribLocation(program, "a_Position");
         GLES20.glEnableVertexAttribArray(positionHandle);
@@ -111,17 +97,60 @@ public class Mesh extends Renderable {
     	GLES20.glVertexAttribPointer(positionHandle, VERTEX_DIM,
              GLES20.GL_FLOAT, false, VERTEX_STRIDE, vertexBuffer);
     	
+    	//COLOUR
     	//get a handle to the colour
-        int colourHandle = GLES20.glGetUniformLocation(program, "v_Colour");
+        int colourHandle = GLES20.glGetUniformLocation(program, "u_Colour");
         //set the colour for drawing
         GLES20.glUniform4fv(colourHandle, 1, material.getColour().toArray(), 0);
         
+        //TEXTURE
+        //get a handle to the has texture value
+        int hasTextureHandle =
+            GLES20.glGetUniformLocation(program, "u_HasTexture");
+        
+        if (material.getTexture() != null) {
+        	
+        	//pass in that there is a texture
+//        	Log.v(Values.TAG, "texture: " + material.getTexture().getId());
+//        	Log.v(Values.TAG, "has texture: " + hasTextureHandle);
+        	GLES20.glUniform1i(hasTextureHandle, 1);
+        	
+//        	int textureUniformHandle =
+//                    GLES20.glGetUniformLocation(program, "u_Texture");
+            int texId = material.getTexture().getId();
+            //set the active texture unit to texture unit 0
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+            //bind this texture to this unit
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texId);
+            
+            //pass the texture to the shader
+            GLES20.glUniform1i(texId, 0);
+        }
+        else {
+        	
+        	//pass in that there is no texture
+        	GLES20.glUniform1i(hasTextureHandle, 0);
+        }
+        
+        //UV
+    	//get a handle to the uv co-ordinates and enable them
+    	int uvHandle =
+			GLES20.glGetAttribLocation(program, "a_UVCoord");
+		GLES20.glEnableVertexAttribArray(uvHandle);
+		 
+		//pass in texture information
+        uvBuffer.position(0);
+        GLES20.glVertexAttribPointer(uvHandle, UV_DIM,
+        		GLES20.GL_FLOAT, false, UV_STRIDE, uvBuffer);
+        
+        //MVP MATRIX
         //get handle to the model view projection matrix
         int mvpMatrixHandle =
     		GLES20.glGetUniformLocation(program, "u_MVPMatrix");
         //pass in the model view projection matrix
         GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, mvpMatrix, 0);
         
+        //DRAW
         //draw the triangle
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
 	}
@@ -132,33 +161,6 @@ public class Mesh extends Renderable {
 		
 		//calculate the number of vertices
 		vertexCount = this.vertices.length / VERTEX_DIM;
-		
-		//------------------------------------------------
-		
-		material.setColour(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
-		
-		//TODO: remove
-		//compile the shaders
-		int vertexShader = ShaderLoader.compileShader(
-			GLES20.GL_VERTEX_SHADER, vertexShaderCode);
-		int fragmentShader = ShaderLoader.compileShader(
-			GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode);
-		
-		//TODO: in the shader
-		//create the openGL program
-        int program = GLES20.glCreateProgram();
-        //attach the vertex shader to the program
-        GLES20.glAttachShader(program, vertexShader);
-        //attach the fragment shader to the program
-        GLES20.glAttachShader(program, fragmentShader);
-        
-        //create openGL program executables
-        GLES20.glLinkProgram(program);
-        
-        //create the shader
-        material.setShader(new Shader(vertexShader, fragmentShader, program));
-        
-        //------------------------------------------------
         
         //build the vertex buffer
         buildVertexBuffer();

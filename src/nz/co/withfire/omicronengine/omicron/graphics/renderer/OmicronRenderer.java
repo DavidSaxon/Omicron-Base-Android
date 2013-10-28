@@ -15,12 +15,18 @@ import javax.microedition.khronos.opengles.GL10;
 import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
+import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
+import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
+import nz.co.withfire.omicronengine.omicron.graphics.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.MeshLoader;
+import nz.co.withfire.omicronengine.omicron.resources.loaders.ShaderLoader;
+import nz.co.withfire.omicronengine.omicron.resources.loaders.TextureLoader;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -74,8 +80,59 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         initGL();
         
         //TESTING load mesh
-        renderList.add(MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
-    		Renderable.Type.STD, 0));
+        Mesh testCube = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
+        		Renderable.Type.STD, 0);
+        //the material
+        Material material = new Material();
+        
+        //compile the shaders
+		int vertexShader = ShaderLoader.compileShader(context,
+			GLES20.GL_VERTEX_SHADER, R.raw.shader_vertex_default);
+		int fragmentShader = ShaderLoader.compileShader(context,
+			GLES20.GL_FRAGMENT_SHADER, R.raw.shader_fragment_default);
+		
+		//create the openGL program
+        int program = GLES20.glCreateProgram();
+        //attach the vertex shader to the program
+        GLES20.glAttachShader(program, vertexShader);
+        //attach the fragment shader to the program
+        GLES20.glAttachShader(program, fragmentShader);
+        //create openGL program executables
+        GLES20.glLinkProgram(program);
+        //create the shader
+        material.setShader(new Shader(vertexShader, fragmentShader, program));
+        
+        //texture
+        Texture texture = new Texture(TextureLoader.loadPNG(context,
+    		R.drawable.materialdemo_metal));
+        material.setTexture(texture);
+        
+        //colour
+        //material.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 
+        
+        testCube.setMaterial(material);
+        renderList.add(testCube);
+        
+        Mesh skybox = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_skybox,
+        		Renderable.Type.STD, 0);
+        //the material
+        Material smaterial = new Material();
+
+        //create the shader
+        smaterial.setShader(new Shader(vertexShader, fragmentShader, program));
+        
+        //texture
+        Texture stexture = new Texture(TextureLoader.loadPNG(context,
+    		R.drawable.materialdemo_skybox));
+        smaterial.setTexture(stexture);
+        
+        //colour
+        //material.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 
+        
+        skybox.setMaterial(smaterial);
+        renderList.add(skybox);
+        
+        
     }
     
     @Override

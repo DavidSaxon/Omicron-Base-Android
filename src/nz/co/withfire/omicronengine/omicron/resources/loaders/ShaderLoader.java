@@ -7,13 +7,27 @@
 package nz.co.withfire.omicronengine.omicron.resources.loaders;
 
 import nz.co.withfire.omicronengine.override.Values;
+import android.content.Context;
 import android.opengl.GLES20;
 import android.util.Log;
 
 public class ShaderLoader {
 
 	//PUBLIC METHODS
-	//TODO: option to not take a string!
+	/**Compiles an OpenGL shader from a resource
+	@param context the android context
+	@param shaderType the type of shader
+	@param resourceId the resource id of the shader
+	@return a handle to the shader*/
+	public static int compileShader(final Context context,
+		final int shaderType, int resourceId) {
+		
+		//get the shader source code
+		String shaderSource = StringLoader.loadString(context, resourceId);
+		
+		return compileShader(shaderType, shaderSource);
+	}
+	
 	/**Compiles an OpenGL shader from source code
 	@param shaderType the type of shader
 	@param shaderSource the source code of the shader
