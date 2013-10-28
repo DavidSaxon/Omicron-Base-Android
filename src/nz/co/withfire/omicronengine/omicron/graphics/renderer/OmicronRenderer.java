@@ -35,8 +35,12 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 	//the game engine
 	private final Engine engine;
 	
+	//the render list
+	private static RenderList renderList = new RenderList();
+	
 	//the camera
-	private static Camera camera = new PerspectiveCamera();
+	private static Camera camera = new PerspectiveCamera(
+		60.0f, 0.1f, 500.0f);
 	
 	//the list of current unprocessed touch events
 	private  List<MotionEvent> touchEvents =
@@ -70,8 +74,8 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         initGL();
         
         //TESTING load mesh
-        testCube = MeshLoader.loadOBJ(context, R.raw.mesh_test_cube,
-    		Renderable.Type.STD, 0);
+        renderList.add(MeshLoader.loadOBJ(context, R.raw.mesh_test_cube,
+    		Renderable.Type.STD, 0));
     }
     
     @Override
@@ -101,19 +105,34 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT |
 			GLES20.GL_COLOR_BUFFER_BIT);
         
-        //apply the camera transformations
-        camera.applyTransformations(viewMatrix);
-        
         //execute the engine
         engine.execute();
     	
-        //TESTING
-        testCube.render(viewMatrix, projectionMatrix);
+        //apply the camera transformations
+        camera.applyTransformations(viewMatrix);
+        
+        //render the standard elements of the scene
+        renderList.renderStd(viewMatrix, projectionMatrix);
 
-        //reset the view
+        //reset the camera
+        camera.setProjection(projectionMatrix);
+        camera.setView(viewMatrix);
+        
+        //render the gui elements of the scene
+        renderList.renderGUI(viewMatrix, projectionMatrix);
+        
+        //reset the camera
+        camera.setProjection(projectionMatrix);
         camera.setView(viewMatrix);
         
     	GLES20.glFinish();
+    }
+    
+    /**Adds a renderable to the render's render lists
+    @param renderable the renderable to add*/
+    public static void add(Renderable renderable) {
+    	
+    	renderList.add(renderable);
     }
     
     /**@param event touch event to input*/
@@ -121,18 +140,6 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     	
     	//add to the list of touch events
     	touchEvents.add(event);
-    }
-    
-    /**@return the view matrix*/
-    public static float[] getViewMatrix() {
-    	
-    	return viewMatrix;
-    }
-    
-    /**@return the projection matrix*/
-    public static float[] getProjectionMatrix() {
-    	
-    	return projectionMatrix;
     }
     
     /**@return the current camera of the renderer*/

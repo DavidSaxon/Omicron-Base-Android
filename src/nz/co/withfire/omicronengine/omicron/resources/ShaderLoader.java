@@ -6,7 +6,7 @@
 
 package nz.co.withfire.omicronengine.omicron.resources;
 
-import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
+import nz.co.withfire.omicronengine.override.Values;
 import android.opengl.GLES20;
 import android.util.Log;
 
@@ -46,7 +46,7 @@ public class ShaderLoader {
         if (compileStatus[0] == 0) {
             
             //report error
-            Log.v(ValuesUtil.TAG, "Shader compilation failure");
+            Log.v(Values.TAG, "Shader compilation failure");
             throw new RuntimeException("Shader compilation failure");
         }
         

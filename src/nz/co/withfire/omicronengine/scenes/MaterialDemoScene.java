@@ -41,7 +41,7 @@ public class MaterialDemoScene extends Scene {
     private float pinchDis = 0.0f;
 	
 	//the camera
-	private Camera camera = new PerspectiveCamera();
+	private Camera camera = new PerspectiveCamera(60.0f, 0.1f, 500.0f);
 	//the position of the camera
 	private Vector3 camPos = new Vector3(0.0f, 0.0f, 4.0f);
 	//the rotation of the camera

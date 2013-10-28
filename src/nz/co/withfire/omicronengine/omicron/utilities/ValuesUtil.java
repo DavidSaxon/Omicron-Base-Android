@@ -11,9 +11,6 @@ import java.util.Random;
 public class ValuesUtil {
 
 	//VARIABLES
-	//the program name (for debug)
-	public static final String TAG = "Omicron";
-	
 	//the size of a float in bytes
 	public static final int FLOAT_SIZE = 4;
 	
