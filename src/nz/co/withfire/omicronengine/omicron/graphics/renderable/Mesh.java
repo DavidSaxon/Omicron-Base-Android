@@ -79,9 +79,14 @@ public class Mesh extends Renderable {
 	
 	//CONSTRUCTORS
 	/**Creates a new mesh
+	@param type the type of renderable this is
+	@param layer the layer of this
 	@param vertices the vertex array
 	@param normals the normals array*/
-	public Mesh(float vertices[], float normals[]) {
+	public Mesh(Type type, int layer, float vertices[], float normals[]) {
+		
+		//super call
+		super(type, layer);
 		
 		//initialise variables
 		this.vertices = vertices;

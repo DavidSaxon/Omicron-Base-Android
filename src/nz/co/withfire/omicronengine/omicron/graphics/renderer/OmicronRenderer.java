@@ -16,6 +16,7 @@ import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
+import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.resources.MeshLoader;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
@@ -23,7 +24,6 @@ import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.opengl.Matrix;
 import android.view.MotionEvent;
 
 public class OmicronRenderer implements GLSurfaceView.Renderer{
@@ -70,14 +70,15 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         initGL();
         
         //TESTING load mesh
-        testCube = MeshLoader.loadOBJ(context, R.raw.mesh_test_cube);
+        testCube = MeshLoader.loadOBJ(context, R.raw.mesh_test_cube,
+    		Renderable.Type.STD, 0);
     }
     
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
     	
     	//set the dimensions of the camera
-    	camera.setDimensions(new Vector2(width, height));
+    	Camera.setDimensions(new Vector2(width, height));
     	
     	//set up the camera
     	camera.setProjection(projectionMatrix);

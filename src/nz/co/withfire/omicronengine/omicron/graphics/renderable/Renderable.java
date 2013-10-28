@@ -15,8 +15,6 @@ public abstract class Renderable {
 	public enum Type {
 		
 		STD,    //standard object that are affected by the camera
-		EFFECT, //objects that are affected by the camera but rendered
-				//after the camera
 		GUI     //user interface shapes that are not effected by the
 			    //standard camera
 	};
@@ -24,6 +22,9 @@ public abstract class Renderable {
 	//VARIABLES
 	//the type this is
 	private Type type = Type.STD;
+	//the layer of this shape
+	private int layer = 0;
+	
 	//TODO: transformation info
 	
     //Matrix
@@ -34,6 +35,16 @@ public abstract class Renderable {
     //the model matrix
     private float[] modelMatrix = new float[16];
 	
+    //CONSTRUCTOR
+    /**Creates a new renderable
+    @param type the type of the renderable
+    @param layer the layer of the renderable*/
+    public Renderable(Type type, int layer) {
+    	
+    	this.type = type;
+    	this.layer = layer;
+    }
+    
 	//PUBLIC METHODS
 	/**Renders the renderable
 	@param viewMatrix the view matrix
@@ -49,10 +60,22 @@ public abstract class Renderable {
 		return type;
 	}
 	
+	/**@return the layer of the renderable*/
+	public int getLayer() {
+		
+		return layer;
+	}
+	
 	/**@param type the new type*/
 	public void setType(Type type) {
 		
 		this.type = type;
+	}
+	
+	/**@param layer the new layer of the renderable*/
+	public void setLayer(int layer) {
+		
+		this.layer = layer;
 	}
 	
 	//PROTECTED METHODS

@@ -15,8 +15,8 @@ import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 public abstract class Camera {
 
 	//VARIABLES
-	//the dimensions of the camera (in pixels
-	protected Vector2 dimensions = new Vector2();
+	//the dimensions of the camera (in pixels) statically stored
+	protected static Vector2 dimensions = new Vector2();
 	
 	//the position of the camera
 	protected Vector3 pos = new Vector3();
@@ -72,7 +72,7 @@ public abstract class Camera {
 	}
 	
 	/**@return the current dimensions of the camera*/
-	public Vector2 getDimensions() {
+	public static Vector2 getDimensions() {
 		
 		return dimensions;
 	}
@@ -102,9 +102,9 @@ public abstract class Camera {
 	}
 	
 	/**@param dimensions the new dimensions of the camera (in pixels)*/
-	public void setDimensions(final Vector2 dimensions) {
+	public static void setDimensions(final Vector2 dimensions) {
 		
-		this.dimensions.copy(dimensions);
+		Camera.dimensions.copy(dimensions);
 	}
 	
 	/**@param pos the new position of the camera*/

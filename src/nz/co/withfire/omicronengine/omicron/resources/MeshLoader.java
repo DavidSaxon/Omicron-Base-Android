@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
+import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import android.content.Context;
@@ -21,8 +22,11 @@ public class MeshLoader {
 	NOTE: the OBJ file must consist of triangles
 	@param context the android context
 	@param resourceId the id of the resource to load
+	@param type the type of renderable this is to be
+	@param the layer of the mesh
 	@return the loaded mesh*/
-	public static Mesh loadOBJ(final Context context, int resourceId) {
+	public static Mesh loadOBJ(final Context context, int resourceId,
+		Renderable.Type type, int layer) {
 		
         //open the file as a string
 		String file = StringLoader.loadString(context, resourceId);
@@ -110,6 +114,6 @@ public class MeshLoader {
             }
         }
         
-        return new Mesh(coords, nrm);
+        return new Mesh(type, layer, coords, nrm);
 	}
 }

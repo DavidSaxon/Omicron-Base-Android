@@ -163,7 +163,6 @@ public class MaterialDemoScene extends Scene {
 	/**Initialises the camera in the scene*/
 	private void initCamera() {
 		
-		camera.setDimensions(OmicronRenderer.getCamera().getDimensions());
 		camera.setPostTrans(camPos);
 		OmicronRenderer.setCamera(camera);
 	}
