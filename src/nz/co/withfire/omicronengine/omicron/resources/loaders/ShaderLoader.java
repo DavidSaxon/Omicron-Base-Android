@@ -4,7 +4,7 @@
 | @author David Saxon  |
 \**********************/
 
-package nz.co.withfire.omicronengine.omicron.resources;
+package nz.co.withfire.omicronengine.omicron.resources.loaders;
 
 import nz.co.withfire.omicronengine.override.Values;
 import android.opengl.GLES20;

@@ -11,9 +11,9 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
-import android.util.Log;
+import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.shader.Shader;
-import nz.co.withfire.omicronengine.omicron.resources.ShaderLoader;
+import nz.co.withfire.omicronengine.omicron.resources.loaders.ShaderLoader;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 
@@ -32,14 +32,7 @@ public class Mesh extends Renderable {
 	//the stride of a normal
 	private static final int NORMAL_STRIDE =
 		NORMAL_DIM * ValuesUtil.FLOAT_SIZE;
-	
-	//the opengl program //TODO: in the shader
-	//private int program;
-	
-	//TESTING
-	//the shaderS
-	private Shader shader;
-	
+
 	//TODO: remove
     private final String vertexShaderCode =
         // This matrix member variable provides a hook to manipulate
@@ -58,43 +51,39 @@ public class Mesh extends Renderable {
         "  gl_FragColor = v_Colour;" +
         "}";
 
-	//TODO: in material in shader class
-    //the vertex shader of the program
-//	protected int vertexShader;
-//    //the fragment shader of the program
-//	protected int fragmentShader;
-	
 	//the number of vertices the mesh has
 	private int vertexCount;
 	
 	//the vertices
 	protected float vertices[];
+	//the uv co-ordinates
+	protected float uvCoords[];
 	//the normals of the shape
 	protected float normals[] = new float[0];
 	
 	//the vertex buffer
 	protected FloatBuffer vertexBuffer;
-	//the texture buffer
-	protected FloatBuffer texBuffer;
+	//the uv buffer
+	protected FloatBuffer uvBuffer;
 	//the normal buffer
 	protected FloatBuffer normalBuffer;
-	
-	//the colour REMOVE ME
-	Vector4 colour = new Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 	
 	//CONSTRUCTORS
 	/**Creates a new mesh
 	@param type the type of renderable this is
 	@param layer the layer of this
 	@param vertices the vertex array
+	@param uvCoords the uv co-ordinates of the mesh
 	@param normals the normals array*/
-	public Mesh(Type type, int layer, float vertices[], float normals[]) {
+	public Mesh(Type type, int layer,
+		float vertices[], float uvCoords[], float normals[]) {
 		
 		//super call
 		super(type, layer);
 		
 		//initialise variables
 		this.vertices = vertices;
+		this.uvCoords = uvCoords;
 		this.normals = normals;
 		
 		//build
@@ -112,7 +101,7 @@ public class Mesh extends Renderable {
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
         
         //Set the OpenGL program to use
-        int program = shader.getProgram();
+        int program = material.getShader().getProgram();
         GLES20.glUseProgram(program);
         
         //get a handle the vertex positions and enable them
@@ -125,7 +114,7 @@ public class Mesh extends Renderable {
     	//get a handle to the colour
         int colourHandle = GLES20.glGetUniformLocation(program, "v_Colour");
         //set the colour for drawing
-        GLES20.glUniform4fv(colourHandle, 1, colour.toArray(), 0);
+        GLES20.glUniform4fv(colourHandle, 1, material.getColour().toArray(), 0);
         
         //get handle to the model view projection matrix
         int mvpMatrixHandle =
@@ -146,6 +135,8 @@ public class Mesh extends Renderable {
 		
 		//------------------------------------------------
 		
+		material.setColour(new Vector4(0.75f, 0.75f, 0.75f, 1.0f));
+		
 		//TODO: remove
 		//compile the shaders
 		int vertexShader = ShaderLoader.compileShader(
@@ -165,12 +156,14 @@ public class Mesh extends Renderable {
         GLES20.glLinkProgram(program);
         
         //create the shader
-        shader = new Shader(vertexShader, fragmentShader, program);
+        material.setShader(new Shader(vertexShader, fragmentShader, program));
         
         //------------------------------------------------
         
         //build the vertex buffer
         buildVertexBuffer();
+        //build the uv buffer
+        buildUVBuffer();
         //build the normal buffer
         buildNormalBuffer();
 	}
@@ -187,6 +180,20 @@ public class Mesh extends Renderable {
         vertexBuffer = vb.asFloatBuffer();
         vertexBuffer.put(vertices);
         vertexBuffer.position(0);
+	}
+	
+	/**Builds the UV buffer*/
+	private void buildUVBuffer() {
+		
+        //Initialise the byte buffer for the texture coords
+        ByteBuffer uvb = ByteBuffer.allocateDirect(
+            uvCoords.length * ValuesUtil.FLOAT_SIZE);
+        uvb.order(ByteOrder.nativeOrder());
+        
+        //initialise the texture buffer and insert the co-ordinates
+        uvBuffer = uvb.asFloatBuffer();
+        uvBuffer.put(uvCoords);
+        uvBuffer.position(0);
 	}
 	
 	/**Builds the normal buffer*/

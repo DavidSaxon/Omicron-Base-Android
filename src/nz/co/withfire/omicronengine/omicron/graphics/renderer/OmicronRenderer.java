@@ -18,7 +18,7 @@ import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
-import nz.co.withfire.omicronengine.omicron.resources.MeshLoader;
+import nz.co.withfire.omicronengine.omicron.resources.loaders.MeshLoader;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import android.content.Context;
@@ -74,7 +74,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         initGL();
         
         //TESTING load mesh
-        renderList.add(MeshLoader.loadOBJ(context, R.raw.mesh_test_cube,
+        renderList.add(MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
     		Renderable.Type.STD, 0));
     }
     

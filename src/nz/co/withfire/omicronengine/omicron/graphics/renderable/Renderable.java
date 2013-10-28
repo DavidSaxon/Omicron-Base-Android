@@ -6,6 +6,7 @@
 
 package nz.co.withfire.omicronengine.omicron.graphics.renderable;
 
+import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import android.opengl.Matrix;
 
 public abstract class Renderable {
@@ -24,6 +25,9 @@ public abstract class Renderable {
 	private Type type = Type.STD;
 	//the layer of this shape
 	private int layer = 0;
+	
+	//the material of the renderable
+	protected Material material = new Material();
 	
 	//TODO: transformation info
 	
@@ -66,6 +70,12 @@ public abstract class Renderable {
 		return layer;
 	}
 	
+	/**@return the material of the renderable*/
+	public Material getMaterial() {
+		
+		return material;
+	}
+	
 	/**@param type the new type*/
 	public void setType(Type type) {
 		
@@ -76,6 +86,12 @@ public abstract class Renderable {
 	public void setLayer(int layer) {
 		
 		this.layer = layer;
+	}
+	
+	/**@param material the material of the renderable*/
+	public void setMaterial(Material material) {
+		
+		this.material = material;
 	}
 	
 	//PROTECTED METHODS

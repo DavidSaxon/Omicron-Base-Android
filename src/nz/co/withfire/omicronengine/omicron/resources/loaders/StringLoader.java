@@ -4,7 +4,7 @@
 | @author David Saxon			|
 \*******************************/
 
-package nz.co.withfire.omicronengine.omicron.resources;
+package nz.co.withfire.omicronengine.omicron.resources.loaders;
 
 import java.io.BufferedReader;
 import java.io.IOException;
