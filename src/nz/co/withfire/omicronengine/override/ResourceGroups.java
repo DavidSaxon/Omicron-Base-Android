@@ -12,6 +12,7 @@ public class ResourceGroups {
 	//the different groups resources can be in
 	public enum ResourceGroup {
 		
+		ALL,
 		DEBUG,
 		GUI,
 		START_UP,

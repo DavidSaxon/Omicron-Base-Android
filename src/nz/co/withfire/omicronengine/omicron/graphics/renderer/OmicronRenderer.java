@@ -24,8 +24,10 @@ import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.MeshLoader;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.ShaderLoader;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.TextureLoader;
+import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
+import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -80,32 +82,18 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         initGL();
         
         //TESTING load mesh
+        //load material demo resources
+        ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
+        
         Mesh testCube = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
         		Renderable.Type.STD, 0);
         //the material
         Material material = new Material();
         
-        //compile the shaders
-		int vertexShader = ShaderLoader.compileShader(context,
-			GLES20.GL_VERTEX_SHADER, R.raw.shader_vertex_default);
-		int fragmentShader = ShaderLoader.compileShader(context,
-			GLES20.GL_FRAGMENT_SHADER, R.raw.shader_fragment_default);
-		
-		//create the openGL program
-        int program = GLES20.glCreateProgram();
-        //attach the vertex shader to the program
-        GLES20.glAttachShader(program, vertexShader);
-        //attach the fragment shader to the program
-        GLES20.glAttachShader(program, fragmentShader);
-        //create openGL program executables
-        GLES20.glLinkProgram(program);
-        //create the shader
-        material.setShader(new Shader(vertexShader, fragmentShader, program));
+        material.setShader(ResourceManager.getShader("default"));
         
         //texture
-        Texture texture = new Texture(TextureLoader.loadPNG(context,
-    		R.drawable.materialdemo_metal));
-        material.setTexture(texture);
+        material.setTexture(ResourceManager.getTexture("metal"));
         
         //colour
         //material.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 
@@ -119,12 +107,10 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         Material smaterial = new Material();
 
         //create the shader
-        smaterial.setShader(new Shader(vertexShader, fragmentShader, program));
+        smaterial.setShader(ResourceManager.getShader("default"));
         
         //texture
-        Texture stexture = new Texture(TextureLoader.loadPNG(context,
-    		R.drawable.materialdemo_skybox));
-        smaterial.setTexture(stexture);
+        smaterial.setTexture(ResourceManager.getTexture("skybox"));
         
         //colour
         //smaterial.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 

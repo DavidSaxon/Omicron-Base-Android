@@ -89,6 +89,26 @@ public class ShaderResource {
         loaded = true;
 	}
 	
+	/**Frees the shader from memory*/
+	public void destroy() {
+		
+		//do nothing if the shader is not loaded
+		if (!loaded) {
+			
+			return;
+		}
+		
+		//delete shaders and program
+		GLES20.glDeleteShader(shader.getVertex());
+		GLES20.glDeleteShader(shader.getFragment());
+		GLES20.glDeleteProgram(shader.getProgram());
+		//remove the shader
+		shader = null;
+				
+		//successfully destroyed
+		loaded = false;
+	}
+	
 	/**@return the loaded shader*/
 	public Shader getShader() {
 		
