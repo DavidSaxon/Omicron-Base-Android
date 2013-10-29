@@ -39,6 +39,10 @@ public class MaterialDemoPack {
 		ResourceManager.add("metal", new TextureResource(
 			R.drawable.materialdemo_metal,
 			ResourceGroup.MATERIAL_DEMO));
+		//cube of fate
+		ResourceManager.add("cube_of_fate", new TextureResource(
+			R.drawable.materialdemo_cube_of_fate,
+			ResourceGroup.MATERIAL_DEMO));
 		
 		//MATERIALS
 		//the skybox
@@ -49,6 +53,12 @@ public class MaterialDemoPack {
 		//metal
 		ResourceManager.add("metal", new MaterialResource(
 			"default", null, "metal", null,
+			MaterialResource.NONE,
+			ResourceGroup.MATERIAL_DEMO));
+		//cube of fate
+		ResourceManager.add("cube_of_fate", new MaterialResource(
+			"default", new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+			"cube_of_fate", null,
 			MaterialResource.NONE,
 			ResourceGroup.MATERIAL_DEMO));
 		
@@ -64,6 +74,12 @@ public class MaterialDemoPack {
 			RenderableType.MESH,
 			R.raw.mesh_materialdemo_cube,
 			Renderable.Group.STD, 5, "metal",
+			ResourceGroup.MATERIAL_DEMO));
+		//cube of fate
+		ResourceManager.add("cube_of_fate", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.mesh_materialdemo_cube,
+			Renderable.Group.STD, 5, "cube_of_fate",
 			ResourceGroup.MATERIAL_DEMO));
 	}
 }

@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.util.Log;
 import android.view.MotionEvent;
+import nz.co.withfire.omicronengine.entities.material_demo.CubeOfFate;
 import nz.co.withfire.omicronengine.entities.material_demo.MetalCube;
 import nz.co.withfire.omicronengine.entities.material_demo.Skybox;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
@@ -56,6 +57,9 @@ public class MaterialDemoScene extends Scene {
 	private final float ROTATION_MULTIPLIER = 600.0f;
 	//the zoom multiplier
 	private final float ZOOM_MULTIPLIER = 8.0f;
+	//the zoom clamps
+	private final float ZOOM_CLAMP_LOWER  = 0.15f;
+	private final float ZOOM_CLAMP_UPPER = 1.75f;
 	
 	//CONSTRUCTOR
 	/**Creates a new scene to demo materials*/
@@ -156,7 +160,8 @@ public class MaterialDemoScene extends Scene {
             camZoom += zoom;
             
             //clamp the zoom
-            camZoom = MathUtil.clamp(camZoom, 0.35f, 1.75f);
+            camZoom = MathUtil.clamp(
+        		camZoom, ZOOM_CLAMP_LOWER, ZOOM_CLAMP_UPPER);
 		}
         else {
             
@@ -176,7 +181,9 @@ public class MaterialDemoScene extends Scene {
 	/**Initialises the entities in the scene*/
 	private void initEntities() {
 		
-		entityList.add(new MetalCube());
 		entityList.add(new Skybox());
+		entityList.add(new CubeOfFate());
+		//entityList.add(new MetalCube());
+		
 	}
 }
