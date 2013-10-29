@@ -1,36 +1,33 @@
 package nz.co.withfire.omicronengine;
 
 import nz.co.withfire.omicronengine.omicron.android.OmicronSurfaceView;
+import nz.co.withfire.omicronengine.override.Values;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends Activity {
 
+	//VARIABLES
+	//the omicron surface view
+	OmicronSurfaceView surfaceView = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		//super call
 		super.onCreate(savedInstanceState);
-	}
-	
-	@Override
-	protected void onResume() {
 		
-		//super call
-		super.onResume();
-		
-        //set to full screen mode
+		//set to full screen mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		
-        //set the display
-        OmicronSurfaceView surfaceView = new OmicronSurfaceView(this);
         
-        //set the content view to the display
+        //create an Omicron surface view
+        surfaceView = new OmicronSurfaceView(this);
         setContentView(surfaceView);
 	}
 }

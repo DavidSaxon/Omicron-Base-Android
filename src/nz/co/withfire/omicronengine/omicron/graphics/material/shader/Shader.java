@@ -5,7 +5,7 @@
 | @author David Saxon													 |
 \************************************************************************/
 
-package nz.co.withfire.omicronengine.omicron.graphics.shader;
+package nz.co.withfire.omicronengine.omicron.graphics.material.shader;
 
 public class Shader {
 

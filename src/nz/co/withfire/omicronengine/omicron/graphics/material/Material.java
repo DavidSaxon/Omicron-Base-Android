@@ -7,8 +7,8 @@
 package nz.co.withfire.omicronengine.omicron.graphics.material;
 
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
-import nz.co.withfire.omicronengine.omicron.graphics.shader.Shader;
 
 public class Material {
 

@@ -16,17 +16,16 @@ import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
+import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
-import nz.co.withfire.omicronengine.omicron.graphics.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.MeshLoader;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.ShaderLoader;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.TextureLoader;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
-import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
@@ -42,11 +41,10 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 	private final Engine engine;
 	
 	//the render list
-	private static RenderList renderList = new RenderList();
+	private static RenderList renderList = null;
 	
 	//the camera
-	private static Camera camera = new PerspectiveCamera(
-		60.0f, 0.1f, 500.0f);
+	private static Camera camera = null;
 	
 	//the list of current unprocessed touch events
 	private  List<MotionEvent> touchEvents =
@@ -70,6 +68,8 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 		//initialise variables
 		this.context = context;
 		this.engine = engine;
+		renderList = new RenderList();
+		camera =  new PerspectiveCamera(60.0f, 0.1f, 500.0f);
 	}
 	
     //PUBLIC METHODS
@@ -197,6 +197,17 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     	
     	//add to the list of touch events
     	touchEvents.add(event);
+    }
+    
+    /**Cleans up the renderer*/
+    public void cleanUp() {
+    	
+    	renderList = null;
+    	if (camera != null) {
+    		
+    		camera.cleanUp();
+    		camera = null;
+    	}
     }
     
     /**@return the current camera of the renderer*/

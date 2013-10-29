@@ -8,8 +8,11 @@ package nz.co.withfire.omicronengine.omicron.android;
 
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
+import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.override.Values;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
@@ -29,6 +32,9 @@ public class OmicronSurfaceView extends GLSurfaceView {
 		
 		//super call
 		super(context);
+		
+		//initialisation
+		ResourceManager.init(context);
 		
         //create an OpenGL ES 2.0 context
 		setEGLContextClientVersion(2);
@@ -53,5 +59,12 @@ public class OmicronSurfaceView extends GLSurfaceView {
 		renderer.touchEvent(e);
 		
 		return true;
+	}
+	
+	/**Cleans up Omicron*/
+	public void cleanUp() {
+		
+		ResourceManager.cleanUp();
+		renderer.cleanUp();
 	}
 }

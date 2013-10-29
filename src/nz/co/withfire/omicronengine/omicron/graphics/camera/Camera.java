@@ -71,6 +71,12 @@ public abstract class Camera {
 		Matrix.scaleM(viewMatrix, 0, zoom, zoom, zoom);
 	}
 	
+	/**Cleans up the camera*/
+	public void cleanUp() {
+		
+		dimensions = null;
+	}
+	
 	/**@return the current dimensions of the camera*/
 	public static Vector2 getDimensions() {
 		
