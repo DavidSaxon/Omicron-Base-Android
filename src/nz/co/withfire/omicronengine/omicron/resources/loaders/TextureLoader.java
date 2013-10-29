@@ -54,7 +54,7 @@ public class TextureLoader {
         //load in the texture
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
         
-        //generate mimmaps
+        //generate mipmap
         GLES20.glGenerateMipmap(GLES20.GL_TEXTURE_2D);
         
         //recycle the bitmap since the data has been loaded into OpenGL
