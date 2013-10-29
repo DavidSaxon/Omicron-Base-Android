@@ -83,42 +83,19 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         
         //TESTING load mesh
         //load material demo resources
+//        ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
+//        ResourceManager.destroy(ResourceGroup.MATERIAL_DEMO);
         ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
-        
-        Mesh testCube = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
-        		Renderable.Type.STD, 0);
-        //the material
-        Material material = new Material();
-        
-        material.setShader(ResourceManager.getShader("default"));
-        
-        //texture
-        material.setTexture(ResourceManager.getTexture("metal"));
-        
-        //colour
-        //material.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 
-        
-        testCube.setMaterial(material);
-        renderList.add(testCube);
         
         Mesh skybox = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_skybox,
         		Renderable.Type.STD, 0);
-        //the material
-        Material smaterial = new Material();
-
-        //create the shader
-        smaterial.setShader(ResourceManager.getShader("default"));
-        
-        //texture
-        smaterial.setTexture(ResourceManager.getTexture("skybox"));
-        
-        //colour
-        //smaterial.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 
-        
-        skybox.setMaterial(smaterial);
+        skybox.setMaterial(ResourceManager.getMaterial("skybox"));
         renderList.add(skybox);
         
-        
+        Mesh testCube = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
+        		Renderable.Type.STD, 0);
+        testCube.setMaterial(ResourceManager.getMaterial("metal"));
+        renderList.add(testCube);
     }
     
     @Override

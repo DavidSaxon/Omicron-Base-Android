@@ -23,6 +23,8 @@ public class Material {
 	
 	//is true if the material should be rendered in wireframe mode
 	private boolean wireframe = false;
+	//is true if the material is unaffected by lights
+	private boolean shadeless = false;
 	
 	//CONSTRUCTOR
 	/**Creates a new material
@@ -49,10 +51,16 @@ public class Material {
 		return texture;
 	}
 	
-	/**@return if the material is wireframe*/
+	/**@return if the material is rendered as a wireframe*/
 	public boolean getWireframe() {
 		
 		return wireframe;
+	}
+	
+	/**@return if the material is un-affected by lights*/
+	public boolean getShadeless() {
+		
+		return shadeless;
 	}
 	
 	/**@param shader the new shader of the material*/
@@ -77,5 +85,11 @@ public class Material {
 	public void setWireframe(boolean wireframe) {
 		
 		this.wireframe = wireframe;
+	}
+	
+	/**Sets the shadeless mode of the material*/
+	public void setShadeless(boolean shadeless) {
+		
+		this.shadeless = shadeless;
 	}
 }

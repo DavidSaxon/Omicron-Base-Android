@@ -9,8 +9,10 @@ package nz.co.withfire.omicronengine.omicron.resources.manager;
 import java.util.HashMap;
 import java.util.Map;
 
+import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
+import nz.co.withfire.omicronengine.omicron.resources.types.MaterialResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.ShaderResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
@@ -30,6 +32,8 @@ public class ResourceManager {
 	private static Map<String, ShaderResource> shaders = null;
 	//texture resource map
 	private static Map<String, TextureResource> textures = null;
+	//material resource map
+	private static Map<String, MaterialResource> materials = null;
 	
 	//PUBLIC METHODS
 	/**Initialises the resource manager
@@ -38,8 +42,9 @@ public class ResourceManager {
 		
 		//initialise variables
 		ResourceManager.context = context;
-		shaders =  new HashMap<String, ShaderResource>();
-		textures = new HashMap<String, TextureResource>();
+		shaders =   new HashMap<String, ShaderResource>();
+		textures =  new HashMap<String, TextureResource>();
+		materials = new HashMap<String, MaterialResource>();
 		
 		//build the resource packs
 		MaterialDemoPack.build();
@@ -90,12 +95,35 @@ public class ResourceManager {
 		}
 	}
 	
+	/**Loads all materials into memory*/
+	public static void loadMaterials() {
+		
+		for (MaterialResource m : materials.values()) {
+			
+			m.load(context);
+		}
+	}
+	
+	/**Loads all materials within the resource group into memory
+	@param group the group to load*/
+	public static void loadMaterials(ResourceGroup group) {
+		
+		for (MaterialResource m : materials.values()) {
+			
+			if (m.getGroup() == group) {
+			
+				m.load(context);
+			}
+		}
+	}
+	
 	/**Loads all resources into memory
 	#WARNING: you prolly shouldn't do this*/
 	public static void load() {
 		
 		loadShaders();
 		loadTextures();
+		loadMaterials();
 	}
 	
 	/**Loads all the resource in the group into memory
@@ -104,6 +132,7 @@ public class ResourceManager {
 		
 		loadShaders(group);
 		loadTextures(group);
+		loadMaterials(group);
 	}
 	
 	//FREE
@@ -157,11 +186,37 @@ public class ResourceManager {
 		}
 	}
 	
+	/**Frees all materials from memory*/
+	public static void destroyMaterials() {
+		
+		for (MaterialResource m : materials.values()) {
+			
+			if (m.isLoaded()) {
+				
+				m.destroy();
+			}
+		}
+	}
+	
+	/**Frees the materials within the group from memory
+	@param group the group to free*/
+	public static void destroyMaterials(ResourceGroup group) {
+		
+		for (MaterialResource m : materials.values()) {
+			
+			if (m.isLoaded() && m.getGroup() == group) {
+				
+				m.destroy();
+			}
+		}
+	}
+	
 	/**Frees all loaded resources from memory*/
 	public static void destroy() {
 		
 		destroyShaders();
 		destroyTextures();
+		destroyMaterials();
 	}
 	
 	/**Frees all loaded resources within the group from memory
@@ -170,6 +225,7 @@ public class ResourceManager {
 		
 		destroyShaders(group);
 		destroyTextures(group);
+		destroyMaterials(group);
 	}
 	
 	//GET
@@ -187,6 +243,14 @@ public class ResourceManager {
 	public static Texture getTexture(String label) {
 		
 		return textures.get(label).getTexture();
+	}
+	
+	/**Gets the material from the resource map
+	@param label the label of the material
+	@return the material*/
+	public static Material getMaterial(String label) {
+		
+		return materials.get(label).getMaterial();
 	}
 	
 	//ADD
@@ -220,6 +284,21 @@ public class ResourceManager {
         textures.put(label, texture);
 	}
 	
+	/**Adds a new material resource to the resource map
+	@param label the label of the material
+	@param material the material resource to add*/
+	public static void add(String label, MaterialResource material) {
+		
+        //check to make sure the map doesn't contain the key
+        if (materials.containsKey(label)) {
+            
+            Log.v(Values.TAG, "Invalid material key");
+            throw new RuntimeException("Invalid material key");
+        }
+        
+        materials.put(label, material);
+	}
+	
 	/**Cleans up the resource manager*/
 	public static void cleanUp() {
 		
@@ -233,6 +312,11 @@ public class ResourceManager {
 			
 			textures.clear();
 			textures = null;
+		}
+		if (materials != null) {
+			
+			materials.clear();
+			materials = null;
 		}
 	}
 }
