@@ -71,7 +71,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 		this.context = context;
 		this.engine = engine;
 		renderList = new RenderList();
-		camera =  new PerspectiveCamera(60.0f, 0.1f, 500.0f);
+		camera =  new PerspectiveCamera(60.0f, 0.1f, 750.0f);
 	}
 	
     //PUBLIC METHODS
@@ -81,21 +81,10 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         //initialise openGL
         initGL();
         
-        //TESTING load mesh
-        //load material demo resources
-//        ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
-//        ResourceManager.destroy(ResourceGroup.MATERIAL_DEMO);
-        ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
-        
-        Mesh skybox = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_skybox,
-        		Renderable.Type.STD, 0);
-        skybox.setMaterial(ResourceManager.getMaterial("skybox"));
-        renderList.add(skybox);
-        
-        Mesh testCube = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
-        		Renderable.Type.STD, 0);
-        testCube.setMaterial(ResourceManager.getMaterial("metal"));
-        renderList.add(testCube);
+//        Mesh testCube = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
+//        		Renderable.Group.STD, 0);
+//        testCube.setMaterial(ResourceManager.getMaterial("metal"));
+//        renderList.add(testCube);
     }
     
     @Override
@@ -148,13 +137,19 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     	GLES20.glFinish();
     }
     
-    /**Adds a renderable to the render's render lists
+    /**Adds a renderable to the renderer's render lists
     @param renderable the renderable to add*/
     public static void add(Renderable renderable) {
     	
     	renderList.add(renderable);
     }
     
+    /**Removes a renderable from the renderer's render lists
+    @param renderable the renderable to remove*/
+    public static void remove(Renderable renderable) {
+    	
+    	renderList.remove(renderable);
+    }
     /**@param event touch event to input*/
     public void touchEvent(MotionEvent event) {
     	
@@ -210,7 +205,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     private void initGL() {
         
         //set the clear colour
-        GLES20.glClearColor(0.3f, 0.5f, 0.8f, 1.0f);
+        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         
         //enable depth testing
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);

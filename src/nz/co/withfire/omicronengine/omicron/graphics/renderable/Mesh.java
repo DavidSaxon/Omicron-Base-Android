@@ -60,7 +60,7 @@ public class Mesh extends Renderable {
 	@param vertices the vertex array
 	@param uvCoords the uv co-ordinates of the mesh
 	@param normals the normals array*/
-	public Mesh(Type type, int layer,
+	public Mesh(Group type, int layer,
 		float vertices[], float uvCoords[], float normals[]) {
 		
 		//super call

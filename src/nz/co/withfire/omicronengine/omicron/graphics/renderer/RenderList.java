@@ -61,7 +61,7 @@ public class RenderList {
 	public void add(Renderable renderable) {
 		
 		//find the type
-		switch (renderable.getType()) {
+		switch (renderable.getGroup()) {
 			
 			//add to standard
 			case STD: {
@@ -83,7 +83,7 @@ public class RenderList {
 	public void remove(Renderable renderable) {
 		
 		//find the type
-		switch (renderable.getType()) {
+		switch (renderable.getGroup()) {
 			
 			//remove from standard
 			case STD: {

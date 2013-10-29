@@ -89,13 +89,13 @@ public class TextureResource {
         return texture;
 	}
 	
-	/**@return the group the shader is within*/
+	/**@return the group the texture is within*/
 	public ResourceGroup getGroup() {
 		
 		return group;
 	}
 	
-    /**@return whether shader has been loaded*/
+    /**@return whether texture has been loaded*/
     public boolean isLoaded() {
         
         return loaded;

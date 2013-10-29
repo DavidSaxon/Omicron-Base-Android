@@ -12,8 +12,8 @@ import android.opengl.Matrix;
 public abstract class Renderable {
 
 	//ENUMERATORS
-	//the types of renderables
-	public enum Type {
+	//the groups of renderables
+	public enum Group {
 		
 		STD,    //standard object that are affected by the camera
 		GUI     //user interface shapes that are not effected by the
@@ -22,7 +22,7 @@ public abstract class Renderable {
 	
 	//VARIABLES
 	//the type this is
-	private Type type = Type.STD;
+	private Group group = Group.STD;
 	//the layer of this shape
 	private int layer = 0;
 	
@@ -43,9 +43,9 @@ public abstract class Renderable {
     /**Creates a new renderable
     @param type the type of the renderable
     @param layer the layer of the renderable*/
-    public Renderable(Type type, int layer) {
+    public Renderable(Group type, int layer) {
     	
-    	this.type = type;
+    	this.group = type;
     	this.layer = layer;
     }
     
@@ -58,10 +58,10 @@ public abstract class Renderable {
 		//TO OVERRIDE
 	}
 	
-	/**@return the type*/
-	public Type getType() {
+	/**@return the group*/
+	public Group getGroup() {
 		
-		return type;
+		return group;
 	}
 	
 	/**@return the layer of the renderable*/
@@ -76,10 +76,10 @@ public abstract class Renderable {
 		return material;
 	}
 	
-	/**@param type the new type*/
-	public void setType(Type type) {
+	/**@param group the new group*/
+	public void setGroup(Group group) {
 		
-		this.type = type;
+		this.group = group;
 	}
 	
 	/**@param layer the new layer of the renderable*/

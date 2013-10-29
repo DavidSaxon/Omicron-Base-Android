@@ -26,7 +26,7 @@ public class MeshLoader {
 	@param the layer of the mesh
 	@return the loaded mesh*/
 	public static Mesh loadOBJ(final Context context, int resourceId,
-		Renderable.Type type, int layer) {
+		Renderable.Group type, int layer) {
 		
 		  //open the file as a string
         String file = StringLoader.loadString(context, resourceId);

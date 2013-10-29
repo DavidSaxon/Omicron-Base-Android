@@ -67,7 +67,7 @@ public class MaterialResource {
 	
 	//PUBLIC METHODS
 	/**Loads the material
-	#NOTE: the shaders, texture, and attributes must already be loaded
+	#WARNING: the shaders, texture, and attributes must already be loaded
 	@param context the android context*/
 	public void load(final Context context) {
 		
@@ -137,13 +137,13 @@ public class MaterialResource {
         return material;
 	}
 	
-	/**@return the group the shader is within*/
+	/**@return the group the material is within*/
 	public ResourceGroup getGroup() {
 		
 		return group;
 	}
 	
-    /**@return whether shader has been loaded*/
+    /**@return whether material has been loaded*/
     public boolean isLoaded() {
         
         return loaded;

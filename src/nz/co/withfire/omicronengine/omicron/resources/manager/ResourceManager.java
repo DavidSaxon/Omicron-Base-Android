@@ -12,7 +12,9 @@ import java.util.Map;
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
+import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.resources.types.MaterialResource;
+import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.ShaderResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
@@ -34,6 +36,8 @@ public class ResourceManager {
 	private static Map<String, TextureResource> textures = null;
 	//material resource map
 	private static Map<String, MaterialResource> materials = null;
+	//renderable resource map
+	private static Map<String, RenderableResource> renderables = null;
 	
 	//PUBLIC METHODS
 	/**Initialises the resource manager
@@ -42,9 +46,10 @@ public class ResourceManager {
 		
 		//initialise variables
 		ResourceManager.context = context;
-		shaders =   new HashMap<String, ShaderResource>();
-		textures =  new HashMap<String, TextureResource>();
-		materials = new HashMap<String, MaterialResource>();
+		shaders =     new HashMap<String, ShaderResource>();
+		textures =    new HashMap<String, TextureResource>();
+		materials =   new HashMap<String, MaterialResource>();
+		renderables = new HashMap<String, RenderableResource>();
 		
 		//build the resource packs
 		MaterialDemoPack.build();
@@ -117,6 +122,28 @@ public class ResourceManager {
 		}
 	}
 	
+	/**Loads all renderables into memory*/
+	public static void loadRenderables() {
+		
+		for (RenderableResource r : renderables.values()) {
+			
+			r.load(context);
+		}
+	}
+	
+	/**Loads all renderables within the resource group into memory
+	@param group the group to load*/
+	public static void loadRenderables(ResourceGroup group) {
+		
+		for (RenderableResource r : renderables.values()) {
+			
+			if (r.getGroup() == group) {
+
+				r.load(context);
+			}
+		}
+	}
+	
 	/**Loads all resources into memory
 	#WARNING: you prolly shouldn't do this*/
 	public static void load() {
@@ -124,6 +151,7 @@ public class ResourceManager {
 		loadShaders();
 		loadTextures();
 		loadMaterials();
+		loadRenderables();
 	}
 	
 	/**Loads all the resource in the group into memory
@@ -133,6 +161,7 @@ public class ResourceManager {
 		loadShaders(group);
 		loadTextures(group);
 		loadMaterials(group);
+		loadRenderables(group);
 	}
 	
 	//FREE
@@ -211,12 +240,38 @@ public class ResourceManager {
 		}
 	}
 	
+	/**Frees all renderables from memory*/
+	public static void destroyRenderables() {
+		
+		for (RenderableResource r : renderables.values()) {
+			
+			if (r.isLoaded()) {
+				
+				r.destroy();
+			}
+		}
+	}
+	
+	/**Frees the renderables within the group from memory
+	@param group the group to free*/
+	public static void destroyRenderables(ResourceGroup group) {
+		
+		for (RenderableResource r : renderables.values()) {
+			
+			if (r.isLoaded() && r.getGroup() == group) {
+				
+				r.destroy();
+			}
+		}
+	}
+	
 	/**Frees all loaded resources from memory*/
 	public static void destroy() {
 		
 		destroyShaders();
 		destroyTextures();
 		destroyMaterials();
+		destroyRenderables();
 	}
 	
 	/**Frees all loaded resources within the group from memory
@@ -226,6 +281,7 @@ public class ResourceManager {
 		destroyShaders(group);
 		destroyTextures(group);
 		destroyMaterials(group);
+		destroyRenderables(group);
 	}
 	
 	//GET
@@ -251,6 +307,14 @@ public class ResourceManager {
 	public static Material getMaterial(String label) {
 		
 		return materials.get(label).getMaterial();
+	}
+	
+	/**Gets the renderable from the resource map
+	@param label the label of the renderable
+	@return the renderable*/
+	public static Renderable getRenderable(String label) {
+		
+		return renderables.get(label).getRenderable();
 	}
 	
 	//ADD
@@ -299,6 +363,21 @@ public class ResourceManager {
         materials.put(label, material);
 	}
 	
+	/**Adds a new renderable resource to the resource map
+	@param label the label of the renderable
+	@param renderable the renderable resource to add*/
+	public static void add(String label, RenderableResource renderable) {
+		
+        //check to make sure the map doesn't contain the key
+        if (renderables.containsKey(label)) {
+            
+            Log.v(Values.TAG, "Invalid renderable key");
+            throw new RuntimeException("Invalid renderable key");
+        }
+        
+        renderables.put(label, renderable);
+	}
+	
 	/**Cleans up the resource manager*/
 	public static void cleanUp() {
 		
@@ -317,6 +396,11 @@ public class ResourceManager {
 			
 			materials.clear();
 			materials = null;
+		}
+		if (renderables != null) {
+			
+			renderables.clear();
+			renderables = null;
 		}
 	}
 }

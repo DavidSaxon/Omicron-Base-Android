@@ -7,10 +7,13 @@
 package nz.co.withfire.omicronengine.resource_packs;
 
 import nz.co.withfire.omicronengine.R;
+import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.resources.types.MaterialResource;
+import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.ShaderResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
+import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource.RenderableType;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
@@ -47,6 +50,20 @@ public class MaterialDemoPack {
 		ResourceManager.add("metal", new MaterialResource(
 			"default", null, "metal", null,
 			MaterialResource.NONE,
+			ResourceGroup.MATERIAL_DEMO));
+		
+		//MESHES
+		//the skybox
+		ResourceManager.add("skybox", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.mesh_materialdemo_skybox,
+			Renderable.Group.STD, 4, "skybox",
+			ResourceGroup.MATERIAL_DEMO));
+		//metal cube
+		ResourceManager.add("metal_cube", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.mesh_materialdemo_cube,
+			Renderable.Group.STD, 5, "metal",
 			ResourceGroup.MATERIAL_DEMO));
 	}
 }
