@@ -127,7 +127,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         smaterial.setTexture(stexture);
         
         //colour
-        //material.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 
+        //smaterial.setColour(new Vector4(0.8f, 0.5f, 1.0f, 1.0f)); 
         
         skybox.setMaterial(smaterial);
         renderList.add(skybox);

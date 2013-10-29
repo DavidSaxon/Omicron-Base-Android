@@ -12,7 +12,7 @@ precision mediump float;
 uniform vec4 u_Colour;
 
 //if there is a texture
-uniform int u_HasTexture;
+uniform float u_HasTexture;
 //the texture
 uniform sampler2D u_Texture;
 //the uv co-ordinates
@@ -23,12 +23,10 @@ void main() {
 	
 	//the colour of the texture
 	vec4 textureColour = vec4(1.0, 1.0, 1.0, 1.0);
-	if (u_HasTexture != 0) {
+	if (u_HasTexture > 0.5) {
 
 		textureColour = texture2D(u_Texture, v_UVCoord);
 	}
-
-	textureColour = texture2D(u_Texture, v_UVCoord);
 
 	//set the colour
 	gl_FragColor = textureColour * u_Colour;

@@ -110,13 +110,8 @@ public class Mesh extends Renderable {
         
         if (material.getTexture() != null) {
         	
-        	//pass in that there is a texture
-//        	Log.v(Values.TAG, "texture: " + material.getTexture().getId());
-//        	Log.v(Values.TAG, "has texture: " + hasTextureHandle);
-        	GLES20.glUniform1i(hasTextureHandle, 1);
+        	GLES20.glUniform1f(hasTextureHandle, 1);
         	
-//        	int textureUniformHandle =
-//                    GLES20.glGetUniformLocation(program, "u_Texture");
             int texId = material.getTexture().getId();
             //set the active texture unit to texture unit 0
             GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
@@ -129,7 +124,7 @@ public class Mesh extends Renderable {
         else {
         	
         	//pass in that there is no texture
-        	GLES20.glUniform1i(hasTextureHandle, 0);
+        	GLES20.glUniform1f(hasTextureHandle, 0);
         }
         
         //UV
@@ -151,8 +146,16 @@ public class Mesh extends Renderable {
         GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, mvpMatrix, 0);
         
         //DRAW
-        //draw the triangle
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        //wireframe
+        if (material.getWireframe()) {
+        	
+        	GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, vertexCount);
+        }
+        //normal render
+        else {
+        	
+        	GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        }
 	}
 	
 	//PRIVATE METHODS

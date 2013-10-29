@@ -19,7 +19,10 @@ public class Material {
 	//the colour of the material
 	private Vector4 colour = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	//the texture of the material
-	private Texture texture = null;
+	private Texture texture = null; 
+	
+	//is true if the material should be rendered in wireframe mode
+	private boolean wireframe = false;
 	
 	//CONSTRUCTOR
 	/**Creates a new material
@@ -46,6 +49,12 @@ public class Material {
 		return texture;
 	}
 	
+	/**@return if the material is wireframe*/
+	public boolean getWireframe() {
+		
+		return wireframe;
+	}
+	
 	/**@param shader the new shader of the material*/
 	public void setShader(Shader shader) {
 		
@@ -62,5 +71,11 @@ public class Material {
 	public void setTexture(Texture texture) {
 		
 		this.texture = texture;
+	}
+	
+	/**Sets the wireframe mode of the material*/
+	public void setWireframe(boolean wireframe) {
+		
+		this.wireframe = wireframe;
 	}
 }
