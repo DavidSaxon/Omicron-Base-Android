@@ -11,6 +11,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.AmbientLight;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 
 public class Mesh extends Renderable {
@@ -90,24 +91,21 @@ public class Mesh extends Renderable {
         //get a handle the vertex positions and enable them
         int positionHandle = GLES20.glGetAttribLocation(program, "a_Position");
         GLES20.glEnableVertexAttribArray(positionHandle);
-        //prepare the triangle coordinate data
+        //pass in the vertices
+        vertexBuffer.position(0);
     	GLES20.glVertexAttribPointer(positionHandle, VERTEX_DIM,
              GLES20.GL_FLOAT, false, VERTEX_STRIDE, vertexBuffer);
     	
     	//COLOUR
-    	//get a handle to the colour
-        int colourHandle = GLES20.glGetUniformLocation(program, "u_Colour");
         //set the colour for drawing
-        GLES20.glUniform4fv(colourHandle, 1, material.getColour().toArray(), 0);
+        GLES20.glUniform4fv(GLES20.glGetUniformLocation(program, "u_Colour"),
+    		1, material.getColour().toArray(), 0);
         
-        //TEXTURE
-        //get a handle to the has texture value
-        int hasTextureHandle =
-            GLES20.glGetUniformLocation(program, "u_HasTexture");
-        
+        //TEXTURE        
         if (material.getTexture() != null) {
         	
-        	GLES20.glUniform1f(hasTextureHandle, 1);
+        	GLES20.glUniform1f(
+    			GLES20.glGetUniformLocation(program, "u_HasTexture"), 1);
         	
             int texId = material.getTexture().getId();
             //set the active texture unit to texture unit 0
@@ -121,7 +119,8 @@ public class Mesh extends Renderable {
         else {
         	
         	//pass in that there is no texture
-        	GLES20.glUniform1f(hasTextureHandle, 0);
+        	GLES20.glUniform1f(
+    			GLES20.glGetUniformLocation(program, "u_HasTexture"), 0);
         }
         
         //UV
@@ -129,18 +128,34 @@ public class Mesh extends Renderable {
     	int uvHandle =
 			GLES20.glGetAttribLocation(program, "a_UVCoord");
 		GLES20.glEnableVertexAttribArray(uvHandle);
-		 
-		//pass in texture information
+		//pass in uvs
         uvBuffer.position(0);
         GLES20.glVertexAttribPointer(uvHandle, UV_DIM,
         		GLES20.GL_FLOAT, false, UV_STRIDE, uvBuffer);
         
+        //LIGHTING        
+        if (material.getShadeless()) {
+        	
+        	GLES20.glUniform1f(
+    			GLES20.glGetUniformLocation(program, "u_Shadeless"), 1);
+        }
+        else {
+        	
+        	GLES20.glUniform1f(
+    			GLES20.glGetUniformLocation(program, "u_Shadeless"), 0);
+        	
+        	//pass in the ambient light value
+        	GLES20.glUniform4fv(
+    			GLES20.glGetUniformLocation(program, "u_Ambient"),
+    			1, AmbientLight.getValue().toArray(), 0);
+        }
+        
+        
         //MVP MATRIX
-        //get handle to the model view projection matrix
-        int mvpMatrixHandle =
-    		GLES20.glGetUniformLocation(program, "u_MVPMatrix");
         //pass in the model view projection matrix
-        GLES20.glUniformMatrix4fv(mvpMatrixHandle, 1, false, mvpMatrix, 0);
+        GLES20.glUniformMatrix4fv(
+    		GLES20.glGetUniformLocation(program, "u_MVPMatrix"),
+    		1, false, mvpMatrix, 0);
         
         //DRAW
         //wireframe

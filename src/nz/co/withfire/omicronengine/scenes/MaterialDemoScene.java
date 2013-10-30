@@ -23,6 +23,7 @@ import nz.co.withfire.omicronengine.entities.material_demo.Table;
 import nz.co.withfire.omicronengine.entities.start_up.Splash;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.AmbientLight;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
@@ -75,11 +76,9 @@ public class MaterialDemoScene extends Scene {
 	@Override
 	public void init() {
 		
-		//loading
-		
-		
 		//initialise the scene
 		initCamera();
+		initLighting();
 		initEntities();
 	}
 	
@@ -185,6 +184,13 @@ public class MaterialDemoScene extends Scene {
 		
 		camera.setRotPostTrans(camPos);
 		OmicronRenderer.setCamera(camera);
+	}
+	
+	/**Initialises the scene's lighting*/
+	private void initLighting() {
+		
+		//set the ambient light
+		AmbientLight.set(new Vector3(1.0f, 1.0f, 1.0f), 0.2f);
 	}
 	
 	/**Initialises the entities in the scene*/
