@@ -61,7 +61,7 @@ public class MaterialDemoPack {
 		ResourceManager.add("cube_of_fate", new MaterialResource(
 			"default", new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
 			"cube_of_fate", null,
-			MaterialResource.NONE,
+			MaterialResource.SHADELESS,
 			ResourceGroup.MATERIAL_DEMO));
 		//china
 		ResourceManager.add("china", new MaterialResource(

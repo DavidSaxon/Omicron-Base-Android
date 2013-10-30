@@ -51,7 +51,7 @@ public abstract class Renderable {
     //the model view projection matrix
     protected float[] mvpMatrix = new float[16];
     //the model matrix
-    private float[] modelMatrix = new float[16];
+    protected float[] modelMatrix = new float[16];
 	
     //CONSTRUCTOR
     /**Creates a new renderable

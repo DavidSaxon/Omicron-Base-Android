@@ -15,6 +15,8 @@ import javax.microedition.khronos.opengles.GL10;
 import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.Light;
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.PointLight;
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
@@ -150,12 +152,27 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     	renderList.add(renderable);
     }
     
+    /**Adds a light to the renderer's render lists
+    @param light the light to add*/
+    public static void add(Light light) {
+    	
+    	renderList.add(light);
+    }
+    
     /**Removes a renderable from the renderer's render lists
     @param renderable the renderable to remove*/
     public static void remove(Renderable renderable) {
     	
     	renderList.remove(renderable);
     }
+    
+    /**Removes a light from the renderer's render lists
+    @param light the light to remove*/
+    public static void remove(Light light) {
+    	
+    	renderList.remove(light);
+    }
+    
     /**@param event touch event to input*/
     public void touchEvent(MotionEvent event) {
     	
@@ -174,12 +191,20 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     	}
     }
     
+    //GETTERS
     /**@return the current camera of the renderer*/
     public static Camera getCamera() {
     	
     	return camera;
     }
     
+    /**@return the point lights from the render lists*/
+    public static List<PointLight> getPointLights() {
+    	
+    	return renderList.getPointLights();
+    }
+    
+    //SETTERS
     /**@param camera the new camera of the renderer*/
     public static void setCamera(Camera camera) {
     	

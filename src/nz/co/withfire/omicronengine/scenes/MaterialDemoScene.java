@@ -24,6 +24,7 @@ import nz.co.withfire.omicronengine.entities.start_up.Splash;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.lighting.AmbientLight;
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.PointLight;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
@@ -191,6 +192,11 @@ public class MaterialDemoScene extends Scene {
 		
 		//set the ambient light
 		AmbientLight.set(new Vector3(1.0f, 1.0f, 1.0f), 0.2f);
+		
+		//add point lights
+		OmicronRenderer.add(new PointLight(
+			new Vector3(1.0f, 1.0f, 1.0f), 0.8f, 2.0f,
+			new Vector3(-3.0f, 2.0f, -3.0f)));
 	}
 	
 	/**Initialises the entities in the scene*/

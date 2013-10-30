@@ -6,6 +6,7 @@
 
 package nz.co.withfire.omicronengine.entities.material_demo;
 
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.PointLight;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
@@ -19,6 +20,9 @@ public class CubeOfFate extends Entity {
 	//VARIABLES
 	//the mesh
 	private final Mesh cubeMesh;
+	
+	//the light
+	private PointLight light;
 	
 	//Colour changing
 	//the colour change rate
@@ -38,6 +42,11 @@ public class CubeOfFate extends Entity {
 		cubeMesh.setTranslation(new Vector3(2.5f, 0.0f, 2.5f));
 		//add to the renderer
 		OmicronRenderer.add(cubeMesh);
+		
+		//create and add the light
+		light = new PointLight(new Vector3(cubeMesh.getMaterial().getColour()),
+			0.6f, 1.75f, new Vector3(2.5f, 0.0f, 2.5f));
+		OmicronRenderer.add(light);
 	}
 	
 	//PUBLIC METHODS
@@ -76,6 +85,8 @@ public class CubeOfFate extends Entity {
 				break;
 			}
 		}
+		
+		light.setColour(new Vector3(cubeMesh.getMaterial().getColour()));
 	}
 	
 	@Override

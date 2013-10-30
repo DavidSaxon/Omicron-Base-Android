@@ -17,4 +17,7 @@ public class Values {
     //the natural dimensions of the screen (in OpenGL space)
     public static final Vector2 NATURAL_SCREEN_SIZE  =
         new Vector2(1.77777777f, 1.0f);
+    
+    //the number of possible point lights at one time
+    public static final int MAX_POINT_LIGHTS = 16;
 }

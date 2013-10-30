@@ -9,10 +9,14 @@ package nz.co.withfire.omicronengine.omicron.graphics.renderable;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.util.List;
 
 import android.opengl.GLES20;
 import nz.co.withfire.omicronengine.omicron.graphics.lighting.AmbientLight;
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.PointLight;
+import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 
 public class Mesh extends Renderable {
 
@@ -133,6 +137,15 @@ public class Mesh extends Renderable {
         GLES20.glVertexAttribPointer(uvHandle, UV_DIM,
         		GLES20.GL_FLOAT, false, UV_STRIDE, uvBuffer);
         
+        //NORMALS
+        //get a handle to the normal data and enable it
+        int normalHandle = GLES20.glGetAttribLocation(program, "a_Normal");
+        GLES20.glEnableVertexAttribArray(normalHandle);
+        //pass in the normals
+        normalBuffer.position(0);
+        GLES20.glVertexAttribPointer(normalHandle, NORMAL_DIM,
+            GLES20.GL_FLOAT, false, NORMAL_STRIDE, normalBuffer);
+        
         //LIGHTING        
         if (material.getShadeless()) {
         	
@@ -144,14 +157,68 @@ public class Mesh extends Renderable {
         	GLES20.glUniform1f(
     			GLES20.glGetUniformLocation(program, "u_Shadeless"), 0);
         	
+        	//Ambient
         	//pass in the ambient light value
         	GLES20.glUniform4fv(
     			GLES20.glGetUniformLocation(program, "u_Ambient"),
     			1, AmbientLight.getValue().toArray(), 0);
+        	
+        	
+        	//Point
+        	//get the point lights
+        	List<PointLight> pointLights = OmicronRenderer.getPointLights();
+        	//pass in the number of point lights
+        	GLES20.glUniform1i(
+    			GLES20.glGetUniformLocation(program, "u_PointCount"),
+    			pointLights.size());
+        	
+            //create the colours array
+            float pointColours[] = new float[pointLights.size() * 3];
+            for (int i = 0; i < pointColours.length; i += 3) {
+            	
+            	Vector3 pCol = pointLights.get(i / 3).getColour();
+            	float pStr = pointLights.get(i / 3).getStrength();
+            	pointColours[i]     = pCol.getX() * pStr;
+            	pointColours[i + 1] = pCol.getY() * pStr;
+            	pointColours[i + 2] = pCol.getZ() * pStr;
+            }
+            //pass in the colours
+            GLES20.glUniform3fv(
+        		GLES20.glGetUniformLocation(program, "u_PointColour"),
+        		pointLights.size(), pointColours, 0);
+        	
+        	//create the distances array
+            float pointDistances[] = new float[pointLights.size()];
+            for (int i = 0; i < pointDistances.length; ++i) {
+            	
+            	pointDistances[i] = pointLights.get(i).getDistance();
+            }
+            //pass in distances
+            GLES20.glUniform1fv(
+        		GLES20.glGetUniformLocation(program, "u_PointDistances"),
+        		pointLights.size(), pointDistances, 0);
+            
+            //create the positons array
+            float pointPositions[] = new float[pointLights.size() * 3];
+            for (int i = 0; i < pointPositions.length; i += 3) {
+            	
+            	Vector3 pPos = pointLights.get(i / 3).getPosition();
+            	pointPositions[i]     = pPos.getX();
+            	pointPositions[i + 1] = pPos.getY();
+            	pointPositions[i + 2] = pPos.getZ();
+            }
+            //pass in positions
+            GLES20.glUniform3fv(
+        		GLES20.glGetUniformLocation(program, "u_PointPos"),
+        		pointLights.size(), pointPositions, 0);
+            
         }
         
-        
-        //MVP MATRIX
+        //MATRIX
+        //pass in the model matrix
+        GLES20.glUniformMatrix4fv(
+    		GLES20.glGetUniformLocation(program, "u_MMatrix"),
+    		1, false, modelMatrix, 0);
         //pass in the model view projection matrix
         GLES20.glUniformMatrix4fv(
     		GLES20.glGetUniformLocation(program, "u_MVPMatrix"),

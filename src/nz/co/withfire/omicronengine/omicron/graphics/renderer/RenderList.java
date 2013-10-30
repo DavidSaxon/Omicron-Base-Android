@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.Light;
+import nz.co.withfire.omicronengine.omicron.graphics.lighting.PointLight;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
+import nz.co.withfire.omicronengine.override.Values;
 
 public class RenderList {
 
@@ -21,6 +24,11 @@ public class RenderList {
 	//the list of GUI layers
 	private TreeMap<Integer, ArrayList<Renderable>> GUI =
 		new TreeMap<Integer, ArrayList<Renderable>>();
+	
+	//the number of point lights currently being rendered
+	private int pointCount = 0;
+	//the list of point lights
+	private List<PointLight> pointLights = new ArrayList<PointLight>();
 	
 	//CONSTRUCTOR
 	/**Creates a new render list*/
@@ -78,6 +86,27 @@ public class RenderList {
 		}
 	}
 	
+	/**Adds a new light
+	#WARNING: the light will be ignored if it exceeds the maximum
+	amount for its light type
+	@param light the new light*/
+	public void add(Light light) {
+		
+		//check type of light
+		if (light instanceof PointLight) {
+			
+			//if there are already maximum point lights then ignore
+			if (pointCount >= Values.MAX_POINT_LIGHTS) {
+				
+				return;
+			}
+			
+			//increase count and add
+			++pointCount;
+			pointLights.add((PointLight) light);
+		}
+	}
+	
 	/**Removes a renderable from the list
 	@param renderable the renderable to remove*/
 	public void remove(Renderable renderable) {
@@ -98,6 +127,38 @@ public class RenderList {
 				break;
 			}
 		}
+	}
+	
+	/**Removes the light from the list
+	@param light the light to remove*/
+	public void remove(Light light) {
+		
+		//check type of light
+		if (light instanceof PointLight) {
+			
+			//first make sure the light is in the render list
+			if (!pointLights.contains((PointLight) light)) {
+				
+				return;
+			}
+			
+			//decrease count and remove
+			--pointCount;
+			pointLights.remove((PointLight) light);
+		}
+	}
+	
+	//GETTERS
+	/**@return the number of point lights currently in the lists*/
+	public int getPointCount() {
+		
+		return pointCount;
+	}
+	
+	/**@return the list of point lights*/
+	public List<PointLight> getPointLights() {
+		
+		return pointLights;
 	}
 	
 	//PRIVATE METHODS
