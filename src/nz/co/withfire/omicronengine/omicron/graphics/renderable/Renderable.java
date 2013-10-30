@@ -7,6 +7,8 @@
 package nz.co.withfire.omicronengine.omicron.graphics.renderable;
 
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
+import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import android.opengl.Matrix;
 
 public abstract class Renderable {
@@ -29,7 +31,17 @@ public abstract class Renderable {
 	//the material of the renderable
 	protected Material material = new Material();
 	
-	//TODO: transformation info
+	//Transformations info
+	//the translation
+	private Vector3 translation = new Vector3();
+	//the local rotation
+	private Vector3 localRot = new Vector3();
+	//the global rotation
+	private Vector3 globalRot = new Vector3();
+	//the post rotation translation
+	private Vector3 postRotTrans = new Vector3();
+	//the scale
+	private Vector3 scale = new Vector3(1.0f, 1.0f, 1.0f);
 	
     //Matrix
 	//the model view matrix
@@ -64,6 +76,7 @@ public abstract class Renderable {
 		return group;
 	}
 	
+	//GETTERS
 	/**@return the layer of the renderable*/
 	public int getLayer() {
 		
@@ -82,6 +95,37 @@ public abstract class Renderable {
 		this.group = group;
 	}
 	
+	/**@return the translation*/
+	public Vector3 getTranslation() {
+		
+		return translation;
+	}
+	
+	/**@return the local rotation*/
+	public Vector3 getLocalRot() {
+		
+		return localRot;
+	}
+	
+	/**@return the global rotation*/
+	public Vector3 getGlobalRotation() {
+		
+		return globalRot;
+	}
+	
+	/**@return the post rotation translation*/
+	public Vector3 getPostRotTrans() {
+		
+		return postRotTrans;
+	}
+	
+	/**@return the scale*/
+	public Vector3 getScale() {
+		
+		return translation;
+	}
+	
+	//SETTERS
 	/**@param layer the new layer of the renderable*/
 	public void setLayer(int layer) {
 		
@@ -94,6 +138,36 @@ public abstract class Renderable {
 		this.material = material;
 	}
 	
+	/**@param translation the new translation*/
+	public void setTranslation(final Vector3 translation) {
+		
+		this.translation = translation;
+	}
+	
+	/**@param localRot the new local rotation*/
+	public void setLocalRot(final Vector3 localRot) {
+		
+		this.localRot = localRot;
+	}
+	
+	/**@param globalRot the new global rotation*/
+	public void setGlobalRot(final Vector3 globalRot) {
+		
+		this.globalRot = globalRot;
+	}
+	
+	/**@param postRotTrans the new post rotation translation*/
+	public void setPostRotTrans(final Vector3 postRotTrans) {
+		
+		this.postRotTrans = postRotTrans;
+	}
+	
+	/**@param scale the new scale*/
+	public void setScale(final Vector3 scale) {
+		
+		this.scale = scale;
+	}
+	
 	//PROTECTED METHODS
 	/**Applies the transformations
 	@param viewMatrix the view matrix
@@ -104,6 +178,29 @@ public abstract class Renderable {
 		//set the transformation matrix to the identity matrix
         Matrix.setIdentityM(modelMatrix, 0);
         Matrix.setIdentityM(mvMatrix, 0);
+        
+        //post rotation translation
+        Matrix.translateM(modelMatrix, 0, postRotTrans.getX(),
+    		postRotTrans.getY(), postRotTrans.getZ());
+        
+        //local rotation
+		Matrix.rotateM(modelMatrix, 0, localRot.getY(), 0, 1, 0);
+		Matrix.rotateM(modelMatrix, 0, localRot.getX(),
+			(float) Math.cos(localRot.getY() * MathUtil.DEGREES_TO_RADIANS), 0,
+			(float) Math.sin(localRot.getY() * MathUtil.DEGREES_TO_RADIANS));
+		//TODO: z axis
+		
+		//global rotation
+		Matrix.rotateM(modelMatrix, 0, globalRot.getX(), 1, 0, 0);
+		Matrix.rotateM(modelMatrix, 0, globalRot.getY(), 0, 1, 0);
+		Matrix.rotateM(modelMatrix, 0, globalRot.getZ(), 0, 0, 1);
+		
+		//translation
+        Matrix.translateM(modelMatrix, 0, translation.getX(),
+    		translation.getY(), translation.getZ());
+        
+        //scale
+        Matrix.scaleM(modelMatrix, 0, scale.getX(), scale.getY(), scale.getZ());
         
         //calculate the mvp matrix
         Matrix.multiplyMM(mvMatrix, 0, viewMatrix, 0, modelMatrix, 0);

@@ -35,6 +35,10 @@ public class MaterialDemoPack {
 		ResourceManager.add("skybox", new TextureResource(
 			R.drawable.materialdemo_skybox,
 			ResourceGroup.MATERIAL_DEMO));
+		//wood
+		ResourceManager.add("wood", new TextureResource(
+			R.drawable.materialdemo_wood,
+			ResourceGroup.MATERIAL_DEMO));
 		//metal
 		ResourceManager.add("metal", new TextureResource(
 			R.drawable.materialdemo_metal,
@@ -50,6 +54,11 @@ public class MaterialDemoPack {
 			"default", null, "skybox", null,
 			MaterialResource.SHADELESS,
 			ResourceGroup.MATERIAL_DEMO));
+		//wood
+		ResourceManager.add("wood", new MaterialResource(
+			"default", null, "wood", null,
+			MaterialResource.NONE,
+			ResourceGroup.MATERIAL_DEMO));
 		//metal
 		ResourceManager.add("metal", new MaterialResource(
 			"default", null, "metal", null,
@@ -61,6 +70,12 @@ public class MaterialDemoPack {
 			"cube_of_fate", null,
 			MaterialResource.NONE,
 			ResourceGroup.MATERIAL_DEMO));
+		//china
+		ResourceManager.add("china", new MaterialResource(
+			"default", new Vector4(1.0f, 1.0f, 1.0f, 1.0f),
+			null, null,
+			MaterialResource.NONE,
+			ResourceGroup.MATERIAL_DEMO));
 		
 		//MESHES
 		//the skybox
@@ -68,6 +83,12 @@ public class MaterialDemoPack {
 			RenderableType.MESH,
 			R.raw.mesh_materialdemo_skybox,
 			Renderable.Group.STD, 4, "skybox",
+			ResourceGroup.MATERIAL_DEMO));
+		//table
+		ResourceManager.add("table", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.mesh_materialdemo_table,
+			Renderable.Group.STD, 5, "wood",
 			ResourceGroup.MATERIAL_DEMO));
 		//metal cube
 		ResourceManager.add("metal_cube", new RenderableResource(
@@ -80,6 +101,12 @@ public class MaterialDemoPack {
 			RenderableType.MESH,
 			R.raw.mesh_materialdemo_cube,
 			Renderable.Group.STD, 5, "cube_of_fate",
+			ResourceGroup.MATERIAL_DEMO));
+		//monkey
+		ResourceManager.add("monkey", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.mesh_materialdemo_monkey,
+			Renderable.Group.STD, 5, "china",
 			ResourceGroup.MATERIAL_DEMO));
 	}
 }

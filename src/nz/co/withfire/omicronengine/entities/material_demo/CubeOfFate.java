@@ -11,6 +11,7 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 
 public class CubeOfFate extends Entity {
@@ -34,7 +35,7 @@ public class CubeOfFate extends Entity {
 		//get the mesh
 		cubeMesh = (Mesh) ResourceManager.getRenderable("cube_of_fate");
 		//set the transformations
-		//TODO:
+		cubeMesh.setTranslation(new Vector3(2.5f, 0.0f, 2.5f));
 		//add to the renderer
 		OmicronRenderer.add(cubeMesh);
 	}

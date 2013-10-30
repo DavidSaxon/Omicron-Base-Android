@@ -22,8 +22,8 @@ public abstract class Camera {
 	protected Vector3 pos = new Vector3();
 	//the local rotation of the camera
 	protected Vector3 localRot = new Vector3();
-	//the post translation of the camera
-	protected Vector3 postTrans = new Vector3();
+	//the post roataion translation of the camera
+	protected Vector3 postRotTrans = new Vector3();
 	//the zoom of the camera
 	protected float zoom = 1.0f;
 	
@@ -53,9 +53,9 @@ public abstract class Camera {
 	@param viewMatrix the view matrix*/
 	public void applyTransformations(float[] viewMatrix) {
 		
-        //post translate
-  		Matrix.translateM(viewMatrix, 0, postTrans.getX(),
-			postTrans.getY(), postTrans.getZ());
+        //post rotation translate
+  		Matrix.translateM(viewMatrix, 0, postRotTrans.getX(),
+			postRotTrans.getY(), postRotTrans.getZ());
         
 		//local rotation
 		Matrix.rotateM(viewMatrix, 0, localRot.getY(), 0, 1, 0);
@@ -95,10 +95,10 @@ public abstract class Camera {
 		return localRot;
 	}
 	
-	/**@return the post translation of the camera*/
-	public Vector3 getPostTrans() {
+	/**@return the post rotation translation of the camera*/
+	public Vector3 getPostRotTrans() {
 		
-		return postTrans;
+		return postRotTrans;
 	}
 	
 	/**@return the zoom of the camera*/
@@ -125,10 +125,10 @@ public abstract class Camera {
 		this.localRot.copy(localRot);
 	}
 	
-	/**@param postTrans the new post translation of the camera*/
-	public void setPostTrans(final Vector3 postTrans) {
+	/**@param postRotTrans the new post rotation translation of the camera*/
+	public void setRotPostTrans(final Vector3 postRotTrans) {
 		
-		this.postTrans.copy(postTrans);
+		this.postRotTrans.copy(postRotTrans);
 	}
 	
 	/**@param zoom the new zoom of the camera*/

@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import nz.co.withfire.omicronengine.entities.material_demo.CubeOfFate;
 import nz.co.withfire.omicronengine.entities.material_demo.MetalCube;
 import nz.co.withfire.omicronengine.entities.material_demo.Skybox;
+import nz.co.withfire.omicronengine.entities.material_demo.Table;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
@@ -45,20 +46,20 @@ public class MaterialDemoScene extends Scene {
     private float pinchDis = 0.0f;
 	
 	//the camera
-	private Camera camera = new PerspectiveCamera(60.0f, 0.1f, 750.0f);
+	private Camera camera = new PerspectiveCamera(40.0f, 0.1f, 750.0f);
 	//the position of the camera
 	private Vector3 camPos = new Vector3(0.0f, 0.0f, 4.0f);
 	//the rotation of the camera
-	private Vector3 camRot = new Vector3();
+	private Vector3 camRot = new Vector3(-45.0f, 0.0f, 0.0f);
 	//the zoom of the camera
-	private float camZoom = 1.0f;
+	private float camZoom = 0.25f;
 	
 	//the rotation multiplier
 	private final float ROTATION_MULTIPLIER = 600.0f;
 	//the zoom multiplier
 	private final float ZOOM_MULTIPLIER = 8.0f;
 	//the zoom clamps
-	private final float ZOOM_CLAMP_LOWER  = 0.15f;
+	private final float ZOOM_CLAMP_LOWER  = 0.10f;
 	private final float ZOOM_CLAMP_UPPER = 1.75f;
 	
 	//CONSTRUCTOR
@@ -174,7 +175,7 @@ public class MaterialDemoScene extends Scene {
 	/**Initialises the camera in the scene*/
 	private void initCamera() {
 		
-		camera.setPostTrans(camPos);
+		camera.setRotPostTrans(camPos);
 		OmicronRenderer.setCamera(camera);
 	}
 	
@@ -182,8 +183,8 @@ public class MaterialDemoScene extends Scene {
 	private void initEntities() {
 		
 		entityList.add(new Skybox());
+		entityList.add(new Table());
 		entityList.add(new CubeOfFate());
-		//entityList.add(new MetalCube());
-		
+		entityList.add(new MetalCube());
 	}
 }
