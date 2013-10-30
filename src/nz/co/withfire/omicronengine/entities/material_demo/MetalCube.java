@@ -23,7 +23,7 @@ public class MetalCube extends Entity {
 	public MetalCube() {
 		
 		//get the mesh
-		cubeMesh = (Mesh) ResourceManager.getRenderable("monkey");
+		cubeMesh = (Mesh) ResourceManager.getRenderable("metal_cube");
 		//set the transformations
 		cubeMesh.setTranslation(new Vector3(-2.5f, 0.0f, 2.5f));
 		//add to the renderer

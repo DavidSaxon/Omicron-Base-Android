@@ -76,6 +76,18 @@ public class MaterialDemoPack {
 			null, null,
 			MaterialResource.NONE,
 			ResourceGroup.MATERIAL_DEMO));
+		//bronze
+		ResourceManager.add("bronze", new MaterialResource(
+			"default", new Vector4(0.7f, 0.55f, 0.2f, 1.0f),
+			null, null,
+			MaterialResource.NONE,
+			ResourceGroup.MATERIAL_DEMO));
+		//red plastic
+		ResourceManager.add("red_plastic", new MaterialResource(
+			"default", new Vector4(0.8f, 0.1f, 0.1f, 1.0f),
+			null, null,
+			MaterialResource.NONE,
+			ResourceGroup.MATERIAL_DEMO));
 		
 		//MESHES
 		//the skybox
@@ -103,10 +115,22 @@ public class MaterialDemoPack {
 			Renderable.Group.STD, 5, "cube_of_fate",
 			ResourceGroup.MATERIAL_DEMO));
 		//monkey
-		ResourceManager.add("monkey", new RenderableResource(
+		ResourceManager.add("china_monkey", new RenderableResource(
 			RenderableType.MESH,
 			R.raw.mesh_materialdemo_monkey,
 			Renderable.Group.STD, 5, "china",
+			ResourceGroup.MATERIAL_DEMO));
+		//sphere
+		ResourceManager.add("bronze_sphere", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.mesh_materialdemo_sphere,
+			Renderable.Group.STD, 5, "bronze",
+			ResourceGroup.MATERIAL_DEMO));
+		//cone
+		ResourceManager.add("plastic_cone", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.mesh_materialdemo_cone,
+			Renderable.Group.STD, 5, "red_plastic",
 			ResourceGroup.MATERIAL_DEMO));
 	}
 }

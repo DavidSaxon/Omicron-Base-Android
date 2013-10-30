@@ -11,8 +11,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.util.Log;
 import android.view.MotionEvent;
+import nz.co.withfire.omicronengine.entities.material_demo.BronzeSphere;
+import nz.co.withfire.omicronengine.entities.material_demo.ChinaMonkey;
 import nz.co.withfire.omicronengine.entities.material_demo.CubeOfFate;
 import nz.co.withfire.omicronengine.entities.material_demo.MetalCube;
+import nz.co.withfire.omicronengine.entities.material_demo.PlasticCone;
 import nz.co.withfire.omicronengine.entities.material_demo.Skybox;
 import nz.co.withfire.omicronengine.entities.material_demo.Table;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
@@ -186,5 +189,8 @@ public class MaterialDemoScene extends Scene {
 		entityList.add(new Table());
 		entityList.add(new CubeOfFate());
 		entityList.add(new MetalCube());
+		entityList.add(new ChinaMonkey());
+		entityList.add(new BronzeSphere());
+		entityList.add(new PlasticCone());
 	}
 }
