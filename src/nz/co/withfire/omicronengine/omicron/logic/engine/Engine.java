@@ -6,10 +6,12 @@
 
 package nz.co.withfire.omicronengine.omicron.logic.engine;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
+import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.scenes.StartUpScene;
 
 public class Engine {
@@ -36,22 +38,16 @@ public class Engine {
 	/**Executes the engine*/
 	public void execute() {
 		
-		//get the amount of times we need to update
-		int updateAmount = fps.update();
+		//update the fps manager
+		fps.update();
 		
-		//perform updates
-		for (int i = 0; i < updateAmount; ++i) {
+		//execute the current scene
+		if (scene.execute()) {
 			
-			//execute the current scene
-			if (scene.execute()) {
-				
-				//set the new scene
-				scene = scene.nextScene();
-				scene.init();
-				fps.zero();
-				
-				break;
-			}
+			//set the new scene
+			scene = scene.nextScene();
+			scene.init();
+			fps.zero();
 		}
 	}
 	

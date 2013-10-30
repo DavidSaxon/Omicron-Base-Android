@@ -6,111 +6,62 @@
 
 package nz.co.withfire.omicronengine.omicron.logic.fps_manager;
 
+import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
+import nz.co.withfire.omicronengine.override.Values;
 import android.os.SystemClock;
+import android.util.Log;
 
 public class FPSManager {
 
     //VARIABLES
-    //the minimum frame length
-    private int MIN_FRAME_LENGTH = 16;
-    //the standard frame length to base time scale of
-    private static final int STD_FRAME_LENGTH = 16;
-    //the maximum frame length
-    private final int MAX_FRAME_LENGTH = 66;
-    //the amount of extra updates that can be done
-    private final int EXTRA_UPDATES_LIMIT = 4;
+	//the standard number of ms in a frame to base time scale of
+    private static final float STD_FRAME_LENGTH = 16.6666666f;
+    //the clamps of delta time
+    private static final float DELTA_CLAMP_LOWER = 0.1f;
+    private static final float DELTA_CLAMP_UPPER = 60.0f;
     
     //the scale amount
     private static float timeScale = 1.0f;
     //the current fps
     private static float fps = 0.0f;
     
-    //the time the last frame started
-    private long lastFrameStart;
-    //the time accumulated since the last frame
-    private int accumTime = 0;
-    //the number of milliseconds in a frame
-    private int frameLength = 33;
-    
-    //is true if  should be zeroed
-    private boolean zero = false;
+    //the last time we update
+    private long lastUpdateTime;
     
     //CONSTRUCTOR
     public FPSManager() {
         
-        lastFrameStart = SystemClock.uptimeMillis();
-        timeScale = (float) (frameLength) / (float) (STD_FRAME_LENGTH);
+    	lastUpdateTime = SystemClock.uptimeMillis();
     }
     
     //PUBLIC METHODS
     /**Updates the fps manager
     @return the number of frames that should be executed*/
-    public int update() {
-        
-        if (zero) {
-            
-            zero = false;
-            accumTime = 0;
-            lastFrameStart = SystemClock.uptimeMillis();
-        }
-        
-        //get the current time
-        long currentTime = SystemClock.uptimeMillis();
-        
-        //get the time that has run since the last update
-        int frameTime = (int) (currentTime - lastFrameStart);
-        lastFrameStart = currentTime;
-        accumTime += frameTime;
-        
-        //limit extra updates
-        if (accumTime > frameLength * EXTRA_UPDATES_LIMIT) {
-            
-            accumTime = frameLength * EXTRA_UPDATES_LIMIT;
-        }
-        
-        //find the amount of frames that should be executed
-        int numFrames = accumTime / frameLength;
-        accumTime -= numFrames * frameLength;
-        
-        //try to find a better fps
-        int change = numFrames - 1;
-        
-        frameLength += change;
-        
-        //make sure to cap the frameLength
-        if (frameLength < MIN_FRAME_LENGTH) {
-            
-            frameLength = MIN_FRAME_LENGTH;
-        }
-        else if (frameLength > MAX_FRAME_LENGTH) {
-            
-            frameLength = MAX_FRAME_LENGTH;
-        }
-        
-        timeScale = (float) (frameLength) / (float) (STD_FRAME_LENGTH);
-        fps = (float) (ValuesUtil.MS_IN_SEC) / (float) (frameLength);
-        
-        return numFrames;
+    public void update() {
+       
+    	//get the current time
+    	long currentTime = SystemClock.uptimeMillis();;
+    	//find delta time
+    	float deltaTime = (float) (currentTime - lastUpdateTime);
+    	//update the last update time
+    	lastUpdateTime = currentTime;
+    	
+    	//clamp delta time
+    	deltaTime = MathUtil.clamp(deltaTime,
+			DELTA_CLAMP_LOWER, DELTA_CLAMP_UPPER);
+    	
+    	//get the time scale
+    	timeScale = deltaTime / STD_FRAME_LENGTH;
+    	
+    	//get the fps
+    	fps = ValuesUtil.MS_IN_SEC / deltaTime;
     }
     
-    /**Sets the start of the next frame*/
-    public void frameStart() {
-        
-        lastFrameStart = SystemClock.uptimeMillis();;
-    }
-    
-    /**Resets the start frame time and zeros the accum time
-    NOTE: is not done instantly but performed on the then next update*/
+    /**Zeros the last update time to now*/
     public void zero() {
         
-        zero = true;
-    }
-    
-    /**@return the length of a standard frame*/
-    public static int getStdFrameLength() {
-    	
-    	return STD_FRAME_LENGTH;
+    	lastUpdateTime = SystemClock.uptimeMillis();
     }
     
     /**@return the scale amount*/

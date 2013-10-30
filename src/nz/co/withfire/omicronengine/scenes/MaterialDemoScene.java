@@ -141,8 +141,8 @@ public class MaterialDemoScene extends Scene {
 		}
 		
 		camRot.add(new Vector3(
-			-swipeMove.getY() * ROTATION_MULTIPLIER * FPSManager.getTimeScale(),
-			 swipeMove.getX() * ROTATION_MULTIPLIER * FPSManager.getTimeScale(),
+			-swipeMove.getY() * ROTATION_MULTIPLIER,
+			 swipeMove.getX() * ROTATION_MULTIPLIER,
 			 0.0f));
 		
 		//update the last swipe
@@ -157,8 +157,7 @@ public class MaterialDemoScene extends Scene {
 		if (pinchLastStore) {
 			
 			float thisPinchDis = pinch.getPos1().distance(pinch.getPos2());
-            float zoom = ((thisPinchDis - pinchDis) * ZOOM_MULTIPLIER) *
-        		FPSManager.getTimeScale();
+            float zoom = ((thisPinchDis - pinchDis) * ZOOM_MULTIPLIER);
             pinchDis = thisPinchDis;
             
             camZoom += zoom;
