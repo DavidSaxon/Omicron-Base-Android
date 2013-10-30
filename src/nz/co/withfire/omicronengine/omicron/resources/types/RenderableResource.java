@@ -7,10 +7,11 @@
 package nz.co.withfire.omicronengine.omicron.resources.types;
 
 import android.content.Context;
-import nz.co.withfire.omicronengine.R;
+import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.MeshLoader;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class RenderableResource {
@@ -20,7 +21,6 @@ public class RenderableResource {
 	public enum RenderableType {
 		
 		MESH,
-		SPRITE
 	};
 	
 	//VARIABLES
@@ -86,11 +86,6 @@ public class RenderableResource {
 					resourceId, layerGroup, layer);
 				break;
 			}
-			case SPRITE: {
-				
-				//TODO:
-				break;
-			}
 		}
 		
 		//set the material
@@ -123,6 +118,7 @@ public class RenderableResource {
         if (!loaded) {
             
             //report error
+        	Log.v(Values.TAG, "Attempted to use an un-loaded renderable");
             throw new RuntimeException(
                 "Attempted to use an un-loaded renderable");
         }

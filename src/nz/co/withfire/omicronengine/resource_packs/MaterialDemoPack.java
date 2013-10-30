@@ -23,13 +23,6 @@ public class MaterialDemoPack {
 	/**Builds the resources*/
 	public static void build() {
 		
-    	//SHADERS
-    	//TODO: put in all
-		ResourceManager.add("default", new ShaderResource(
-			R.raw.shader_vertex_default,
-			R.raw.shader_fragment_default,
-			ResourceGroup.MATERIAL_DEMO));
-		
 		//TEXTURES
 		//the skybox
 		ResourceManager.add("skybox", new TextureResource(
@@ -94,7 +87,7 @@ public class MaterialDemoPack {
 		ResourceManager.add("skybox", new RenderableResource(
 			RenderableType.MESH,
 			R.raw.mesh_materialdemo_skybox,
-			Renderable.Group.STD, 4, "skybox",
+			Renderable.Group.STD, 1, "skybox",
 			ResourceGroup.MATERIAL_DEMO));
 		//table
 		ResourceManager.add("table", new RenderableResource(

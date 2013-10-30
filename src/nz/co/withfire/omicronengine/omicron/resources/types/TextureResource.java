@@ -8,8 +8,10 @@ package nz.co.withfire.omicronengine.omicron.resources.types;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.TextureLoader;
+import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class TextureResource {
@@ -82,6 +84,7 @@ public class TextureResource {
         if (!loaded) {
             
             //report error
+        	Log.v(Values.TAG, "Attempted to use an un-loaded texture");
             throw new RuntimeException(
                 "Attempted to use an un-loaded texture");
         }

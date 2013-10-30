@@ -9,11 +9,13 @@ package nz.co.withfire.omicronengine.omicron.resources.types;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.material.attribute.MaterialAttribute;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class MaterialResource {
@@ -130,6 +132,7 @@ public class MaterialResource {
         if (!loaded) {
             
             //report error
+        	Log.v(Values.TAG, "Attempted to use an un-loaded material");
             throw new RuntimeException(
                 "Attempted to use an un-loaded material");
         }

@@ -16,6 +16,7 @@ public final class R {
         public static final int materialdemo_metal=0x7f020002;
         public static final int materialdemo_skybox=0x7f020003;
         public static final int materialdemo_wood=0x7f020004;
+        public static final int startup_omicron_splash=0x7f020005;
     }
     public static final class raw {
         public static final int mesh_materialdemo_cone=0x7f030000;
@@ -26,6 +27,7 @@ public final class R {
         public static final int mesh_materialdemo_table=0x7f030005;
         public static final int shader_fragment_default=0x7f030006;
         public static final int shader_vertex_default=0x7f030007;
+        public static final int sprite_std=0x7f030008;
     }
     public static final class string {
         public static final int action_settings=0x7f040001;

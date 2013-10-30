@@ -14,7 +14,7 @@ public abstract class Scene {
 
 	//VARIABLES
 	//the entity list
-	protected EntityList entityList = new EntityList();
+	protected EntityList entities = new EntityList();
 	
 	//PUBLIC METHODS
 	/**Initialises the scene*/
@@ -26,7 +26,7 @@ public abstract class Scene {
 	public boolean execute() {
 		
 		//update entities and collision data
-		entityList.update();
+		entities.update();
 		//TODO:collision data
 		
 		return false;
@@ -36,7 +36,7 @@ public abstract class Scene {
 	public Scene nextScene() {
 		
 		//clean up
-		entityList.clear();
+		entities.clear();
 		//TODO:collision data
 		
 		return null;

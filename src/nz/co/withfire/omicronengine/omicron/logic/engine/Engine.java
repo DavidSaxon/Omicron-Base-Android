@@ -44,6 +44,9 @@ public class Engine {
 		//execute the current scene
 		if (scene.execute()) {
 			
+			//init next
+			Log.v(Values.TAG, "render");
+			
 			//set the new scene
 			scene = scene.nextScene();
 			scene.init();

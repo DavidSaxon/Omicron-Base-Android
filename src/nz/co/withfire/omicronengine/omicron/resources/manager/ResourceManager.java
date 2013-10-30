@@ -19,7 +19,10 @@ import nz.co.withfire.omicronengine.omicron.resources.types.ShaderResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 import nz.co.withfire.omicronengine.override.Values;
+import nz.co.withfire.omicronengine.resource_packs.AllPack;
+import nz.co.withfire.omicronengine.resource_packs.GUIPack;
 import nz.co.withfire.omicronengine.resource_packs.MaterialDemoPack;
+import nz.co.withfire.omicronengine.resource_packs.StartUpPack;
 
 import android.content.Context;
 import android.util.Log;
@@ -52,6 +55,9 @@ public class ResourceManager {
 		renderables = new HashMap<String, RenderableResource>();
 		
 		//build the resource packs
+		AllPack.build();
+		GUIPack.build();
+		StartUpPack.build();
 		MaterialDemoPack.build();
 	}
 	

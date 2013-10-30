@@ -11,14 +11,11 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import android.opengl.GLES20;
-import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
-import nz.co.withfire.omicronengine.override.Values;
 
 public class Mesh extends Renderable {
 
 	//VARIABLES
-	
 	//the number of dimensions of vertices
 	private static final int VERTEX_DIM = 3;
 	//the number of dimensions of uv co-ordinates
@@ -44,7 +41,7 @@ public class Mesh extends Renderable {
 	//the uv co-ordinates
 	protected float uvCoords[];
 	//the normals of the shape
-	protected float normals[] = new float[0];
+	protected float normals[];
 	
 	//the vertex buffer
 	protected FloatBuffer vertexBuffer;

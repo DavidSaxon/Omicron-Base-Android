@@ -11,6 +11,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import android.util.Log;
 import android.view.MotionEvent;
+import nz.co.withfire.omicronengine.entities.gui.Fader;
+import nz.co.withfire.omicronengine.entities.gui.Fader.FadeDirection;
 import nz.co.withfire.omicronengine.entities.material_demo.BronzeSphere;
 import nz.co.withfire.omicronengine.entities.material_demo.ChinaMonkey;
 import nz.co.withfire.omicronengine.entities.material_demo.CubeOfFate;
@@ -18,8 +20,10 @@ import nz.co.withfire.omicronengine.entities.material_demo.MetalCube;
 import nz.co.withfire.omicronengine.entities.material_demo.PlasticCone;
 import nz.co.withfire.omicronengine.entities.material_demo.Skybox;
 import nz.co.withfire.omicronengine.entities.material_demo.Table;
+import nz.co.withfire.omicronengine.entities.start_up.Splash;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
+import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Gesture;
@@ -33,6 +37,8 @@ import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class MaterialDemoScene extends Scene {
@@ -51,7 +57,7 @@ public class MaterialDemoScene extends Scene {
 	//the camera
 	private Camera camera = new PerspectiveCamera(40.0f, 0.1f, 750.0f);
 	//the position of the camera
-	private Vector3 camPos = new Vector3(0.0f, 0.0f, 4.0f);
+	private Vector3 camPos = new Vector3(0.0f, 0.0f, 2.0f);
 	//the rotation of the camera
 	private Vector3 camRot = new Vector3(-45.0f, 0.0f, 0.0f);
 	//the zoom of the camera
@@ -65,12 +71,12 @@ public class MaterialDemoScene extends Scene {
 	private final float ZOOM_CLAMP_LOWER  = 0.10f;
 	private final float ZOOM_CLAMP_UPPER = 1.75f;
 	
-	//CONSTRUCTOR
-	/**Creates a new scene to demo materials*/
-	public MaterialDemoScene() {
+	//PUBLIC METHODS
+	@Override
+	public void init() {
 		
 		//loading
-		ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
+		
 		
 		//initialise the scene
 		initCamera();
@@ -184,12 +190,14 @@ public class MaterialDemoScene extends Scene {
 	/**Initialises the entities in the scene*/
 	private void initEntities() {
 		
-		entityList.add(new Skybox());
-		entityList.add(new Table());
-		entityList.add(new CubeOfFate());
-		entityList.add(new MetalCube());
-		entityList.add(new ChinaMonkey());
-		entityList.add(new BronzeSphere());
-		entityList.add(new PlasticCone());
+		entities.add(new Fader(FadeDirection.FADE_IN, 0.01f,
+			new Vector4(0.0f, 0.0f, 0.0f, 1.0f)));
+		entities.add(new Skybox());
+		entities.add(new Table());
+		entities.add(new CubeOfFate());
+		entities.add(new MetalCube());
+		entities.add(new ChinaMonkey());
+		entities.add(new BronzeSphere());
+		entities.add(new PlasticCone());
 	}
 }

@@ -27,10 +27,12 @@ import nz.co.withfire.omicronengine.omicron.resources.loaders.TextureLoader;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
+import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class OmicronRenderer implements GLSurfaceView.Renderer{
@@ -71,7 +73,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 		this.context = context;
 		this.engine = engine;
 		renderList = new RenderList();
-		camera =  new PerspectiveCamera(60.0f, 0.1f, 750.0f);
+		camera =  new PerspectiveCamera(60.0f, 0.1f, 100.0f);
 	}
 	
     //PUBLIC METHODS
@@ -116,7 +118,11 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         
         //execute the engine
         engine.execute();
-    	
+        
+        //reset the camera
+        camera.setProjection(projectionMatrix);
+        camera.setView(viewMatrix);
+        
         //apply the camera transformations
         camera.applyTransformations(viewMatrix);
         
@@ -176,6 +182,8 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     
     /**@param camera the new camera of the renderer*/
     public static void setCamera(Camera camera) {
+    	
+    	Log.v(Values.TAG, "cam set");
     	
     	OmicronRenderer.camera = camera;
     }

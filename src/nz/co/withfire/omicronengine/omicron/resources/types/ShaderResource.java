@@ -8,8 +8,10 @@ package nz.co.withfire.omicronengine.omicron.resources.types;
 
 import android.content.Context;
 import android.opengl.GLES20;
+import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.resources.loaders.ShaderLoader;
+import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class ShaderResource {
@@ -116,6 +118,7 @@ public class ShaderResource {
         if (!loaded) {
             
             //report error
+        	Log.v(Values.TAG, "Attempted to use an un-loaded shader");
             throw new RuntimeException(
                 "Attempted to use an un-loaded shader");
         }
