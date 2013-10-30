@@ -9,7 +9,9 @@ package nz.co.withfire.omicronengine.omicron.graphics.renderable;
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
+import nz.co.withfire.omicronengine.override.Values;
 import android.opengl.Matrix;
+import android.util.Log;
 
 public abstract class Renderable {
 
@@ -24,9 +26,9 @@ public abstract class Renderable {
 	
 	//VARIABLES
 	//the type this is
-	private Group group = Group.STD;
+	protected Group group = Group.STD;
 	//the layer of this shape
-	private int layer = 0;
+	protected int layer = 0;
 	
 	//the material of the renderable
 	protected Material material = new Material();
@@ -53,11 +55,11 @@ public abstract class Renderable {
 	
     //CONSTRUCTOR
     /**Creates a new renderable
-    @param type the type of the renderable
+    @param group the group of the renderable this is in
     @param layer the layer of the renderable*/
-    public Renderable(Group type, int layer) {
+    public Renderable(Group group, int layer) {
     	
-    	this.group = type;
+    	this.group = group;
     	this.layer = layer;
     }
     
@@ -70,13 +72,21 @@ public abstract class Renderable {
 		//TO OVERRIDE
 	}
 	
+	/**@return a deep copy of the renderable*/
+	public Renderable deepCopy() {
+		
+		//TO OVERRIDE
+		
+		return null;
+	}
+	
+	//GETTERS
 	/**@return the group*/
 	public Group getGroup() {
 		
 		return group;
 	}
 	
-	//GETTERS
 	/**@return the layer of the renderable*/
 	public int getLayer() {
 		
@@ -205,5 +215,17 @@ public abstract class Renderable {
         //calculate the mvp matrix
         Matrix.multiplyMM(mvMatrix, 0, viewMatrix, 0, modelMatrix, 0);
         Matrix.multiplyMM(mvpMatrix, 0, projectionMatrix, 0, mvMatrix, 0);
+	}
+	
+	/**Copies the common renderable elements into the new renderable
+	@param copy the renderable to copy into*/
+	protected void copyCommonElements(Renderable copy) {
+		
+		copy.setMaterial(material);
+		copy.setTranslation(translation);
+		copy.setLocalRot(localRot);
+		copy.setGlobalRot(globalRot);
+		copy.setPostRotTrans(postRotTrans);
+		copy.setScale(scale);
 	}
 }

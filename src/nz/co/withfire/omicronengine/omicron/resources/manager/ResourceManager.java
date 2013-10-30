@@ -314,7 +314,7 @@ public class ResourceManager {
 	@return the renderable*/
 	public static Renderable getRenderable(String label) {
 		
-		return renderables.get(label).getRenderable();
+		return renderables.get(label).getRenderable().deepCopy();
 	}
 	
 	//ADD

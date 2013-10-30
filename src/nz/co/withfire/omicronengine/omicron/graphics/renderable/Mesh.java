@@ -55,16 +55,16 @@ public class Mesh extends Renderable {
 	
 	//CONSTRUCTORS
 	/**Creates a new mesh
-	@param type the type of renderable this is
+	@param group the group of renderable this is in
 	@param layer the layer of this
 	@param vertices the vertex array
 	@param uvCoords the uv co-ordinates of the mesh
 	@param normals the normals array*/
-	public Mesh(Group type, int layer,
+	public Mesh(Group group, int layer,
 		float vertices[], float uvCoords[], float normals[]) {
 		
 		//super call
-		super(type, layer);
+		super(group, layer);
 		
 		//initialise variables
 		this.vertices = vertices;
@@ -156,6 +156,35 @@ public class Mesh extends Renderable {
         	
         	GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
         }
+	}
+	
+	@Override
+	public Renderable deepCopy() {
+		
+		//copy the lists
+		float verticesCopy[] = new float[vertices.length];
+		for (int i = 0; i < vertices.length; ++i) {
+			
+			verticesCopy[i] = vertices[i];
+		}
+		float uvCopy[] = new float[uvCoords.length];
+		for (int i = 0; i < uvCoords.length; ++i) {
+			
+			uvCopy[i] = uvCoords[i];
+		}
+		float normalsCopy[] = new float[normals.length];
+		for (int i = 0; i < normals.length; ++i) {
+			
+			normalsCopy[i] = normals[i];
+		}
+		
+		Mesh copy = new Mesh(group, layer,
+			verticesCopy, uvCopy, normalsCopy);
+		
+		//copy over the common renderable elements
+		copyCommonElements(copy);
+		
+		return copy;
 	}
 	
 	//PRIVATE METHODS
