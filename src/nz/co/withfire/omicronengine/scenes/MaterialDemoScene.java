@@ -6,11 +6,6 @@
 
 package nz.co.withfire.omicronengine.scenes;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
-import android.util.Log;
-import android.view.MotionEvent;
 import nz.co.withfire.omicronengine.entities.gui.Fader;
 import nz.co.withfire.omicronengine.entities.gui.Fader.FadeDirection;
 import nz.co.withfire.omicronengine.entities.material_demo.BronzeSphere;
@@ -20,28 +15,20 @@ import nz.co.withfire.omicronengine.entities.material_demo.MetalCube;
 import nz.co.withfire.omicronengine.entities.material_demo.PlasticCone;
 import nz.co.withfire.omicronengine.entities.material_demo.Skybox;
 import nz.co.withfire.omicronengine.entities.material_demo.Table;
-import nz.co.withfire.omicronengine.entities.start_up.Splash;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.lighting.AmbientLight;
 import nz.co.withfire.omicronengine.omicron.graphics.lighting.PointLight;
-import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
-import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Gesture;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.GestureWatcher;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Pinch;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Swipe;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
-import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
-import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
-import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
-import nz.co.withfire.omicronengine.override.Values;
-import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class MaterialDemoScene extends Scene {
 
@@ -53,7 +40,7 @@ public class MaterialDemoScene extends Scene {
     private Vector2 lastSwipe = null;
     //if there was a pinch last frame
     private boolean pinchLast = false;
-  //the pinch distance
+    //the pinch distance
     private float pinchDis = 0.0f;
 	
 	//the camera

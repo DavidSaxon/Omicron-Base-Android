@@ -41,6 +41,8 @@ public class Engine {
 		//update the fps manager
 		fps.update();
 		
+		//Log.v(Values.TAG, "fps: " + fps.getFPS());
+		
 		//execute the current scene
 		if (scene.execute()) {
 			

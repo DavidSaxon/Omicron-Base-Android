@@ -9,9 +9,7 @@ package nz.co.withfire.omicronengine.omicron.graphics.renderable;
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
-import nz.co.withfire.omicronengine.override.Values;
 import android.opengl.Matrix;
-import android.util.Log;
 
 public abstract class Renderable {
 
@@ -24,6 +22,13 @@ public abstract class Renderable {
 			    //standard camera
 	};
 	
+	//The custom draw function modes
+	public enum CustomDrawMode {
+		
+		ADD, //is done alongside the draw code
+		REPLACE //replace the standard draw code
+	};
+	
 	//VARIABLES
 	//the type this is
 	protected Group group = Group.STD;
@@ -32,6 +37,12 @@ public abstract class Renderable {
 	
 	//the material of the renderable
 	protected Material material = new Material();
+	
+	//Custom Draw function
+	//the custom draw function mode
+	protected CustomDrawMode customDrawMode = CustomDrawMode.ADD;
+	//the custom draw function
+	protected CustomDrawFunction customDrawFunction = null;
 	
 	//Transformations info
 	//the translation
@@ -99,10 +110,16 @@ public abstract class Renderable {
 		return material;
 	}
 	
-	/**@param group the new group*/
-	public void setGroup(Group group) {
+	/**@return the current custom draw mode*/
+	public CustomDrawMode getCustomDrawMode() {
 		
-		this.group = group;
+		return customDrawMode;
+	}
+	
+	/**@return the current custom draw function*/
+	public CustomDrawFunction getCustomDrawFunction() {
+		
+		return customDrawFunction;
 	}
 	
 	/**@return the translation*/
@@ -136,6 +153,12 @@ public abstract class Renderable {
 	}
 	
 	//SETTERS
+	/**@param group the new group*/
+	public void setGroup(Group group) {
+		
+		this.group = group;
+	}
+	
 	/**@param layer the new layer of the renderable*/
 	public void setLayer(int layer) {
 		
@@ -146,6 +169,18 @@ public abstract class Renderable {
 	public void setMaterial(Material material) {
 		
 		this.material = material;
+	}
+	
+	/**@param customDrawMode the new custom draw mode*/
+	public void setCustomDrawMode(CustomDrawMode customDrawMode) {
+		
+		this.customDrawMode = customDrawMode;
+	}
+	
+	/**@param customDrawFunction the new custom draw function*/
+	public void setCustomDrawFunction(CustomDrawFunction customDrawFunction) {
+		
+		this.customDrawFunction = customDrawFunction;
 	}
 	
 	/**@param translation the new translation*/

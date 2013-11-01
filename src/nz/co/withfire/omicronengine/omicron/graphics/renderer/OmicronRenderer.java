@@ -12,29 +12,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.lighting.Light;
 import nz.co.withfire.omicronengine.omicron.graphics.lighting.PointLight;
-import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
-import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
-import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
-import nz.co.withfire.omicronengine.omicron.resources.loaders.MeshLoader;
-import nz.co.withfire.omicronengine.omicron.resources.loaders.ShaderLoader;
-import nz.co.withfire.omicronengine.omicron.resources.loaders.TextureLoader;
-import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
-import nz.co.withfire.omicronengine.override.Values;
-import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class OmicronRenderer implements GLSurfaceView.Renderer{
@@ -84,11 +73,6 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     	
         //initialise openGL
         initGL();
-        
-//        Mesh testCube = MeshLoader.loadOBJ(context, R.raw.mesh_materialdemo_cube,
-//        		Renderable.Group.STD, 0);
-//        testCube.setMaterial(ResourceManager.getMaterial("metal"));
-//        renderList.add(testCube);
     }
     
     @Override
@@ -207,8 +191,6 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     //SETTERS
     /**@param camera the new camera of the renderer*/
     public static void setCamera(Camera camera) {
-    	
-    	Log.v(Values.TAG, "cam set");
     	
     	OmicronRenderer.camera = camera;
     }

@@ -90,6 +90,20 @@ public class Mesh extends Renderable {
         //Set the OpenGL program to use
         int program = material.getShader().getProgram();
         GLES20.glUseProgram(program);
+
+        //if there is a custom shader input function
+        if (customDrawFunction != null) {
+        	
+        	//call the draw code
+        	customDrawFunction.draw(program);
+        	
+        	//if it replace draw the arrays now and return
+        	if (customDrawMode == CustomDrawMode.REPLACE) {
+        		
+        		drawArrays();
+        		return;
+        	}
+        }
         
         //VERTEX CO-ORDINATES
         //get a handle the vertex positions and enable them
@@ -225,16 +239,7 @@ public class Mesh extends Renderable {
     		1, false, mvpMatrix, 0);
         
         //DRAW
-        //wireframe
-        if (material.getWireframe()) {
-        	
-        	GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, vertexCount);
-        }
-        //normal render
-        else {
-        	
-        	GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
-        }
+        drawArrays();
 	}
 	
 	@Override
@@ -267,6 +272,21 @@ public class Mesh extends Renderable {
 	}
 	
 	//PRIVATE METHODS
+	/**The final stage or rendering the shape passing the arrays to OpenGL*/
+	private void drawArrays() {
+		
+        //wireframe
+        if (material.getWireframe()) {
+        	
+        	GLES20.glDrawArrays(GLES20.GL_LINE_LOOP, 0, vertexCount);
+        }
+        //normal render
+        else {
+        	
+        	GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
+        }
+	}
+	
 	/**Performs initialisation of the mesh data*/
 	private void init() {
 		
