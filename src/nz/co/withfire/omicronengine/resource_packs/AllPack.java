@@ -18,7 +18,6 @@ public class AllPack {
 	public static void build() {
 		
     	//SHADERS
-    	//TODO: put in all
 		ResourceManager.add("default", new ShaderResource(
 			R.raw.shader_vertex_default,
 			R.raw.shader_fragment_default,

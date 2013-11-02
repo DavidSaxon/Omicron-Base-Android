@@ -45,7 +45,8 @@ public class StartUpScene extends Scene {
 		//once the splash has faded in load the next scene resources
 		if (!loaded && splash.fadedIn()) {
 			
-			ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
+			//ResourceManager.load(ResourceGroup.MATERIAL_DEMO);
+			ResourceManager.load(ResourceGroup.MAIN_MENU);
 			loaded = true;
 		}
 		
@@ -62,6 +63,6 @@ public class StartUpScene extends Scene {
 		//release start up resources
 		ResourceManager.destroy(ResourceGroup.START_UP);
 		
-		return new MaterialDemoScene();
+		return new MainMenuScene();
 	}
 }

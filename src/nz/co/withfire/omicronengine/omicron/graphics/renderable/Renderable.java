@@ -22,11 +22,11 @@ public abstract class Renderable {
 			    //standard camera
 	};
 	
-	//The custom draw function modes
-	public enum CustomDrawMode {
+	//The custom shader input function modes
+	public enum CustomShaderInputMode {
 		
-		ADD, //is done alongside the draw code
-		REPLACE //replace the standard draw code
+		ADD, //is done alongside the current shader input code
+		REPLACE //replace the current shader input code
 	};
 	
 	//VARIABLES
@@ -38,11 +38,12 @@ public abstract class Renderable {
 	//the material of the renderable
 	protected Material material = new Material();
 	
-	//Custom Draw function
-	//the custom draw function mode
-	protected CustomDrawMode customDrawMode = CustomDrawMode.ADD;
-	//the custom draw function
-	protected CustomDrawFunction customDrawFunction = null;
+	//Custom shader input function
+	//the custom shader input function mode
+	protected CustomShaderInputMode customShaderInputMode =
+		CustomShaderInputMode.ADD;
+	//the custom shader input function
+	protected CustomShaderInputFunction customShaderInputFunction = null;
 	
 	//Transformations info
 	//the translation
@@ -110,16 +111,16 @@ public abstract class Renderable {
 		return material;
 	}
 	
-	/**@return the current custom draw mode*/
-	public CustomDrawMode getCustomDrawMode() {
+	/**@return the current custom shader input mode*/
+	public CustomShaderInputMode getCustomShaderInputMode() {
 		
-		return customDrawMode;
+		return customShaderInputMode;
 	}
 	
-	/**@return the current custom draw function*/
-	public CustomDrawFunction getCustomDrawFunction() {
+	/**@return the current custom shader input function*/
+	public CustomShaderInputFunction getCustomShaderInputFunction() {
 		
-		return customDrawFunction;
+		return customShaderInputFunction;
 	}
 	
 	/**@return the translation*/
@@ -171,16 +172,18 @@ public abstract class Renderable {
 		this.material = material;
 	}
 	
-	/**@param customDrawMode the new custom draw mode*/
-	public void setCustomDrawMode(CustomDrawMode customDrawMode) {
+	/**@param customShaderInputMode the new custom shader input mode*/
+	public void setCustomShaderInputMode(
+		CustomShaderInputMode customShaderInputMode) {
 		
-		this.customDrawMode = customDrawMode;
+		this.customShaderInputMode = customShaderInputMode;
 	}
 	
-	/**@param customDrawFunction the new custom draw function*/
-	public void setCustomDrawFunction(CustomDrawFunction customDrawFunction) {
+	/**@param customShaderInputFunction the new custom shader input function*/
+	public void setCustomShaderInputFunction(
+		CustomShaderInputFunction customShaderInputFunction) {
 		
-		this.customDrawFunction = customDrawFunction;
+		this.customShaderInputFunction = customShaderInputFunction;
 	}
 	
 	/**@param translation the new translation*/

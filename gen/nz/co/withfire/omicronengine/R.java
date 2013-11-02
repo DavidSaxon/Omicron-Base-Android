@@ -26,8 +26,10 @@ public final class R {
         public static final int mesh_materialdemo_sphere=0x7f030004;
         public static final int mesh_materialdemo_table=0x7f030005;
         public static final int shader_fragment_default=0x7f030006;
-        public static final int shader_vertex_default=0x7f030007;
-        public static final int sprite_std=0x7f030008;
+        public static final int shader_fragment_electric_wave=0x7f030007;
+        public static final int shader_vertex_default=0x7f030008;
+        public static final int shader_vertex_electric_wave=0x7f030009;
+        public static final int sprite_std=0x7f03000a;
     }
     public static final class string {
         public static final int action_settings=0x7f040001;

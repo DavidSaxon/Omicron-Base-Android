@@ -21,6 +21,7 @@ import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.resource_packs.AllPack;
 import nz.co.withfire.omicronengine.resource_packs.GUIPack;
+import nz.co.withfire.omicronengine.resource_packs.MainMenuPack;
 import nz.co.withfire.omicronengine.resource_packs.MaterialDemoPack;
 import nz.co.withfire.omicronengine.resource_packs.StartUpPack;
 
@@ -58,6 +59,7 @@ public class ResourceManager {
 		AllPack.build();
 		GUIPack.build();
 		StartUpPack.build();
+		MainMenuPack.build();
 		MaterialDemoPack.build();
 	}
 	

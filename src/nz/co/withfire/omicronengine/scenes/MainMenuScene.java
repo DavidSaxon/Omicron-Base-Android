@@ -6,6 +6,7 @@
 
 package nz.co.withfire.omicronengine.scenes;
 
+import nz.co.withfire.omicronengine.entities.main_menu.Background;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Gesture;
@@ -36,7 +37,7 @@ public class MainMenuScene extends Scene {
   	public void init() {
   		
   		//initialise the scene
-  		//TODO:
+  		initEntities();
   	}
   	
 	@Override
@@ -80,5 +81,11 @@ public class MainMenuScene extends Scene {
             //zoom the camera
             //zoomCamera((Pinch) gesture, pinchLastStore);
         }
+	}
+	
+	/**Adds the initial entities to the scene*/
+	private void initEntities() {
+		
+		entities.add(new Background());
 	}
 }

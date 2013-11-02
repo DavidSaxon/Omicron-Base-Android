@@ -92,13 +92,13 @@ public class Mesh extends Renderable {
         GLES20.glUseProgram(program);
 
         //if there is a custom shader input function
-        if (customDrawFunction != null) {
+        if (customShaderInputFunction != null) {
         	
-        	//call the draw code
-        	customDrawFunction.draw(program);
+        	//call the shader input code
+        	customShaderInputFunction.shaderInput(program);
         	
         	//if it replace draw the arrays now and return
-        	if (customDrawMode == CustomDrawMode.REPLACE) {
+        	if (customShaderInputMode == CustomShaderInputMode.REPLACE) {
         		
         		drawArrays();
         		return;

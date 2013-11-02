@@ -20,7 +20,7 @@ public class Splash extends Entity {
 	
 	//Fading
 	//the fade speed
-	private final float FADE_SPEED = 1.02f;
+	private final float FADE_SPEED = 0.02f;
 	//the current fade level
 	private float fade = 0.0f;
 	//the state of the fade 0 = fading in, 1 = waiting, 2 = fading out, 3 = done
