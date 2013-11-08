@@ -23,6 +23,13 @@ public class Splash extends Entity {
 	private final float FADE_SPEED = 0.02f;
 	//the current fade level
 	private float fade = 0.0f;
+	
+	//Waiting
+	//the minimum number of seconds we will wait at the splash
+	private final int WAIT_MIN = 1000;
+	//the time we started waiting
+	private long waitStart = 0;
+	
 	//the state of the fade 0 = fading in, 1 = waiting, 2 = fading out, 3 = done
 	private int state = 0;
 	
@@ -50,8 +57,17 @@ public class Splash extends Entity {
 			
 			//wait
 			fade = 1.0f;
+			waitStart = System.currentTimeMillis();
 			++state;
-			++state;
+		}
+		
+		//wait
+		if (state == 1) {
+			
+			if ((int) (System.currentTimeMillis() - waitStart) > WAIT_MIN) {
+				
+				++state;
+			}
 		}
 		
 		//fade out

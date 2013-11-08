@@ -7,7 +7,6 @@
 package nz.co.withfire.omicronengine.omicron.logic.engine;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
@@ -45,10 +44,7 @@ public class Engine {
 		
 		//execute the current scene
 		if (scene.execute()) {
-			
-			//init next
-			Log.v(Values.TAG, "render");
-			
+
 			//set the new scene
 			scene = scene.nextScene();
 			scene.init();

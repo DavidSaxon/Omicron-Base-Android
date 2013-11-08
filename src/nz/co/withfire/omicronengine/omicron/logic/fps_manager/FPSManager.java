@@ -8,9 +8,7 @@ package nz.co.withfire.omicronengine.omicron.logic.fps_manager;
 
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
-import nz.co.withfire.omicronengine.override.Values;
 import android.os.SystemClock;
-import android.util.Log;
 
 public class FPSManager {
 
