@@ -34,8 +34,9 @@ public class PerspectiveCamera extends Camera {
 		
     	//apply the projection matrix
 		float ratio = (float) dimensions.getX() / (float) dimensions.getY();
-        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1, 1,
-    		nearPlane, farPlane);
+//        Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1, 1,
+//    		nearPlane, farPlane);
+		Matrix.perspectiveM(projectionMatrix, 0, 60.0f, ratio, 0.01f, 100.0f);
 ;
 	}
 }

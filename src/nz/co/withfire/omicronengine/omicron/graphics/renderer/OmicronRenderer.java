@@ -21,8 +21,10 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
+import nz.co.withfire.omicronengine.override.Values;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class OmicronRenderer implements GLSurfaceView.Renderer{
@@ -82,6 +84,8 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         //set up the transformation utilities
         TransformationsUtil.init(new Vector2(width, height),
             viewMatrix, projectionMatrix);
+        
+        Log.v(Values.TAG, "Dim: " + TransformationsUtil.getOpenGLDim());
         
     	//initialise the engine
     	engine.init();

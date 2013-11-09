@@ -6,6 +6,9 @@
 
 package nz.co.withfire.omicronengine.omicron.utilities.vector;
 
+import nz.co.withfire.omicronengine.override.Values;
+import android.util.Log;
+
 public class Vector4 {
 
     //VARIABLES
@@ -71,6 +74,26 @@ public class Vector4 {
     	this.y = other.getY();
     	this.z = other.getZ();
     	this.w = 0;
+    }
+    
+    /**Create a new 4d vector from the values of a length 4 array
+    @param array the array to create the vector from*/
+    public Vector4(float array[]) {
+    	
+    	//check the size of the array
+    	if (array.length != 4) {
+    		
+    		Log.v(Values.TAG, "ERROR: cannot create 4D vector from array " +
+				"of length " + array.length);
+    		throw new RuntimeException(
+				"ERROR: cannot create 4D vector from array " +
+				"of length " + array.length);
+    	}
+    	
+    	this.x = array[0];
+    	this.y = array[1];
+    	this.z = array[2];
+    	this.w = array[3];
     }
     
     //PUBLIC METHODS

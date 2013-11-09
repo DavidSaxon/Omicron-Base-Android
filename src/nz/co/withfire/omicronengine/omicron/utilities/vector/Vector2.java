@@ -6,6 +6,9 @@
 
 package nz.co.withfire.omicronengine.omicron.utilities.vector;
 
+import android.util.Log;
+import nz.co.withfire.omicronengine.override.Values;
+
 public class Vector2 {
     
     //VARIABLES
@@ -57,6 +60,24 @@ public class Vector2 {
     	
     	this.x = other.getX();
     	this.y = other.getY();
+    }
+    
+    /**Create a new 2d vector from the values of a length 2 array
+    @param array the array to create the vector from*/
+    public Vector2(float array[]) {
+    	
+    	//check the size of the array
+    	if (array.length != 2) {
+    		
+    		Log.v(Values.TAG, "ERROR: cannot create 2D vector from array " +
+				"of length " + array.length);
+    		throw new RuntimeException(
+				"ERROR: cannot create 2D vector from array " +
+				"of length " + array.length);
+    	}
+    	
+    	this.x = array[0];
+    	this.y = array[1];
     }
     
     //PUBLIC METHODS

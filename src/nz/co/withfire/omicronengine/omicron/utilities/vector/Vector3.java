@@ -6,6 +6,9 @@
 
 package nz.co.withfire.omicronengine.omicron.utilities.vector;
 
+import nz.co.withfire.omicronengine.override.Values;
+import android.util.Log;
+
 public class Vector3 {
    
     //VARIABLES
@@ -64,6 +67,25 @@ public class Vector3 {
     	this.x = other.getX();
     	this.y = other.getY();
     	this.z = other.getZ();
+    }
+    
+    /**Create a new 3d vector from the values of a length 3 array
+    @param array the array to create the vector from*/
+    public Vector3(float array[]) {
+    	
+    	//check the size of the array
+    	if (array.length != 3) {
+    		
+    		Log.v(Values.TAG, "ERROR: cannot create 3D vector from array " +
+				"of length " + array.length);
+    		throw new RuntimeException(
+				"ERROR: cannot create 3D vector from array " +
+				"of length " + array.length);
+    	}
+    	
+    	this.x = array[0];
+    	this.y = array[1];
+    	this.z = array[2];
     }
     
     //PUBLIC METHODS
