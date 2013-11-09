@@ -7,7 +7,10 @@
 package nz.co.withfire.omicronengine.scenes;
 
 import nz.co.withfire.omicronengine.entities.start_up.Splash;
+import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
+import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
+import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
@@ -15,6 +18,9 @@ import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 public class StartUpScene extends Scene {
 
 	//VARIABLES
+	//the camera
+  	private Camera camera = new PerspectiveCamera(2.9f, 100.0f);
+	
 	//true once loading has been completed
 	private boolean loaded = false;
 	
@@ -24,6 +30,9 @@ public class StartUpScene extends Scene {
 	//PUBLIC METHODS
 	@Override
 	public void init() {
+		
+		//set the camera
+  		OmicronRenderer.setCamera(camera);
 		
 		//load the start up resources
 		ResourceManager.load(ResourceGroup.ALL);

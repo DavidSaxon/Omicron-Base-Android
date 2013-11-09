@@ -10,7 +10,6 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
-import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 
 public class ChinaMonkey extends Entity {
 	

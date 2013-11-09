@@ -6,10 +6,8 @@
 
 package nz.co.withfire.omicronengine.omicron.logic.input.gesture;
 
-import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.logic.input.touch_control.TouchPoint;
 import nz.co.withfire.omicronengine.omicron.logic.input.touch_control.TouchTracker;
-import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 
 public class GestureWatcher {

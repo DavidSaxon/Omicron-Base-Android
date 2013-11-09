@@ -1,11 +1,8 @@
 package nz.co.withfire.omicronengine;
 
 import nz.co.withfire.omicronengine.omicron.android.OmicronSurfaceView;
-import nz.co.withfire.omicronengine.override.Values;
 import android.os.Bundle;
 import android.app.Activity;
-import android.util.Log;
-import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 

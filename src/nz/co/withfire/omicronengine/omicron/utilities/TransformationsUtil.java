@@ -20,7 +20,7 @@ public class TransformationsUtil {
     //the scale amounts
     private static Vector2 scale = new Vector2();
     
-    //the deafault view and projection matrixs
+    //the default view and projection matrices
     public static float[] viewMatrix;
     public static float[] projectionMatrix;
     
@@ -48,7 +48,7 @@ public class TransformationsUtil {
         scale.setY((openGLDim.getY() / Values.NATURAL_SCREEN_SIZE.getY()));
     }
     
-    /**Converts screen position to the equivlent OpenGL position
+    /**Converts screen position to the equivalent OpenGL position
     @param screenPos the screen position to convert
     @param viewMatrix the view matrix
     @param projectionMatrix the projection matrix

@@ -6,11 +6,9 @@
 
 package nz.co.withfire.omicronengine.omicron.logic.engine;
 
-import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
-import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.scenes.StartUpScene;
 
 public class Engine {

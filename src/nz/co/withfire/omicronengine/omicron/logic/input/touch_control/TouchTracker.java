@@ -6,10 +6,7 @@
 
 package nz.co.withfire.omicronengine.omicron.logic.input.touch_control;
 
-import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
-
-import android.util.Log;
 import android.view.MotionEvent;
 
 public class TouchTracker {
@@ -42,6 +39,7 @@ public class TouchTracker {
     @param eventType the event type
     @param index the index of the event
     @param pos the position of the event*/
+    @SuppressWarnings("deprecation")
     public void inputEvent(int eventType, int index, Vector2 pos) {
     	
         //we only care about 2 points so ignore others

@@ -45,8 +45,10 @@ public abstract class Camera {
 		
 		//reload the identity
 		Matrix.setIdentityM(viewMatrix, 0);
-        Matrix.setLookAtM(viewMatrix, 0, 0, 0, -1.73f, 0.0f,
-    		0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+//        Matrix.setLookAtM(viewMatrix, 0, 0, 0, -1.73f, 0.0f,
+//    		0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+		Matrix.setLookAtM(viewMatrix, 0, 0, 0, -3.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	}
 	
 	/**Applies the transformations

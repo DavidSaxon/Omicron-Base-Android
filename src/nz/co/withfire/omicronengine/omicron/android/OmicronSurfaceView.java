@@ -9,13 +9,9 @@ package nz.co.withfire.omicronengine.omicron.android;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
-import nz.co.withfire.omicronengine.override.Values;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.Window;
-import android.view.WindowManager;
 
 public class OmicronSurfaceView extends GLSurfaceView {
 
@@ -40,7 +36,7 @@ public class OmicronSurfaceView extends GLSurfaceView {
 		setEGLContextClientVersion(2);
 		
         //create a new renderer
-		renderer = new OmicronRenderer(context, engine);
+		renderer = new OmicronRenderer(engine);
         
         //set the configuration chooser
         setEGLConfigChooser(true);

@@ -9,6 +9,7 @@ package nz.co.withfire.omicronengine.scenes;
 import nz.co.withfire.omicronengine.entities.main_menu.Background;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
+import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Gesture;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.GestureWatcher;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Pinch;
@@ -30,12 +31,14 @@ public class MainMenuScene extends Scene {
     private float pinchDis = 0.0f;
     
     //the camera
-  	private Camera camera = new PerspectiveCamera(60.0f, 0.1f, 100.0f);
+  	private Camera camera = new PerspectiveCamera(2.9f, 100.0f);
   	
   	//PUBLIC METHODS
   	@Override
   	public void init() {
   		
+  		//set the camera
+  		OmicronRenderer.setCamera(camera);
   		//initialise the scene
   		initEntities();
   	}
@@ -45,6 +48,9 @@ public class MainMenuScene extends Scene {
 	
 		//super call
 		super.execute();
+		
+		//process touch
+		processTouch();
 		
 		return false;
 	}

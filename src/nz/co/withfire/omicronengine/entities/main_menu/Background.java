@@ -7,7 +7,6 @@
 package nz.co.withfire.omicronengine.entities.main_menu;
 
 import android.opengl.GLES20;
-import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.CustomShaderInputFunction;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
@@ -15,10 +14,9 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable.Custo
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
-import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
-import nz.co.withfire.omicronengine.override.Values;
 
 public class Background extends Entity {
 
@@ -34,7 +32,9 @@ public class Background extends Entity {
 		electricMesh = (Mesh) ResourceManager.getRenderable("electric_wave");
 		
 		//scale to screen width
-		electricMesh.setScale(new Vector3(1.7777f, 1.0f, 1.0f));
+		electricMesh.setScale(new Vector3(
+			TransformationsUtil.getOpenGLDim().getX(),
+			TransformationsUtil.getOpenGLDim().getY(), 1.0f));
 		
 		//add the custom shader input function
 		electricMesh.setCustomShaderInputMode(CustomShaderInputMode.ADD);

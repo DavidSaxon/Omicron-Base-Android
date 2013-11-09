@@ -11,7 +11,6 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.resources.types.MaterialResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource;
-import nz.co.withfire.omicronengine.omicron.resources.types.ShaderResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource.RenderableType;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;

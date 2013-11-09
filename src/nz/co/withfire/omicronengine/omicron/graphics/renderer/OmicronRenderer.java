@@ -21,17 +21,13 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
-import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
 public class OmicronRenderer implements GLSurfaceView.Renderer{
 
-	//VARIABLES
-	//the android context
-	private final Context context;
-	
+	//VARIABLES	
 	//the game engine
 	private final Engine engine;
 	
@@ -56,15 +52,13 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 	
 	//CONSTRUCTOR
 	/**Creates a new renderer
-	@param context the android context
 	@param engine the game engine*/
-	public OmicronRenderer(final Context context, final Engine engine) {
+	public OmicronRenderer(final Engine engine) {
 		
 		//initialise variables
-		this.context = context;
 		this.engine = engine;
 		renderList = new RenderList();
-		camera =  new PerspectiveCamera(60.0f, 0.1f, 100.0f);
+		camera =  new PerspectiveCamera(2.9f, 100.0f);
 	}
 	
     //PUBLIC METHODS
@@ -88,7 +82,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         //set up the transformation utilities
         TransformationsUtil.init(new Vector2(width, height),
             viewMatrix, projectionMatrix);
-    	
+        
     	//initialise the engine
     	engine.init();
     }
