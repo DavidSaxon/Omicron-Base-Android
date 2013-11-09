@@ -74,7 +74,7 @@ public class Vector3 {
     public Vector3(float array[]) {
     	
     	//check the size of the array
-    	if (array.length != 3) {
+    	if (array.length < 3) {
     		
     		Log.v(Values.TAG, "ERROR: cannot create 3D vector from array " +
 				"of length " + array.length);

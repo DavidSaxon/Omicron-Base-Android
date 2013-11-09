@@ -57,21 +57,20 @@ public class TransformationsUtil {
     public static Vector2 screenPosToOpenGLPos(Vector2 screenPos,
         float[] viewMatrix, float[] projectionMatrix) {
         
-//    	float x =
-//			(2.0f * (screenPos.getX() / Camera.getDimensions().getX())) - 1.0f;
-//    	float y =
-//			-(2.0f * (screenPos.getY() / Camera.getDimensions().getY())) + 1.0f;
-//    	
-//    	float viewProjectionInverse[] = new float[16];
-//    	Matrix.multiplyMM(viewProjectionInverse, 0,
-//			projectionMatrix,0, viewMatrix, 0);
-//    	Matrix.invertM(viewProjectionInverse, 0, viewProjectionInverse, 0);
+    	float vectorArray[] = new float[4];
+    	vectorArray[0] =
+			(2.0f * (screenPos.getX() / Camera.getDimensions().getX())) - 1.0f;
+    	vectorArray[1] =
+			-(2.0f * (screenPos.getY() / Camera.getDimensions().getY())) + 1.0f;
     	
-    	float vectorArray[] = new float[2];
-    	vectorArray[0] = 0;
-    	vectorArray[1] = 0;
-//    	Matrix.multiplyMV(vectorArray, 0, viewProjectionInverse, 0,
-//			vectorArray, 0);
+    	float viewProjectionInverse[] = new float[16];
+    	Matrix.multiplyMM(viewProjectionInverse, 0,
+			projectionMatrix,0, viewMatrix, 0);
+    	Matrix.invertM(viewProjectionInverse, 0, viewProjectionInverse, 0);
+    	
+    	
+    	Matrix.multiplyMV(vectorArray, 0, viewProjectionInverse, 0,
+			vectorArray, 0);
     	
     	return new Vector2(vectorArray);
     	

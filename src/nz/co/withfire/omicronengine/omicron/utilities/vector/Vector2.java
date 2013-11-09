@@ -67,7 +67,7 @@ public class Vector2 {
     public Vector2(float array[]) {
     	
     	//check the size of the array
-    	if (array.length != 2) {
+    	if (array.length < 2) {
     		
     		Log.v(Values.TAG, "ERROR: cannot create 2D vector from array " +
 				"of length " + array.length);

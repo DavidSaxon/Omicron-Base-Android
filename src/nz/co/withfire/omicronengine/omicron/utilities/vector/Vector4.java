@@ -81,7 +81,7 @@ public class Vector4 {
     public Vector4(float array[]) {
     	
     	//check the size of the array
-    	if (array.length != 4) {
+    	if (array.length < 4) {
     		
     		Log.v(Values.TAG, "ERROR: cannot create 4D vector from array " +
 				"of length " + array.length);
