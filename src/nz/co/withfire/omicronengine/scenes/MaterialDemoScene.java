@@ -44,7 +44,7 @@ public class MaterialDemoScene extends Scene {
     private float pinchDis = 0.0f;
 	
 	//the camera
-	private Camera camera = new PerspectiveCamera(2.0f, 1000.0f);
+	private Camera camera = new PerspectiveCamera(60.0f, 0.01f, 1000.0f);
 	//the position of the camera
 	private Vector3 camPos = new Vector3(0.0f, 0.0f, 2.0f);
 	//the rotation of the camera
@@ -53,9 +53,9 @@ public class MaterialDemoScene extends Scene {
 	private float camZoom = 0.25f;
 	
 	//the rotation multiplier
-	private final float ROTATION_MULTIPLIER = 80.0f;
+	private final float ROTATION_MULTIPLIER = 50.0f;
 	//the zoom multiplier
-	private final float ZOOM_MULTIPLIER = 3.0f;
+	private final float ZOOM_MULTIPLIER = 1.5f;
 	//the zoom clamps
 	private final float ZOOM_CLAMP_LOWER  = 0.10f;
 	private final float ZOOM_CLAMP_UPPER = 0.5f;
@@ -137,6 +137,16 @@ public class MaterialDemoScene extends Scene {
 			-swipeMove.getY() * ROTATION_MULTIPLIER,
 			 swipeMove.getX() * ROTATION_MULTIPLIER,
 			 0.0f));
+		
+		//clamp the camera
+		if (camRot.getX() > 90.0f) {
+			
+			camRot.setX(90.0f);
+		}
+		if (camRot.getX() < -90.0f) {
+			
+			camRot.setX(-90.0f);
+		}
 		
 		//update the last swipe
 		lastSwipe = swipe.getPos();

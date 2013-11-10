@@ -31,7 +31,7 @@ public class MainMenuScene extends Scene {
     private float pinchDis = 0.0f;
     
     //the camera
-  	private Camera camera = new PerspectiveCamera(2.9f, 100.0f);
+  	private Camera camera = new PerspectiveCamera(60.0f, 0.1f, 100.0f);
   	
   	//PUBLIC METHODS
   	@Override

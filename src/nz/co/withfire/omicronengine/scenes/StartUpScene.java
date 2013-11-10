@@ -19,7 +19,7 @@ public class StartUpScene extends Scene {
 
 	//VARIABLES
 	//the camera
-  	private Camera camera = new PerspectiveCamera(2.9f, 100.0f);
+  	private Camera camera = new PerspectiveCamera(60.0f, 0.1f, 100.0f);
 	
 	//true once loading has been completed
 	private boolean loaded = false;

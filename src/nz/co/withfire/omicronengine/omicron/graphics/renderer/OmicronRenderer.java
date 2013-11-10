@@ -38,6 +38,8 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 	
 	//the camera
 	private static Camera camera = null;
+	//camera with 90 fov for screen to OpenGL positions
+	private final Camera pCam = new PerspectiveCamera(90.0f, 0.1f, 100.0f);
 	
 	//the list of current unprocessed touch events
 	private  List<MotionEvent> touchEvents =
@@ -60,7 +62,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
 		//initialise variables
 		this.engine = engine;
 		renderList = new RenderList();
-		camera =  new PerspectiveCamera(2.9f, 100.0f);
+		camera = new PerspectiveCamera(60.0f, 0.01f, 100.0f);
 	}
 	
     //PUBLIC METHODS
@@ -78,14 +80,15 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     	Camera.setDimensions(new Vector2(width, height));
     	
     	//set up the camera
-    	camera.setProjection(projectionMatrix);
-    	camera.setView(viewMatrix);
+    	pCam.setProjection(projectionMatrix);
+    	pCam.setView(viewMatrix);
     	
         //set up the transformation utilities
-        TransformationsUtil.init(new Vector2(width, height),
-            viewMatrix, projectionMatrix);
+        TransformationsUtil.init(new Vector2(width, height), projectionMatrix);
         
-        Log.v(Values.TAG, "Dim: " + TransformationsUtil.getOpenGLDim());
+        //reset the camera to have a smaller fov
+        camera.setProjection(projectionMatrix);
+        camera.setView(viewMatrix);
         
     	//initialise the engine
     	engine.init();
@@ -197,6 +200,13 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     /**Process the touch events and passes them to the renderer*/
     private void processTouch() {
     	
+    	//set the projection with a 90 fov
+    	if (touchEvents.size() > 0) {
+    		
+    		pCam.setProjection(projectionMatrix);
+    	}
+    	
+    	
         for (MotionEvent e : touchEvents) {
             
             for (int index = 0; index < e.getPointerCount(); ++index) {
@@ -207,11 +217,17 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
                 
                 //convert to OpenGL co-ordinates
                 touchPos.copy(TransformationsUtil.screenPosToOpenGLPos(
-                    touchPos, viewMatrix, projectionMatrix));
+                    touchPos, projectionMatrix));
                 
                 engine.touchEvent(e.getAction(), index, touchPos);
             }
         }
+        
+    	//reset the camera
+    	if (touchEvents.size() > 0) {
+    		
+    		camera.setProjection(projectionMatrix);
+    	}
     }
     
     /**Initialise openGL*/
