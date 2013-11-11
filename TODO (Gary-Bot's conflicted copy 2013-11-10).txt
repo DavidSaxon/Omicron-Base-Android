@@ -1,0 +1,38 @@
+/++++++\
+| TODO |
+\++++++/
+
+-fix projection to work with perspective but also work with screen coords
+
+-fix exiting, so that we return to init the current engine not restarting.
+-or simply start again. Or pause? set exit protocol.
+
+-Lighting {
+	
+	-fix light rotation
+	-directional
+	-proper phong-blinn illumination
+	-specular
+	-emission
+	-Gouroud shading
+	-shadows
+	-environment mapping
+}
+
+-lens flare and bill boarded sprites (attributes to ... arguments)
+
+-convert tabs to spaces
+
+-Fix pinch
+
+-vector rgba (in cube of fate too)
+
+-seriously sort out rotation! (global (fixed angle), euler (local), quaternion (local?))
+
+-concurrent loading
+
+-post processing {
+	
+	-Glow
+	-Tinting (sepia etc.)
+}
