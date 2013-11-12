@@ -180,6 +180,8 @@ public class MaterialDemoScene extends Scene {
 	/**Initialises the camera in the scene*/
 	private void initCamera() {
 		
+		camera.setLocalRot(camRot);
+		camera.setZoom(camZoom);
 		camera.setRotPostTrans(camPos);
 		OmicronRenderer.setCamera(camera);
 	}

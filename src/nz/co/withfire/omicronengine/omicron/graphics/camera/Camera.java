@@ -27,6 +27,12 @@ public abstract class Camera {
 	//the zoom of the camera
 	protected float zoom = 1.0f;
 	
+	//DEBUGGING
+	//id counter
+	public static int idCounter = 0;
+	//the id of this camera
+	public int id = 0;
+	
 	//PUBLIC METHODS
 	/**Sets the projection matrix
 	@param projectionMatrix the projection matrix*/

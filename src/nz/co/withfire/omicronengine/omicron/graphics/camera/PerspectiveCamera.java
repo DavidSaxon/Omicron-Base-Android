@@ -28,6 +28,8 @@ public class PerspectiveCamera extends Camera {
 		this.fieldOfView = fieldOfView;
 		this.nearPlane = nearPlane;
 		this.farPlane = farPlane;
+		
+		this.id = idCounter++;
 	}
 	
 	//PUBLIC METHODS
