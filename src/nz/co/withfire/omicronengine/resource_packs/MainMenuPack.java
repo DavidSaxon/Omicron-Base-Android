@@ -22,15 +22,26 @@ public class MainMenuPack {
 	public static void build() {
 		
     	//SHADERS
+		//electric wave
 		ResourceManager.add("electric_wave", new ShaderResource(
 			R.raw.shader_vertex_electric_wave,
 			R.raw.shader_fragment_electric_wave,
+			ResourceGroup.MAIN_MENU));
+		//spectrum beam
+		ResourceManager.add("spectrum_beam", new ShaderResource(
+			R.raw.shader_vertex_spectrum_beam,
+			R.raw.shader_fragment_spectrum_beam,
 			ResourceGroup.MAIN_MENU));
 		
 		//MATERIALS
 		//electric wave
 		ResourceManager.add("electric_wave", new MaterialResource(
 			"electric_wave", null, null, null,
+			MaterialResource.SHADELESS,
+			ResourceGroup.MAIN_MENU));
+		//spectrum beam
+		ResourceManager.add("spectrum_beam", new MaterialResource(
+			"spectrum_beam", null, null, null,
 			MaterialResource.SHADELESS,
 			ResourceGroup.MAIN_MENU));
 		
@@ -40,6 +51,12 @@ public class MainMenuPack {
 			RenderableType.MESH,
 			R.raw.sprite_std,
 			Renderable.Group.STD, 5, "electric_wave",
+			ResourceGroup.MAIN_MENU));
+		//spectrum beam
+		ResourceManager.add("spectrum_beam", new RenderableResource(
+			RenderableType.MESH,
+			R.raw.sprite_std,
+			Renderable.Group.STD, 5, "spectrum_beam",
 			ResourceGroup.MAIN_MENU));
 	}
 }

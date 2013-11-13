@@ -29,7 +29,7 @@ public class Background extends Entity {
 	public Background() {
 		
 		//get the mesh
-		electricMesh = (Mesh) ResourceManager.getRenderable("electric_wave");
+		electricMesh = (Mesh) ResourceManager.getRenderable("spectrum_beam");
 		
 		//scale to screen width
 		electricMesh.setScale(new Vector3(
