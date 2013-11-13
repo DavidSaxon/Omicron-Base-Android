@@ -89,7 +89,10 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         camera.setView(viewMatrix);
         
     	//initialise the engine
-    	engine.init();
+        if (!engine.isInit()) {
+        	
+        	engine.init();
+        }
     }
     
     @Override

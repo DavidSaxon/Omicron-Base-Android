@@ -20,6 +20,9 @@ public class Engine {
 	//the current scene
 	private Scene scene;
 	
+	//is true once the engine has been initialised
+	private boolean isInit = false;
+	
 	//PUBLIC METHODS
 	/**Initialises the engine*/
 	public void init() {
@@ -30,6 +33,8 @@ public class Engine {
 		
 		//zero the fps manager
 		fps.zero();
+		
+		isInit = true;
 	}
 	
 	/**Executes the engine*/
@@ -58,5 +63,11 @@ public class Engine {
 		
 		//pass the motion event to the scene
 		scene.touchEvent(event, index, touchPos);
+	}
+	
+	/**@return if the engine has been initialised*/
+	public boolean isInit() {
+		
+		return isInit;
 	}
 }
