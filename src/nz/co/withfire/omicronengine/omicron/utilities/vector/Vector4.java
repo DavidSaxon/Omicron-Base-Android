@@ -48,10 +48,10 @@ public class Vector4 {
     @param other the other vector to copy from*/
     public Vector4(final Vector4 other) {
         
-        this.x = other.x;
-        this.y = other.y;
-        this.z = other.z;
-        this.w = other.w;
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        w = other.w;
     }
     
     /**Create a new 4d vector by copying the x and y values from
@@ -59,10 +59,10 @@ public class Vector4 {
     @param other the 2d vector to copy from*/
     public Vector4(final Vector2 other) {
     	
-    	this.x = other.x;
-    	this.y = other.y;
-    	this.z = 0;
-    	this.w = 0;
+    	x = other.x;
+    	y = other.y;
+    	z = 0;
+    	w = 0;
     }
     
     /**Create a new 4d vector by copying the x, y, and z values from
@@ -70,10 +70,10 @@ public class Vector4 {
     @param other the 3d vector to copy from*/
     public Vector4(final Vector3 other) {
     	
-    	this.x = other.x;
-    	this.y = other.y;
-    	this.z = other.z;
-    	this.w = 0;
+    	x = other.x;
+    	y = other.y;
+    	z = other.z;
+    	w = 0;
     }
     
     /**Create a new 4d vector from the values of a length 4 array
@@ -90,10 +90,10 @@ public class Vector4 {
 				"of length " + array.length);
     	}
     	
-    	this.x = array[0];
-    	this.y = array[1];
-    	this.z = array[2];
-    	this.w = array[3];
+    	x = array[0];
+    	y = array[1];
+    	z = array[2];
+    	w = array[3];
     }
     
     //PUBLIC METHODS
@@ -114,62 +114,85 @@ public class Vector4 {
     @param other the other vector to copy from*/
     public void copy(final Vector4 other) {
         
-        this.x = other.x;
-        this.y = other.y;
-        this.z = other.z;
-        this.w = other.w;
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        w = other.w;
+    }
+    
+    /**Adds the values of the scalar to this vector
+    @param scalar the scalar to add*/
+    public void add(float scalar) {
+        
+        x += scalar;
+        y += scalar;
+        z += scalar;
+        w += scalar;
     }
     
     /**Adds the values of the other vector to this vector
     @param other the other vector to add to this vector*/
     public void add(final Vector4 other) {
         
-        this.x += other.x;
-        this.y += other.y;
-        this.z += other.z;
-        this.w += other.w;
+        x += other.x;
+        y += other.y;
+        z += other.z;
+        w += other.w;
+    }
+    
+    /**Subtracts the values of the scalar from this vector
+    @param scalar the scalar to subtract with*/
+    public void sub(float scalar) {
+        
+        x -= scalar;
+        y -= scalar;
+        z -= scalar;
+        w -= scalar;
     }
     
     /**Subtracts the values of the other vector from this vector
     @param other the other vector to subtract by*/
     public void sub(final Vector4 other) {
         
-        this.x -= other.x;
-        this.y -= other.y;
-        this.z -= other.z;
-        this.w -= other.w;
-    }
-    
-    /**Multiplies the values of this vector by the values of the other vector
-    @param other the other vector to multiply by*/
-    public void mul(final Vector4 other) {
-        
-        this.x *= other.x;
-        this.y *= other.y;
-        this.z *= other.z;
-        this.w *= other.w;
-    }
-    
-    /**Divides the values of this vector by the values of the other vector
-    @param other the other vector to divide by*/
-    public void div(final Vector4 other) {
-        
-        this.x /= other.x;
-        this.y /= other.y;
-        this.z /= other.z;
-        this.w /= other.w;
+        x -= other.x;
+        y -= other.y;
+        z -= other.z;
+        w -= other.w;
     }
 
+    /**Multiplies the values of this vector by the values of the scalar
+    @param scalar the scalar to multiply by*/
+    public void mul(float scalar) {
+        
+        x *= scalar;
+        y *= scalar;
+        z *= scalar;
+        w *= scalar;
+    }
+    
+    /**Divides the values of this vector by the scalar
+    @param scalar the scalar to divide with*/
+    public void div(float scalar) {
+        
+        x /= scalar;
+        y /= scalar;
+        z /= scalar;
+        w /= scalar;
+    }
+    
     /**@return the magnitude of this vector*/
     final public float magnitude() {
         
     	return (float) Math.sqrt(x * x + y * y + z * z + w * w);
     }
     
-    /**@return the inverse of the vector*/
-    public Vector4 inverse() {
-    	
-    	return new Vector4(-x, -y, -z, -w);
+    /**Inverses this vector*/
+    public void inverse() {
+        
+        x = -x;
+        y = -y;
+        z = -z;
+        w = -w;
     }
     
     /**Normalises this vector*/
