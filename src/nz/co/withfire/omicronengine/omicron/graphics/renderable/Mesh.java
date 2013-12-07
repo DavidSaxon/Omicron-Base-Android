@@ -192,9 +192,9 @@ public class Mesh extends Renderable {
             	
             	Vector3 pCol = pointLights.get(i / 3).getColour();
             	float pStr = pointLights.get(i / 3).getStrength();
-            	pointColours[i]     = pCol.getX() * pStr;
-            	pointColours[i + 1] = pCol.getY() * pStr;
-            	pointColours[i + 2] = pCol.getZ() * pStr;
+            	pointColours[i]     = pCol.x * pStr;
+            	pointColours[i + 1] = pCol.y * pStr;
+            	pointColours[i + 2] = pCol.z * pStr;
             }
             //pass in the colours
             GLES20.glUniform3fv(
@@ -217,9 +217,9 @@ public class Mesh extends Renderable {
             for (int i = 0; i < pointPositions.length; i += 3) {
             	
             	Vector3 pPos = pointLights.get(i / 3).getPosition();
-            	pointPositions[i]     = pPos.getX();
-            	pointPositions[i + 1] = pPos.getY();
-            	pointPositions[i + 2] = pPos.getZ();
+            	pointPositions[i]     = pPos.x;
+            	pointPositions[i + 1] = pPos.y;
+            	pointPositions[i + 2] = pPos.z;
             }
             //pass in positions
             GLES20.glUniform3fv(

@@ -165,23 +165,23 @@ public class MaterialDemoScene extends Scene {
 		Vector2 swipeMove = new Vector2();
 		if (lastSwipeStore != null) {
 			
-			swipeMove.setX(swipe.getPos().getX() - lastSwipeStore.getX());
-			swipeMove.setY(swipe.getPos().getY() - lastSwipeStore.getY());
+			swipeMove.x = swipe.getPos().x - lastSwipeStore.x;
+			swipeMove.y = swipe.getPos().y - lastSwipeStore.y;
 		}
 		
 		camRot.add(new Vector3(
-			-swipeMove.getY() * ROTATION_MULTIPLIER,
-			 swipeMove.getX() * ROTATION_MULTIPLIER,
+			-swipeMove.y * ROTATION_MULTIPLIER,
+			 swipeMove.x * ROTATION_MULTIPLIER,
 			 0.0f));
 		
 		//clamp the camera
-		if (camRot.getX() > 90.0f) {
+		if (camRot.x > 90.0f) {
 			
-			camRot.setX(90.0f);
+			camRot.y = 90.0f;
 		}
-		if (camRot.getX() < -90.0f) {
+		if (camRot.x < -90.0f) {
 			
-			camRot.setX(-90.0f);
+			camRot.x = -90.0f;
 		}
 		
 		//update the last swipe

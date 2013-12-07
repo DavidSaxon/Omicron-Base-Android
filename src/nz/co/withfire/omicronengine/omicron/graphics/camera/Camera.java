@@ -46,8 +46,7 @@ public abstract class Camera {
 	public void setView(float[] viewMatrix) {
 		
 		//set the view port
-		GLES20.glViewport(0, 0,
-			(int) dimensions.getX(), (int) dimensions.getY());
+		GLES20.glViewport(0, 0, (int) dimensions.x, (int) dimensions.y);
 		
 		//reload the identity
 		Matrix.setIdentityM(viewMatrix, 0);
@@ -60,18 +59,18 @@ public abstract class Camera {
 	public void applyTransformations(float[] viewMatrix) {
 		
         //post rotation translate
-  		Matrix.translateM(viewMatrix, 0, postRotTrans.getX(),
-			postRotTrans.getY(), postRotTrans.getZ());
+  		Matrix.translateM(viewMatrix, 0, postRotTrans.x,
+			postRotTrans.y, postRotTrans.z);
         
 		//local rotation
-		Matrix.rotateM(viewMatrix, 0, localRot.getY(), 0, 1, 0);
-		Matrix.rotateM(viewMatrix, 0, localRot.getX(),
-			(float) Math.cos(localRot.getY() * MathUtil.DEGREES_TO_RADIANS), 0,
-			(float) Math.sin(localRot.getY() * MathUtil.DEGREES_TO_RADIANS));
+		Matrix.rotateM(viewMatrix, 0, localRot.y, 0, 1, 0);
+		Matrix.rotateM(viewMatrix, 0, localRot.x,
+			(float) Math.cos(localRot.y * MathUtil.DEGREES_TO_RADIANS), 0,
+			(float) Math.sin(localRot.y * MathUtil.DEGREES_TO_RADIANS));
 		//TODO: z axis
 		
 		//translate
-		Matrix.translateM(viewMatrix, 0, pos.getX(), pos.getY(), pos.getZ());
+		Matrix.translateM(viewMatrix, 0, pos.x, pos.y, pos.z);
 		
 		//zoom
 		Matrix.scaleM(viewMatrix, 0, zoom, zoom, zoom);

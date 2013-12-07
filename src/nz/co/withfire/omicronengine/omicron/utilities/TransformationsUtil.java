@@ -33,12 +33,12 @@ public class TransformationsUtil {
         //set the opengl dimensions
         openGLDim.copy(screenPosToOpenGLPos(screenDim, projectionMatrix));
         
-        openGLDim.set(Math.abs(openGLDim.getX()),
-    		Math.abs(openGLDim.getY()));
+        openGLDim.set(Math.abs(openGLDim.x),
+    		Math.abs(openGLDim.y));
         
         //get the scaling amounts
-        scale.setX((openGLDim.getX() / Values.NATURAL_SCREEN_SIZE.getX()));
-        scale.setY((openGLDim.getY() / Values.NATURAL_SCREEN_SIZE.getY()));
+        scale.x = (openGLDim.x / Values.NATURAL_SCREEN_SIZE.x);
+        scale.y = (openGLDim.y / Values.NATURAL_SCREEN_SIZE.y);
     }
     
     /**Converts screen position to the equivalent OpenGL position
@@ -50,9 +50,9 @@ public class TransformationsUtil {
         
     	float vectorArray[] = new float[4];
     	vectorArray[0] =
-			(2.0f * (screenPos.getX() / Camera.getDimensions().getX())) - 1.0f;
+			(2.0f * (screenPos.x / Camera.getDimensions().x)) - 1.0f;
     	vectorArray[1] =
-			-(2.0f * (screenPos.getY() / Camera.getDimensions().getY())) + 1.0f;
+			-(2.0f * (screenPos.y / Camera.getDimensions().y)) + 1.0f;
 
     	float projectionInverse[] = new float[16];
     	Matrix.invertM(projectionInverse, 0, projectionMatrix, 0);
@@ -68,12 +68,12 @@ public class TransformationsUtil {
     @return the new scaled scalar*/
     public static float scaleToScreen(float scalar) {
         
-        if (scale.getX() < scale.getY()) {
+        if (scale.x < scale.y) {
             
-            return scalar * scale.getX();
+            return scalar * scale.x;
         }
         
-        return scalar * scale.getY();
+        return scalar * scale.y;
     }
     
     /**Get the scaled position of the given position
@@ -81,8 +81,7 @@ public class TransformationsUtil {
     @return the new scaled position*/
     public static Vector2 scaleToScreen(Vector2 pos) {
         
-        return new Vector2(pos.getX() * scale.getX(),
-            pos.getY() * scale.getY());
+        return new Vector2(pos.x * scale.x, pos.y * scale.y);
     }
     
     /**@return the OpenGL perspective dimensions*/

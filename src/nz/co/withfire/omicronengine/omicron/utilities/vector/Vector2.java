@@ -49,8 +49,8 @@ public class Vector2 {
     @param other the 3d vector to copy from*/
     public Vector2(final Vector3 other) {
     	
-    	this.x = other.getX();
-    	this.y = other.getY();
+    	this.x = other.x;
+    	this.y = other.y;
     }
     
     /**Create a new 2d vector by copying the x and y values from
@@ -58,8 +58,8 @@ public class Vector2 {
     @param other the 4d vector to copy from*/
     public Vector2(final Vector4 other) {
     	
-    	this.x = other.getX();
-    	this.y = other.getY();
+    	this.x = other.x;
+    	this.y = other.y;
     }
     
     /**Create a new 2d vector from the values of a length 2 array
@@ -130,54 +130,6 @@ public class Vector2 {
         this.y /= other.y;
     }
     
-    /**@param value the value to add to the x value of this vector*/
-    public void addX(float value) {
-    	
-    	this.x += value;
-    }
-    
-    /**@param value the value to add to the y value of this vector*/
-    public void addY(float value) {
-    	
-    	this.y += value;
-    }
-    
-    /**@param value the value to subtract from the x value of this vector*/
-    public void subX(float value) {
-    	
-    	this.x -= value;
-    }
-    
-    /**@param value the value to subtract from the y value of this vector*/
-    public void subY(float value) {
-    	
-    	this.y -= value;
-    }
-    
-    /**@param value the value to multiply the x value of this vector by*/
-    public void mulX(float value) {
-    	
-    	this.x *= value;
-    }
-    
-    /**@param value the value to multiply the y value of this vector by*/
-    public void mulY(float value) {
-    	
-    	this.y *= value;
-    }
-
-    /**@param value the value to divide the x value of this vector by*/
-    public void divX(float value) {
-    	
-    	this.x *= value;
-    }
-    
-    /**@param value the value to divide the y value of this vector by*/
-    public void divY(float value) {
-    	
-    	this.y *= value;
-    }
-    
     /**@return the magnitude of this vector*/
     final public float magnitude() {
         
@@ -232,34 +184,6 @@ public class Vector2 {
         float array[] = {x, y};
         
         return array;
-    }
-    
-    //GETTERS
-    /**@return the x value of the vector*/
-    final public float getX() {
-        
-        return x;
-    }
-    
-    /**@return the y value of the vector*/
-    final public float getY() {
-        
-        return y;
-    }
-    
-    //SETTERS
-    /**Sets the new x value
-    @param x the new x value*/
-    public void setX(float x) {
-        
-        this.x = x;
-    }
-    
-    /**Sets the new y value
-    @param y the new y value*/
-    public void setY(float y) {
-        
-        this.y = y;
     }
     
     /**@return the vector as a string*/

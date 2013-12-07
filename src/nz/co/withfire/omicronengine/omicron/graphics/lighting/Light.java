@@ -36,8 +36,8 @@ public abstract class Light {
 	/**@return the value of the light (colour * strength)*/
 	public Vector3 getValue() {
 		
-		return new Vector3(colour.getX() * strength,
-			colour.getY() * strength, colour.getZ() * strength);
+		return new Vector3(colour.x * strength,
+			colour.y * strength, colour.z * strength);
 	}
 	
 	/**@return the colour of the ambient light*/

@@ -115,20 +115,20 @@ public class MeshLoader {
         for (int i = 0; i < faceVertices.size(); ++i) {
             
             //get vertex coords
-            coords[(i * 3)]     = faceVertices.get(i).getX();
-            coords[(i * 3) + 1] = faceVertices.get(i).getY();
-            coords[(i * 3) + 2] = faceVertices.get(i).getZ();
+            coords[(i * 3)]     = faceVertices.get(i).x;
+            coords[(i * 3) + 1] = faceVertices.get(i).y;
+            coords[(i * 3) + 2] = faceVertices.get(i).z;
             
             //get texture coords
-            uv[(i * 2)]     = faceUV.get(i).getX();
-            uv[(i * 2) + 1] = faceUV.get(i).getY();
+            uv[(i * 2)]     = faceUV.get(i).x;
+            uv[(i * 2) + 1] = faceUV.get(i).y;
             
             //get normal coords
             if (normalsFinal.size() > i) {
             	
-                nrm[(i * 3)]     = normalsFinal.get(i).getX();
-                nrm[(i * 3) + 1] = normalsFinal.get(i).getY();
-                nrm[(i * 3) + 2] = normalsFinal.get(i).getZ();
+                nrm[(i * 3)]     = normalsFinal.get(i).x;
+                nrm[(i * 3) + 1] = normalsFinal.get(i).y;
+                nrm[(i * 3) + 2] = normalsFinal.get(i).z;
             }
         }
         

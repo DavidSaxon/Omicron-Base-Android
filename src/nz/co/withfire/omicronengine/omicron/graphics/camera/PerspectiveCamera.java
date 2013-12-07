@@ -49,7 +49,7 @@ public class PerspectiveCamera extends Camera {
 	private void setPerspective(float[] projectionMatrix) {
 		
 		//calculate the aspect ratio of the camera
-		float aspect = (float) dimensions.getX() / (float) dimensions.getY();
+		float aspect = (float) dimensions.x / (float) dimensions.y;
 		
 		//calculate the values to pass to the frustum call
 		float yMax = nearPlane * (float)

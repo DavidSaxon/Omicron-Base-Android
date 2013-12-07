@@ -54,8 +54,8 @@ public class Vector3 {
     @param other the 2d vector to copy from*/
     public Vector3(final Vector2 other) {
     	
-    	this.x = other.getX();
-    	this.y = other.getY();
+    	this.x = other.x;
+    	this.y = other.y;
     	this.z = 0;
     }
     
@@ -64,9 +64,9 @@ public class Vector3 {
     @param other the 4d vector to copy from*/
     public Vector3(final Vector4 other) {
     	
-    	this.x = other.getX();
-    	this.y = other.getY();
-    	this.z = other.getZ();
+    	this.x = other.x;
+    	this.y = other.y;
+    	this.z = other.z;
     }
     
     /**Create a new 3d vector from the values of a length 3 array
@@ -145,78 +145,6 @@ public class Vector3 {
         this.z /= other.z;
     }
     
-    /**@param value the value to add to the x value of this vector*/
-    public void addX(float value) {
-    	
-    	this.x += value;
-    }
-    
-    /**@param value the value to add to the y value of this vector*/
-    public void addY(float value) {
-    	
-    	this.y += value;
-    }
-    
-    /**@param value the value to add to the z value of this vector*/
-    public void addZ(float value) {
-    	
-    	this.z += value;
-    }
-    
-    /**@param value the value to subtract from the x value of this vector*/
-    public void subX(float value) {
-    	
-    	this.x -= value;
-    }
-    
-    /**@param value the value to subtract from the y value of this vector*/
-    public void subY(float value) {
-    	
-    	this.y -= value;
-    }
-    
-    /**@param value the value to subtract from the z value of this vector*/
-    public void subZ(float value) {
-    	
-    	this.z -= value;
-    }
-    
-    /**@param value the value to multiply the x value of this vector by*/
-    public void mulX(float value) {
-    	
-    	this.x *= value;
-    }
-    
-    /**@param value the value to multiply the y value of this vector by*/
-    public void mulY(float value) {
-    	
-    	this.y *= value;
-    }
-    
-    /**@param value the value to multiply the z value of this vector by*/
-    public void mulZ(float value) {
-    	
-    	this.z *= value;
-    }
-
-    /**@param value the value to divide the x value of this vector by*/
-    public void divX(float value) {
-    	
-    	this.x *= value;
-    }
-    
-    /**@param value the value to divide the y value of this vector by*/
-    public void divY(float value) {
-    	
-    	this.y *= value;
-    }
-    
-    /**@param value the value to divide the z value of this vector by*/
-    public void divZ(float value) {
-    	
-    	this.z *= value;
-    }
-    
     /**@return the magnitude of this vector*/
     final public float magnitude() {
         
@@ -267,48 +195,7 @@ public class Vector3 {
         
         return array;
     }
-    
-    //GETTERS
-    /**@return the x value of the vector*/
-    final public float getX() {
-        
-        return x;
-    }
-    
-    /**@return the y value of the vector*/
-    final public float getY() {
-        
-        return y;
-    }
-    
-    /**@return the z value of the vector*/
-    final public float getZ() {
-        
-        return z;
-    }
-    
-    //SETTERS
-    /**Sets the new x value
-    @param x the new x value*/
-    public void setX(float x) {
-        
-        this.x = x;
-    }
-    
-    /**Sets the new y value
-    @param y the new y value*/
-    public void setY(float y) {
-        
-        this.y = y;
-    }
-    
-    /**Sets the new z value
-    @param z the new z value*/
-    public void setZ(float z) {
-        
-        this.z = z;
-    }
-    
+
     /**@return the vector as a string*/
     public String toString() {
         

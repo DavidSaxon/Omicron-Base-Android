@@ -24,8 +24,8 @@ public class AmbientLight {
 	/**@return the actual light value (colour * strength)*/
 	public static Vector4 getValue() {
 		
-		return new Vector4(colour.getX() * strength,
-			colour.getY() * strength, colour.getZ() * strength, 0.0f);
+		return new Vector4(colour.x * strength,
+			colour.y * strength, colour.z * strength, 0.0f);
 	}
 	
 	/**@return the colour of the ambient light*/

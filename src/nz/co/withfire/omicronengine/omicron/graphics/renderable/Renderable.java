@@ -228,27 +228,27 @@ public abstract class Renderable {
         Matrix.setIdentityM(mvMatrix, 0);
         
         //post rotation translation
-        Matrix.translateM(modelMatrix, 0, postRotTrans.getX(),
-    		postRotTrans.getY(), postRotTrans.getZ());
+        Matrix.translateM(modelMatrix, 0, postRotTrans.x,
+    		postRotTrans.y, postRotTrans.z);
         
         //local rotation
-		Matrix.rotateM(modelMatrix, 0, localRot.getY(), 0, 1, 0);
-		Matrix.rotateM(modelMatrix, 0, localRot.getX(),
-			(float) Math.cos(localRot.getY() * MathUtil.DEGREES_TO_RADIANS), 0,
-			(float) Math.sin(localRot.getY() * MathUtil.DEGREES_TO_RADIANS));
+		Matrix.rotateM(modelMatrix, 0, localRot.y, 0, 1, 0);
+		Matrix.rotateM(modelMatrix, 0, localRot.x,
+			(float) Math.cos(localRot.y * MathUtil.DEGREES_TO_RADIANS), 0,
+			(float) Math.sin(localRot.y * MathUtil.DEGREES_TO_RADIANS));
 		//TODO: z axis
 		
 		//global rotation
-		Matrix.rotateM(modelMatrix, 0, globalRot.getX(), 1, 0, 0);
-		Matrix.rotateM(modelMatrix, 0, globalRot.getY(), 0, 1, 0);
-		Matrix.rotateM(modelMatrix, 0, globalRot.getZ(), 0, 0, 1);
+		Matrix.rotateM(modelMatrix, 0, globalRot.x, 1, 0, 0);
+		Matrix.rotateM(modelMatrix, 0, globalRot.y, 0, 1, 0);
+		Matrix.rotateM(modelMatrix, 0, globalRot.z, 0, 0, 1);
 		
 		//translation
-        Matrix.translateM(modelMatrix, 0, translation.getX(),
-    		translation.getY(), translation.getZ());
+        Matrix.translateM(modelMatrix, 0, translation.x,
+    		translation.y, translation.z);
         
         //scale
-        Matrix.scaleM(modelMatrix, 0, scale.getX(), scale.getY(), scale.getZ());
+        Matrix.scaleM(modelMatrix, 0, scale.x, scale.y, scale.z);
         
         //calculate the mvp matrix
         Matrix.multiplyMM(mvMatrix, 0, viewMatrix, 0, modelMatrix, 0);

@@ -37,10 +37,12 @@ public class MainMenuBackground extends Entity {
 		//get the mesh
 	    mesh = (Mesh) ResourceManager.getRenderable("main_menu_background");
 		
+	    Log.v(Values.TAG, "" + TransformationsUtil.getOpenGLDim());
+	    
 		//scale to screen width
 	    mesh.setScale(new Vector3(
-			TransformationsUtil.getOpenGLDim().getX() * 1.3f,
-			TransformationsUtil.getOpenGLDim().getX() * 1.3f, 1.0f));
+			TransformationsUtil.getOpenGLDim().x * 1.3f,
+			TransformationsUtil.getOpenGLDim().x * 1.3f, 1.0f));
 		
 		//add the custom shader input function
 	    mesh.setCustomShaderInputMode(CustomShaderInputMode.ADD);
@@ -54,7 +56,7 @@ public class MainMenuBackground extends Entity {
 	@Override
 	public void update() {
 	    
-	    rot.addZ(0.25f * FPSManager.getTimeScale());
+	    rot.z += 0.25f * FPSManager.getTimeScale();
 	    mesh.setGlobalRot(rot);
 	}
 	
@@ -80,12 +82,12 @@ public class MainMenuBackground extends Entity {
 		    if (flickerTimer > 1.0f) {
 		    
 		        //generate random colours
-		        colourMultiplier.setX(
-	                0.9f + (ValuesUtil.rand.nextFloat() * 0.25f));
-                colourMultiplier.setY(
-                        0.9f + (ValuesUtil.rand.nextFloat() * 0.25f));
-                colourMultiplier.setZ(
-                        0.9f + (ValuesUtil.rand.nextFloat() * 0.25f));
+		        colourMultiplier.x = 
+	                0.9f + (ValuesUtil.rand.nextFloat() * 0.25f);
+                colourMultiplier.y =
+                    0.9f + (ValuesUtil.rand.nextFloat() * 0.25f);
+                colourMultiplier.z =
+                    0.9f + (ValuesUtil.rand.nextFloat() * 0.25f);
                 flickerTimer = 0.0f;
 		    }
 		    else {

@@ -38,7 +38,7 @@ public class LoadingCog extends Entity {
     public void update() {
         
         //spin
-        rot.addZ(2.0f * FPSManager.getTimeScale());
+        rot.z += 2.0f * FPSManager.getTimeScale();
         cogMesh.setGlobalRot(rot);
     }
     

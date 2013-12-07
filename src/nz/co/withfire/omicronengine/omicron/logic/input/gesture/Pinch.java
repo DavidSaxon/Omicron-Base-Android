@@ -55,8 +55,8 @@ public class Pinch implements Gesture {
     private void findCentre() {
         
         //find the greatest x and y positions
-        float greatestX = Math.max(pos1.getX(), pos2.getX());
-        float greatestY = Math.max(pos1.getY(), pos2.getY());
+        float greatestX = Math.max(pos1.x, pos2.x);
+        float greatestY = Math.max(pos1.y, pos2.y);
         
         //set the centre pos
         centrePos.set(greatestX, greatestY);

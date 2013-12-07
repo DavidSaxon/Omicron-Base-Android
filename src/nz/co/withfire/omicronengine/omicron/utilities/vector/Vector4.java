@@ -16,10 +16,10 @@ public class Vector4 {
     static public final Vector4 zero4d = new Vector4();
     
     //values
-    private float x;
-    private float y;
-    private float z;
-    private float w;
+    public float x;
+    public float y;
+    public float z;
+    public float w;
     
     //CONSTRUCTORS
     /**Creates a new zero 4d vector*/
@@ -59,8 +59,8 @@ public class Vector4 {
     @param other the 2d vector to copy from*/
     public Vector4(final Vector2 other) {
     	
-    	this.x = other.getX();
-    	this.y = other.getY();
+    	this.x = other.x;
+    	this.y = other.y;
     	this.z = 0;
     	this.w = 0;
     }
@@ -70,9 +70,9 @@ public class Vector4 {
     @param other the 3d vector to copy from*/
     public Vector4(final Vector3 other) {
     	
-    	this.x = other.getX();
-    	this.y = other.getY();
-    	this.z = other.getZ();
+    	this.x = other.x;
+    	this.y = other.y;
+    	this.z = other.z;
     	this.w = 0;
     }
     
@@ -159,103 +159,7 @@ public class Vector4 {
         this.z /= other.z;
         this.w /= other.w;
     }
-    
-    /**@param value the value to add to the x value of this vector*/
-    public void addX(float value) {
-    	
-    	this.x += value;
-    }
-    
-    /**@param value the value to add to the y value of this vector*/
-    public void addY(float value) {
-    	
-    	this.y += value;
-    }
-    
-    /**@param value the value to add to the z value of this vector*/
-    public void addZ(float value) {
-    	
-    	this.z += value;
-    }
-    
-    /**@param value the value to add to the w value of this vector*/
-    public void addW(float value) {
-    	
-    	this.w += value;
-    }
-    
-    /**@param value the value to subtract from the x value of this vector*/
-    public void subX(float value) {
-    	
-    	this.x -= value;
-    }
-    
-    /**@param value the value to subtract from the y value of this vector*/
-    public void subY(float value) {
-    	
-    	this.y -= value;
-    }
-    
-    /**@param value the value to subtract from the z value of this vector*/
-    public void subZ(float value) {
-    	
-    	this.z -= value;
-    }
-    
-    /**@param value the value to subtract from the w value of this vector*/
-    public void subW(float value) {
-    	
-    	this.w -= value;
-    }
-    
-    /**@param value the value to multiply the x value of this vector by*/
-    public void mulX(float value) {
-    	
-    	this.x *= value;
-    }
-    
-    /**@param value the value to multiply the y value of this vector by*/
-    public void mulY(float value) {
-    	
-    	this.y *= value;
-    }
-    
-    /**@param value the value to multiply the z value of this vector by*/
-    public void mulZ(float value) {
-    	
-    	this.z *= value;
-    }
-    
-    /**@param value the value to multiply the w value of this vector by*/
-    public void mulW(float value) {
-    	
-    	this.w *= value;
-    }
 
-    /**@param value the value to divide the x value of this vector by*/
-    public void divX(float value) {
-    	
-    	this.x *= value;
-    }
-    
-    /**@param value the value to divide the y value of this vector by*/
-    public void divY(float value) {
-    	
-    	this.y *= value;
-    }
-    
-    /**@param value the value to divide the z value of this vector by*/
-    public void divZ(float value) {
-    	
-    	this.z *= value;
-    }
-    
-    /**@param value the value to divide the w value of this vector by*/
-    public void divW(float value) {
-    	
-    	this.w *= value;
-    }
-    
     /**@return the magnitude of this vector*/
     final public float magnitude() {
         
@@ -308,60 +212,6 @@ public class Vector4 {
         float array[] = {x, y, z, w};
         
         return array;
-    }
-    
-    //GETTERS
-    /**@return the x value of the vector*/
-    final public float getX() {
-        
-        return x;
-    }
-    
-    /**@return the y value of the vector*/
-    final public float getY() {
-        
-        return y;
-    }
-    
-    /**@return the z value of the vector*/
-    final public float getZ() {
-        
-        return z;
-    }
-    
-    /**@return the w value of the vector*/
-    final public float getW() {
-        
-        return w;
-    }
-    
-    //SETTERS
-    /**Sets the new x value
-    @param x the new x value*/
-    public void setX(float x) {
-        
-        this.x = x;
-    }
-    
-    /**Sets the new y value
-    @param y the new y value*/
-    public void setY(float y) {
-        
-        this.y = y;
-    }
-    
-    /**Sets the new z value
-    @param z the new z value*/
-    public void setZ(float z) {
-        
-        this.z = z;
-    }
-    
-    /**Sets the new w value
-    @param w the new w value*/
-    public void setW(float w) {
-        
-        this.w = w;
     }
     
     /**@return the vector as a string*/

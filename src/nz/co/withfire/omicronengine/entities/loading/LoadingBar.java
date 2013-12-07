@@ -24,7 +24,7 @@ public class LoadingBar extends Entity {
     
     //the max scale amount
     private final float MAX_SCALE =
-        TransformationsUtil.getOpenGLDim().getX() * 0.9f;
+        TransformationsUtil.getOpenGLDim().x * 0.9f;
     
     //CONSTRUCTOR
     /**Creates a new loading bar*/
@@ -50,7 +50,7 @@ public class LoadingBar extends Entity {
     @param precent the new percent complete*/
     public void setPercent(float percent) {
         
-        scale.setX(MAX_SCALE * percent);
+        scale.x = MAX_SCALE * percent;
         barMesh.setScale(scale);
     }
 }
