@@ -49,4 +49,11 @@ public abstract class Scene {
 		
 		//do nothing
 	}
+	
+	/**Is called when the back button is pressed
+	@return if this method has override the back button*/
+	public boolean backPressed() {
+	    
+	    return false;
+	}
 }

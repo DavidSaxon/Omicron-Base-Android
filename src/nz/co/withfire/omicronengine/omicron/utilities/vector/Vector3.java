@@ -16,9 +16,9 @@ public class Vector3 {
     static public final Vector3 zero3d = new Vector3();
     
     //the values of the variables
-    private float x;
-    private float y;
-    private float z;
+    public float x;
+    public float y;
+    public float z;
     
     //CONSTRUCTORS
     /**Creates a new zero 3d vector*/

@@ -12,29 +12,44 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
-        public static final int materialdemo_cube_of_fate=0x7f020001;
-        public static final int materialdemo_metal=0x7f020002;
-        public static final int materialdemo_skybox=0x7f020003;
-        public static final int materialdemo_wood=0x7f020004;
-        public static final int startup_omicron_splash=0x7f020005;
+        public static final int loading_cog=0x7f020001;
+        public static final int materialdemo_cube_of_fate=0x7f020002;
+        public static final int materialdemo_metal=0x7f020003;
+        public static final int materialdemo_skybox=0x7f020004;
+        public static final int materialdemo_wood=0x7f020005;
+        public static final int menu_main_background=0x7f020006;
+        public static final int startup_omicron_splash=0x7f020007;
+    }
+    public static final class id {
+        public static final int main_menu=0x7f060000;
+        public static final int main_menu_table=0x7f060001;
+        public static final int omicron_frame_layout=0x7f060003;
+        public static final int omicron_layout=0x7f060002;
+        public static final int start_up=0x7f060004;
+    }
+    public static final class layout {
+        public static final int main_menu=0x7f030000;
+        public static final int omicron=0x7f030001;
+        public static final int start_up=0x7f030002;
     }
     public static final class raw {
-        public static final int mesh_materialdemo_cone=0x7f030000;
-        public static final int mesh_materialdemo_cube=0x7f030001;
-        public static final int mesh_materialdemo_monkey=0x7f030002;
-        public static final int mesh_materialdemo_skybox=0x7f030003;
-        public static final int mesh_materialdemo_sphere=0x7f030004;
-        public static final int mesh_materialdemo_table=0x7f030005;
-        public static final int shader_fragment_default=0x7f030006;
-        public static final int shader_fragment_electric_wave=0x7f030007;
-        public static final int shader_fragment_spectrum_beam=0x7f030008;
-        public static final int shader_vertex_default=0x7f030009;
-        public static final int shader_vertex_electric_wave=0x7f03000a;
-        public static final int shader_vertex_spectrum_beam=0x7f03000b;
-        public static final int sprite_std=0x7f03000c;
+        public static final int mesh_materialdemo_cone=0x7f040000;
+        public static final int mesh_materialdemo_cube=0x7f040001;
+        public static final int mesh_materialdemo_monkey=0x7f040002;
+        public static final int mesh_materialdemo_skybox=0x7f040003;
+        public static final int mesh_materialdemo_sphere=0x7f040004;
+        public static final int mesh_materialdemo_table=0x7f040005;
+        public static final int shader_fragment_default=0x7f040006;
+        public static final int shader_fragment_menu_main_background=0x7f040007;
+        public static final int shader_vertex_default=0x7f040008;
+        public static final int shader_vertex_menu_main_background=0x7f040009;
+        public static final int sprite_std=0x7f04000a;
     }
     public static final class string {
-        public static final int action_settings=0x7f040001;
-        public static final int app_name=0x7f040000;
+        public static final int action_settings=0x7f050001;
+        public static final int app_name=0x7f050000;
+        public static final int exit=0x7f050004;
+        public static final int material_demo=0x7f050002;
+        public static final int twod_demo=0x7f050003;
     }
 }

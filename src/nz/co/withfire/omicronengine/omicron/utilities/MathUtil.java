@@ -9,6 +9,9 @@ package nz.co.withfire.omicronengine.omicron.utilities;
 public class MathUtil {
 
 	//VARIABLES
+    //small value
+    public static float EPISLON = 0.0001f;
+    
     //radians to degrees constant
     public static float RADIANS_TO_DEGREES = 57.2957795f;
     //degrees to radians constant
@@ -32,5 +35,44 @@ public class MathUtil {
     	}
     	
     	return value;
+    }
+    
+    /**Compares if two floating point numbers are equal
+    @param a the first value
+    @param b the second value
+    @return if they are equal*/
+    public static boolean floatEquals(float a, float b) {
+        
+        return Math.abs(a - b) < EPISLON;
+    }
+    
+    /**Compares if the first floating point number is greater than or equal to
+    the second floating point number
+    @param a the first value
+    @param b the second value
+    @return if a is equal or greater than b*/
+    public static boolean floatEqualsOrGreater(float a, float b) {
+        
+        if (a > b) {
+            
+            return true;
+        }
+        
+        return Math.abs(a - b) < EPISLON;
+    }
+    
+    /**Compares if the first floating point number is less than or equal to
+    the second floating point number
+    @param a the first value
+    @param b the second value
+    @return if a is equal or less than b*/
+    public static boolean floatEqualsOrLess(float a, float b) {
+        
+        if (a < b) {
+            
+            return true;
+        }
+        
+        return Math.abs(a - b) < EPISLON;
     }
 }

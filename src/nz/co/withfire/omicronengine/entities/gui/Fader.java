@@ -31,6 +31,9 @@ public class Fader extends Entity {
 	//the colour
 	private Vector4 colour;
 	
+	//is true to remove at the end
+	private final boolean removeAtEnd;
+	
 	//Fading
 	//the fade direction
 	private final FadeDirection fadeDirection;
@@ -43,14 +46,16 @@ public class Fader extends Entity {
 	/**Creates a new fader
 	@param fadeDirection whether we are fading in or out
 	@param fadeSpeed the speed of the fade
-	@param colour the colour of the fader*/
+	@param colour the colour of the fader
+	@param removeAtEnd if the fader should be removed at the end*/
 	public Fader(FadeDirection fadeDirection, float fadeSpeed,
-		Vector4 colour) {
+		Vector4 colour, boolean removeAtEnd) {
 		
 		//initialise variables
 		this.colour = colour;
 		this.fadeDirection = fadeDirection;
 		this.fadeSpeed = fadeSpeed;
+		this.removeAtEnd = removeAtEnd;
 		
 		switch(fadeDirection) {
 			
@@ -112,18 +117,37 @@ public class Fader extends Entity {
 	@Override
 	public boolean shouldRemove() {
 		
+	    if (!removeAtEnd) {
+	        
+	        return false;
+	    }
+	    
 		switch(fadeDirection) {
 			
 			case FADE_IN: {
 				
 				return fade <= 0.0f;
 			}
-			case FADE_OUT: {
+			default: {
 				
 				return fade >= 1.0f;
 			}
 		}
-		
-		return false;
+	}
+	
+	/**@return when the fader is complete*/
+	public boolean complete() {
+	    
+       switch(fadeDirection) {
+            
+            case FADE_IN: {
+                
+                return fade <= 0.0f;
+            }
+            default: {
+                
+                return fade >= 1.0f;
+            }
+        }
 	}
 }

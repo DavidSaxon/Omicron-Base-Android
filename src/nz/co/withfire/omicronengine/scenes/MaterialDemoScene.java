@@ -6,6 +6,7 @@
 
 package nz.co.withfire.omicronengine.scenes;
 
+import android.util.Log;
 import nz.co.withfire.omicronengine.entities.gui.Fader;
 import nz.co.withfire.omicronengine.entities.gui.Fader.FadeDirection;
 import nz.co.withfire.omicronengine.entities.material_demo.BronzeSphere;
@@ -25,14 +26,20 @@ import nz.co.withfire.omicronengine.omicron.logic.input.gesture.GestureWatcher;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Pinch;
 import nz.co.withfire.omicronengine.omicron.logic.input.gesture.Swipe;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
+import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.override.Values;
+import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class MaterialDemoScene extends Scene {
 
 	//VARIABLES
+    //the next scene
+    private Scene nextScene;
+    
 	//Gestures
 	//the gesture watcher
 	private GestureWatcher gestureWatcher = new GestureWatcher();
@@ -60,6 +67,9 @@ public class MaterialDemoScene extends Scene {
 	private final float ZOOM_CLAMP_LOWER  = 0.10f;
 	private final float ZOOM_CLAMP_UPPER = 0.5f;
 	
+	//fade out
+	private Fader fadeOut = null;
+	
 	//PUBLIC METHODS
 	@Override
 	public void init() {
@@ -83,8 +93,20 @@ public class MaterialDemoScene extends Scene {
 		camera.setLocalRot(camRot);
 		camera.setZoom(camZoom);
 		
-		return false;
+		return fadeOut != null && fadeOut.complete();
 	}
+	
+    @Override
+    public Scene nextScene() {
+        
+        //super call
+        super.nextScene();
+        
+        ResourceManager.destroy(ResourceGroup.MATERIAL_DEMO);
+        ResourceManager.load(ResourceGroup.MAIN_MENU);
+        
+        return nextScene;
+    }
 	
 	@Override
 	public void touchEvent(int event, int index, Vector2 touchPos) {
@@ -92,6 +114,20 @@ public class MaterialDemoScene extends Scene {
 		//pass to the gesture watcher
 		gestureWatcher.inputEvent(event, index, touchPos);
 	}
+	
+	@Override
+    public boolean backPressed() {
+        
+	    if (fadeOut == null) {
+	        
+            nextScene = new MainMenuScene();
+            fadeOut = new Fader(FadeDirection.FADE_OUT, 0.02f,
+                new Vector4(0.0f, 0.0f, 0.0f, 1.0f), false);
+            entities.add(fadeOut);
+	    }
+        
+        return true;
+    }
 	
 	//PRIVATE METHODS
 	/**Process the touch events*/
@@ -202,7 +238,7 @@ public class MaterialDemoScene extends Scene {
 	private void initEntities() {
 		
 		entities.add(new Fader(FadeDirection.FADE_IN, 0.01f,
-			new Vector4(0.0f, 0.0f, 0.0f, 1.0f)));
+			new Vector4(0.0f, 0.0f, 0.0f, 1.0f), true));
 		entities.add(new Skybox());
 		entities.add(new Table());
 		entities.add(new CubeOfFate());

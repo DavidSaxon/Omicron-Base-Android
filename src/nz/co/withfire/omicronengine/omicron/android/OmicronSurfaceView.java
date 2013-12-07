@@ -8,9 +8,13 @@ package nz.co.withfire.omicronengine.omicron.android;
 
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
+import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.override.Values;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 public class OmicronSurfaceView extends GLSurfaceView {
@@ -19,21 +23,25 @@ public class OmicronSurfaceView extends GLSurfaceView {
 	//the renderer
 	private OmicronRenderer renderer;
 	//the game engine
-	private Engine engine = new Engine();
+	private Engine engine;
 	
 	//CONSTRUCTOR
 	/**Creates a new Omicron surface view
-	@param context the android context*/
-	public OmicronSurfaceView(Context context) {
+	@param context the android context
+	@param initScene the initial scene*/
+	public OmicronSurfaceView(Context context, Scene initScene) {
 		
 		//super call
 		super(context);
 		
-		//initialisation
+		//initialise resources
 		ResourceManager.init(context);
 		
         //create an OpenGL ES 2.0 context
 		setEGLContextClientVersion(2);
+		
+		//create a new engine
+		engine = new Engine(initScene);
 		
         //create a new renderer
 		renderer = new OmicronRenderer(engine);
@@ -56,6 +64,13 @@ public class OmicronSurfaceView extends GLSurfaceView {
 		
 		return true;
 	}
+	
+    /**Is called when the back button is pressed
+    @return if this method has override the back button*/
+    public boolean backPressed() {
+        
+        return engine.backPressed();
+    }
 	
 	/**Cleans up Omicron*/
 	public void cleanUp() {

@@ -16,8 +16,8 @@ public class Vector2 {
     static public final Vector2 zero2d = new Vector2();
     
     //the values of the vector
-    private float x;
-    private float y;
+    public float x;
+    public float y;
     
     //CONSTRUCTORS
     /**Creates a new zero 2d vector*/

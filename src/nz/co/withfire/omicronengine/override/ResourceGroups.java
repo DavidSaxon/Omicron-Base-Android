@@ -16,6 +16,7 @@ public class ResourceGroups {
 		DEBUG,
 		GUI,
 		START_UP,
+		LOADING,
 		MAIN_MENU,
 		MATERIAL_DEMO
 	};

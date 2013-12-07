@@ -6,7 +6,9 @@
 
 package nz.co.withfire.omicronengine.omicron.resources.manager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
@@ -21,6 +23,7 @@ import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.resource_packs.AllPack;
 import nz.co.withfire.omicronengine.resource_packs.GUIPack;
+import nz.co.withfire.omicronengine.resource_packs.LoadingPack;
 import nz.co.withfire.omicronengine.resource_packs.MainMenuPack;
 import nz.co.withfire.omicronengine.resource_packs.MaterialDemoPack;
 import nz.co.withfire.omicronengine.resource_packs.StartUpPack;
@@ -43,6 +46,27 @@ public class ResourceManager {
 	//renderable resource map
 	private static Map<String, RenderableResource> renderables = null;
 	
+	//concurrent loading lists
+	//shaders
+    private static List<ShaderResource> shadersLoad =
+       new ArrayList<ShaderResource>();
+	//textures
+    private static List<TextureResource> texturesLoad =
+        new ArrayList<TextureResource>();
+	//materials
+    private static List<MaterialResource> materialsLoad =
+        new ArrayList<MaterialResource>();
+	//renderables
+	private static List<RenderableResource> renderablesLoad =
+        new ArrayList<RenderableResource>();
+	
+	//we are currently loading something in the background
+	private static boolean inBackground = false;
+	//the number of resource there are to load in the current request
+	private static int loadAmount = 0;
+	//the number we have loaded so far in the current request
+	private static int loadComplete = 0;
+	
 	//PUBLIC METHODS
 	/**Initialises the resource manager
 	@param context the android context*/
@@ -58,6 +82,7 @@ public class ResourceManager {
 		//build the resource packs
 		AllPack.build();
 		GUIPack.build();
+		LoadingPack.build();
 		StartUpPack.build();
 		MainMenuPack.build();
 		MaterialDemoPack.build();
@@ -162,7 +187,7 @@ public class ResourceManager {
 		loadRenderables();
 	}
 	
-	/**Loads all the resource in the group into memory
+	/**Loads all the resources in the group into memory
 	@param group the group to load*/
 	public static void load(ResourceGroup group) {
 		
@@ -170,6 +195,70 @@ public class ResourceManager {
 		loadTextures(group);
 		loadMaterials(group);
 		loadRenderables(group);
+	}
+	
+	/**Concurrently loads all of the resources in the group into memory
+	@param group the group to load*/
+	public static void concurrentLoad(ResourceGroup group) {
+	    
+	    loadAmount = 0;
+	    loadComplete = 0;
+        
+        //create the list of shaders
+        for (ShaderResource s : shaders.values()) {
+            
+            if (s.getGroup() == group) {
+
+                ++loadAmount;
+                shadersLoad.add(s);
+            }
+        }
+        
+        //create the list of textures
+        for (TextureResource t : textures.values()) {
+            
+            if (t.getGroup() == group) {
+                
+                ++loadAmount;
+                texturesLoad.add(t);
+            }
+        }
+        
+        //create the list of materials
+        for (MaterialResource m : materials.values()) {
+            
+            if (m.getGroup() == group) {
+
+                ++loadAmount;
+                materialsLoad.add(m);
+            }
+        }
+        
+        //create the list of renderables
+        for (RenderableResource r : renderables.values()) {
+            
+            if (r.getGroup() == group) {
+
+                ++loadAmount;
+                renderablesLoad.add(r);
+            }
+        }
+	}
+	
+	/**@return if the resource manager is currently performing
+	concurrent loading*/
+	public static boolean isConcurrentLoading() {
+	    
+	    return shadersLoad.size() > 0 ||
+            texturesLoad.size() > 0 ||
+            materialsLoad.size() > 0 ||
+            renderablesLoad.size() > 0;
+	}
+	
+	/**@return the current loading percent of the concurrent loading*/
+	public static float concurrentLoadPercent() {
+	    
+	    return ((float) loadComplete) / ((float) loadAmount);
 	}
 	
 	//FREE
@@ -410,5 +499,96 @@ public class ResourceManager {
 			renderables.clear();
 			renderables = null;
 		}
+	}
+	
+	/**Callback to perform concurrent loading
+	#WARNING: this should not be manually called*/
+	public static void loadCycle() {
+	    
+	    if (inBackground) {
+	        
+	        return;
+	    }
+	    
+	    //load a shader
+	    if (shadersLoad.size() > 0) {
+	        
+	        //get the shader resource and load then remove
+	        ShaderResource s = shadersLoad.get(0);
+	        s.load(context);
+	        shadersLoad.remove(s);
+	        ++loadComplete;
+	        
+	        return;
+	        
+	    }
+	    
+	    //load a texture
+        if (texturesLoad.size() > 0) {
+            
+            //get the texture resource and load then remove
+            TextureResource r = texturesLoad.get(0);
+            r.load(context);
+            texturesLoad.remove(r);
+            ++loadComplete;
+            
+            return;
+        }
+        
+        //load a material
+        if (materialsLoad.size() > 0) {
+            
+            //get the material resource and load then remove
+            MaterialResource m = materialsLoad.get(0);
+            m.load(context);
+            materialsLoad.remove(m);
+            ++loadComplete;
+            
+            return;
+        }
+	    
+	    //load a renderable
+	    if (renderablesLoad.size() > 0) {
+	        
+	        //start up a new loading thread
+	        RenderableLoadThread thread = new RenderableLoadThread(
+                renderablesLoad.get(0));
+	        thread.start();
+	        ++loadComplete;
+	        
+	        return;
+	    }
+	}
+	
+	//LOADING THREADS
+	/**Concurrently loads a renderable*/
+	public static class RenderableLoadThread extends Thread {
+	    
+	    //VARIABLES
+	    //the renderable resource to load
+	    private RenderableResource toLoad;
+	    
+	    //CONSTRUCTOR
+	    /**Creates a new renderable load thread
+	    @toLoad the renderable resource to load*/
+	    public RenderableLoadThread(RenderableResource toLoad) {
+	        
+	        this.toLoad = toLoad;
+	    }
+	    
+	    //PUBLIC METHODS
+	    @Override
+	    public void run() {
+	        
+	        inBackground = true;
+	        
+	        //load
+	        toLoad.load(context);
+	        
+	        //remove from list
+	        renderablesLoad.remove(toLoad);
+	        
+	        inBackground = false;
+	    }
 	}
 }
