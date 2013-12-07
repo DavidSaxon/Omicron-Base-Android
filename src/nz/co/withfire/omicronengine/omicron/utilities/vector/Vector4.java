@@ -76,6 +76,75 @@ public class Vector4 {
     	w = 0;
     }
     
+    /**Create a new 4d vector from the 2d vector and the two scalars
+    @param v2 the 2d vector for the x and y values
+    @param z the scalar for the z value
+    @param w the scalar for the w value*/
+    public Vector4(final Vector2 v2, float z, float w) {
+        
+        x = v2.x;
+        y = v2.y;
+        this.z = z;
+        this.w = w;
+    }
+    
+    /**Create a new 4d vector from a scalar, a 2d vector, and another scalar
+    @param x the scalar for the x value
+    @param v2 the 2d vector for the y and z values
+    @param w the scalar for the w value*/
+    public Vector4(float x, final Vector2 v2, float w) {
+        
+        this.x = x;
+        y = v2.x;
+        z = v2.y;
+        this.w = w;
+    }
+    
+    /**Create a new 4d vector from two scalars and a 2d vector
+    @param x the scalar for the x value
+    @param y the scalar for the y value
+    @param v2 the 2d vector for the z and w values*/
+    public Vector4(float x, float y, final Vector2 v2) {
+        
+        this.x = x;
+        this.y = y;
+        z = v2.x;
+        w = v2.y;
+    }
+    
+    /**Create a new 4d vector from two 2d vector
+    @param firstV2 the 2d vector for the x and y values
+    @param secondV2 the 2d vector for the z and w values*/
+    public Vector4(final Vector2 firstV2, final Vector2 secondV2) {
+        
+        x = firstV2.x;
+        y = firstV2.y;
+        z = secondV2.x;
+        w = secondV2.y;
+    }
+    
+    /**Create a new 4d vector from the 3d vector and the scalar
+    @param v3 the 3d vector for the x, y, and z values
+    @param w the scalar for the w value*/
+    public Vector4(final Vector3 v3, float w) {
+        
+        x = v3.x;
+        y = v3.y;
+        z = v3.z;
+        this.w = w;
+    }
+    
+    /**Create a new 4d vector from the scalar and the 3d vector
+    @param x the scalar for the x value
+    @param v3 the 3d vector for the y, z, and w values*/
+    public Vector4(float x, final Vector3 v3) {
+        
+        this.x = x;
+        y = v3.x;
+        z = v3.y;
+        w = v3.z;
+    }
+    
     /**Create a new 4d vector from the values of a length 4 array
     @param array the array to create the vector from*/
     public Vector4(float array[]) {

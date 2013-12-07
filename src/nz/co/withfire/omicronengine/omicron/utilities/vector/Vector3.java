@@ -69,6 +69,26 @@ public class Vector3 {
     	z = other.z;
     }
     
+    /**Create a new 3d vector from the 2d vector and the scalar
+    @param v2 the 2d vector for the x and y values
+    @param z the scalar for the z value*/
+    public Vector3(final Vector2 v2, float z) {
+        
+        x = v2.x;
+        y = v2.y;
+        this.z = z;
+    }
+    
+    /**Create a new 3d vector from the scalar and the 2d vector
+    @param x the scalar for the x value
+    @param v2 the 2d vector for the y and z values*/
+    public Vector3(float x, final Vector2 v2) {
+        
+        this.x = x;
+        y = v2.x;
+        z = v2.y;
+    }
+    
     /**Create a new 3d vector from the values of a length 3 array
     @param array the array to create the vector from*/
     public Vector3(float array[]) {
