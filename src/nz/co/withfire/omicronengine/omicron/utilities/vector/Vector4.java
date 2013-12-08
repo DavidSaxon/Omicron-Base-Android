@@ -306,6 +306,12 @@ public class Vector4 {
         return array;
     }
     
+    /**@return a copy of this vector*/
+    public Vector4 clone() {
+        
+        return new Vector4(x, y, z, w);
+    }
+    
     /**@return the vector as a string*/
     public String toString() {
         

@@ -236,6 +236,12 @@ public class Vector3 {
         return array;
     }
 
+    /**@return a copy of this vector*/
+    public Vector3 clone() {
+        
+        return new Vector3(x, y, z);
+    }
+    
     /**@return the vector as a string*/
     public String toString() {
         

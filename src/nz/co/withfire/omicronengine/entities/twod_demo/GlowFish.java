@@ -7,6 +7,7 @@
 package nz.co.withfire.omicronengine.entities.twod_demo;
 
 import android.opengl.GLES20;
+import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.CustomShaderInputFunction;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
@@ -14,18 +15,24 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable.Custo
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
+import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
+import nz.co.withfire.omicronengine.omicron.physics.types.Collidable;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.override.Values;
 
-public class GlowFish extends Entity {
+public class GlowFish extends Collidable {
 
     //VARIABLES
     //the mesh
     private Mesh mesh;
+    
+    //is true if we should remove
+    private boolean shouldRemove = false;
     
     //the position of the fish
     private Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
@@ -35,6 +42,18 @@ public class GlowFish extends Entity {
     
     //the move speed of the fish
     private final float MOVE_SPEED = 0.01f;
+    
+    //a list of potential colours
+    private static final Vector4 colours[] = {
+        
+        new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+        new Vector4(1.0f, 0.5f, 0.0f, 1.0f),
+        new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+        new Vector4(0.0f, 1.0f, 1.0f, 1.0f),
+        new Vector4(0.0f, 0.0f, 1.0f, 1.0f),
+        new Vector4(1.0f, 0.0f, 1.0f, 1.0f),
+        new Vector4(0.2f, 0.0f, 1.0f, 1.0f),
+    };
     
     //CONSTRUCTOR
     /**Creates a new glow fish
@@ -48,16 +67,8 @@ public class GlowFish extends Entity {
         
         //get the mesh
         mesh = (Mesh) ResourceManager.getRenderable("glow_fish");
-        //create a new material for it
-        Material material = new Material();
-        material.setShader(ResourceManager.getShader("glow_fish"));
-        material.setTexture(ResourceManager.getTexture("glow_fish"));
-        material.setShadeless(true);
-        material.setColour(
-            new Vector4(ValuesUtil.rand.nextFloat(),
-                ValuesUtil.rand.nextFloat(), 
-                ValuesUtil.rand.nextFloat(), 1.0f));
-        mesh.setMaterial(material);
+        //set colour
+        setColour();
         //set translation
         mesh.setTranslation(this.pos);
         //set rotation
@@ -67,10 +78,24 @@ public class GlowFish extends Entity {
         mesh.setCustomShaderInputFunction(new FishShaderInput());
         //add to the renderer
         OmicronRenderer.add(mesh);
+        
+        //boundings
+        boundings = ResourceManager.getBounding("glow_fish");
+        setBoundingPos(pos);
+        setBoundingParent(this);
+        addBoundingDebugMesh();
+        
+        //add to the collision group
+        CollisionGroups.add("fish", this);
     }
     
     @Override
     public void update() {
+        
+        //process collision
+        processCollisions();
+        //clear the collision data
+        collidedWith.clear();
         
         //move
         pos.x -= MOVE_SPEED * FPSManager.getTimeScale() * 
@@ -78,6 +103,7 @@ public class GlowFish extends Entity {
         pos.y -= MOVE_SPEED * FPSManager.getTimeScale() * 
             Math.sin(rot.z * MathUtil.DEGREES_TO_RADIANS);
         mesh.setTranslation(pos);
+        setBoundingPos(pos);
         
         //bounce of walls
         if (pos.x <= -TransformationsUtil.getOpenGLDim().x) {
@@ -99,9 +125,36 @@ public class GlowFish extends Entity {
     }
     
     @Override
+    public boolean shouldRemove() {
+        
+        return shouldRemove;
+    }
+    
+    @Override
     public void cleanUp() {
         
+        cleanUpAllBoundings();
+        
+        CollisionGroups.remove("fish", this);
         OmicronRenderer.remove(mesh);
+    }
+    
+    //PRIVATE METHODS
+    /**Sets the colour of the fish*/
+    private void setColour() {
+        
+        //create a new material
+        Material material = new Material();
+        //set values
+        material.setShader(ResourceManager.getShader("glow_fish"));
+        material.setTexture(ResourceManager.getTexture("glow_fish"));
+        material.setShadeless(true);
+        
+        int index = Math.abs(ValuesUtil.rand.nextInt()) % colours.length;
+        
+        //choose a random colour
+        material.setColour(colours[index]);
+        mesh.setMaterial(material);
     }
     
     //PRIVATE INNER CLASS
@@ -140,6 +193,15 @@ public class GlowFish extends Entity {
             GLES20.glUniform3fv(
                 GLES20.glGetUniformLocation(program, "u_Position"),
                 1, pos.toArray(), 0);
+        }
+    }
+
+    @Override
+    protected void processCollisions() {
+        
+        if (collidedWith.size() > 0) {
+        
+            shouldRemove = true;
         }
     }
 }

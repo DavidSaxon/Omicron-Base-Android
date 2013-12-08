@@ -39,6 +39,7 @@ public class StartUpScene extends Scene {
 		
 		//load the start up resources
 		ResourceManager.load(ResourceGroup.ALL);
+		ResourceManager.load(ResourceGroup.DEBUG);
 		ResourceManager.load(ResourceGroup.GUI);
 		ResourceManager.load(ResourceGroup.START_UP);
 		
@@ -74,14 +75,14 @@ public class StartUpScene extends Scene {
 		//release start up resources
 		ResourceManager.destroy(ResourceGroup.START_UP);
 		
-		//return new MainMenuScene();
+		return new MainMenuScene();
 		
-        List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
-        loadList.add(ResourceGroup.TWOD_DEMO);
-        LoadingScene.setLoadGroups(loadList);
-        LoadingScene.setNextScene(new TwoDDemoScene());
-        
-        return new LoadingScene();
+//        List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
+//        loadList.add(ResourceGroup.TWOD_DEMO);
+//        LoadingScene.setLoadGroups(loadList);
+//        LoadingScene.setNextScene(new TwoDDemoScene());
+//        
+//        return new LoadingScene();
 	}
 	
     @Override

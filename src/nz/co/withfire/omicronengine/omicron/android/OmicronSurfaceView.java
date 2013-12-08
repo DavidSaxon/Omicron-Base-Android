@@ -78,6 +78,7 @@ public class OmicronSurfaceView extends GLSurfaceView {
 	/**Cleans up Omicron*/
 	public void cleanUp() {
 		
+	    MusicManager.stop();
 		ResourceManager.cleanUp();
 		renderer.cleanUp();
 	}

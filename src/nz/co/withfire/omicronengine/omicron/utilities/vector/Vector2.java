@@ -204,6 +204,12 @@ public class Vector2 {
         return array;
     }
     
+    /**@return a copy of this vector*/
+    public Vector2 clone() {
+        
+        return new Vector2(x, y);
+    }
+    
     /**@return the vector as a string*/
     public String toString() {
         

@@ -32,6 +32,7 @@ import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 import nz.co.withfire.omicronengine.override.Values;
@@ -65,6 +66,9 @@ public class MainMenuScene extends Scene {
         
         //set up the buttons
         initButtons();
+        
+        //start playing music
+        MusicManager.play(R.raw.music_mainmenu_drone, 1.0f);
     }
     
     @Override
@@ -83,6 +87,9 @@ public class MainMenuScene extends Scene {
         
         //remove the buttons
         removeButtons();
+        
+        //stop music
+        MusicManager.stop();
         
         ResourceManager.destroy(ResourceGroup.MAIN_MENU);
         

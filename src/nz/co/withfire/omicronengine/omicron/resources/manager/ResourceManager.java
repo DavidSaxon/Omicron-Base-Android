@@ -15,6 +15,8 @@ import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.material.shader.Shader;
 import nz.co.withfire.omicronengine.omicron.graphics.material.texture.Texture;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
+import nz.co.withfire.omicronengine.omicron.physics.bounding.Bounding;
+import nz.co.withfire.omicronengine.omicron.resources.types.BoundingResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.MaterialResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.ShaderResource;
@@ -22,6 +24,7 @@ import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.resource_packs.AllPack;
+import nz.co.withfire.omicronengine.resource_packs.DebugPack;
 import nz.co.withfire.omicronengine.resource_packs.GUIPack;
 import nz.co.withfire.omicronengine.resource_packs.LoadingPack;
 import nz.co.withfire.omicronengine.resource_packs.MainMenuPack;
@@ -46,6 +49,8 @@ public class ResourceManager {
 	private static Map<String, MaterialResource> materials = null;
 	//renderable resource map
 	private static Map<String, RenderableResource> renderables = null;
+	//boundings resource map
+	private static Map<String, BoundingResource> boundings = null;
 	
 	//concurrent loading lists
 	//shaders
@@ -60,6 +65,9 @@ public class ResourceManager {
 	//renderables
 	private static List<RenderableResource> renderablesLoad =
         new ArrayList<RenderableResource>();
+	//boundings
+    private static List<BoundingResource> boundingsLoad =
+        new ArrayList<BoundingResource>();
 	
 	//we are currently loading something in the background
 	private static boolean inBackground = false;
@@ -79,9 +87,11 @@ public class ResourceManager {
 		textures =    new HashMap<String, TextureResource>();
 		materials =   new HashMap<String, MaterialResource>();
 		renderables = new HashMap<String, RenderableResource>();
+		boundings = new HashMap<String, BoundingResource>();
 		
 		//build the resource packs
 		AllPack.build();
+		DebugPack.build();
 		GUIPack.build();
 		LoadingPack.build();
 		StartUpPack.build();
@@ -179,6 +189,28 @@ public class ResourceManager {
 		}
 	}
 	
+	/**Loads all boundings into memory*/
+	public static void loadBoundings() {
+	    
+	    for (BoundingResource b : boundings.values()) {
+	        
+	        b.load(context);
+	    }
+	}
+	
+	/**Loads all boundings within the resource group into memory
+    @param group the group to load*/
+    public static void loadBoundings(ResourceGroup group) {
+        
+        for (BoundingResource b : boundings.values()) {
+            
+            if (b.getGroup() == group) {
+
+                b.load(context);
+            }
+        }
+    }
+	
 	/**Loads all resources into memory
 	#WARNING: you prolly shouldn't do this*/
 	public static void load() {
@@ -187,6 +219,7 @@ public class ResourceManager {
 		loadTextures();
 		loadMaterials();
 		loadRenderables();
+		loadBoundings();
 	}
 	
 	/**Loads all the resources in the group into memory
@@ -197,6 +230,7 @@ public class ResourceManager {
 		loadTextures(group);
 		loadMaterials(group);
 		loadRenderables(group);
+		loadBoundings(group);
 	}
 	
 	/**Concurrently loads all of the resources in the group into memory
@@ -245,6 +279,16 @@ public class ResourceManager {
                 renderablesLoad.add(r);
             }
         }
+        
+        //create the list of boundings
+        for (BoundingResource b : boundings.values()) {
+            
+            if (b.getGroup() == group) {
+
+                ++loadAmount;
+                boundingsLoad.add(b);
+            }
+        }
 	}
 	
 	/**@return if the resource manager is currently performing
@@ -254,7 +298,8 @@ public class ResourceManager {
 	    return shadersLoad.size() > 0 ||
             texturesLoad.size() > 0 ||
             materialsLoad.size() > 0 ||
-            renderablesLoad.size() > 0;
+            renderablesLoad.size() > 0 ||
+            boundingsLoad.size() > 0;
 	}
 	
 	/**@return the current loading percent of the concurrent loading*/
@@ -364,6 +409,31 @@ public class ResourceManager {
 		}
 	}
 	
+   /**Frees all boundings from memory*/
+    public static void destroyBoundings() {
+        
+        for (BoundingResource b : boundings.values()) {
+            
+            if (b.isLoaded()) {
+                
+                b.destroy();
+            }
+        }
+    }
+	
+    /**Frees the boundings within the group from memory
+    @param group the group to free*/
+    public static void destroyBoundings(ResourceGroup group) {
+        
+        for (BoundingResource b : boundings.values()) {
+            
+            if (b.isLoaded() && b.getGroup() == group) {
+                
+                b.destroy();
+            }
+        }
+    }
+    
 	/**Frees all loaded resources from memory*/
 	public static void destroy() {
 		
@@ -371,6 +441,7 @@ public class ResourceManager {
 		destroyTextures();
 		destroyMaterials();
 		destroyRenderables();
+		destroyBoundings();
 	}
 	
 	/**Frees all loaded resources within the group from memory
@@ -381,6 +452,7 @@ public class ResourceManager {
 		destroyTextures(group);
 		destroyMaterials(group);
 		destroyRenderables(group);
+		destroyBoundings(group);
 	}
 	
 	//GET
@@ -415,6 +487,24 @@ public class ResourceManager {
 		
 		return renderables.get(label).getRenderable().deepCopy();
 	}
+	
+	/**Gets the boundings from the resource map
+	@param label the label of the bounding
+	@return the boundings*/
+	public static List<Bounding> getBounding(String label) {
+        
+	    //create a new list
+	    List<Bounding> boundingList = boundings.get(label).getBounding();
+	    
+	    //copy the elements
+	    List<Bounding> returnList = new ArrayList<Bounding>();
+	    for (Bounding b : boundingList) {
+	        
+	        returnList.add(b.clone());
+	    }
+	    
+	    return returnList;
+    }
 	
 	//ADD
 	/**Adds a new shader resource to the resource map
@@ -477,6 +567,21 @@ public class ResourceManager {
         renderables.put(label, renderable);
 	}
 	
+    /**Adds a new bounding resource to the resource map
+    @param label the label of the bounding
+    @param bounding the bounding resource to add*/
+    public static void add(String label, BoundingResource bounding) {
+        
+        //check to make sure the map doesn't contain the key
+        if (boundings.containsKey(label)) {
+            
+            Log.v(Values.TAG, "Invalid bounding key");
+            throw new RuntimeException("Invalid bounding key");
+        }
+        
+        boundings.put(label, bounding);
+    }
+	
 	/**Cleans up the resource manager*/
 	public static void cleanUp() {
 		
@@ -501,6 +606,11 @@ public class ResourceManager {
 			renderables.clear();
 			renderables = null;
 		}
+	    if (boundings != null) {
+	            
+	        boundings.clear();
+	        boundings = null;
+        }
 	}
 	
 	/**Callback to perform concurrent loading
@@ -560,6 +670,18 @@ public class ResourceManager {
 	        
 	        return;
 	    }
+	    
+        //load a bounding
+        if (boundingsLoad.size() > 0) {
+            
+            //get the material resource and load then remove
+            BoundingResource b = boundingsLoad.get(0);
+            b.load(context);
+            boundingsLoad.remove(b);
+            ++loadComplete;
+            
+            return;
+        }
 	}
 	
 	//LOADING THREADS

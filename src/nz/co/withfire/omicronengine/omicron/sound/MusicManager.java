@@ -41,8 +41,8 @@ public class MusicManager {
         }
     }
 
-    /**Clears the media player*/
-    public static void clear() {
+    /**Stops the media player*/
+    public static void stop() {
         
         if (mediaPlayer != null) {
             

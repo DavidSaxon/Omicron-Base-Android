@@ -8,6 +8,7 @@ package nz.co.withfire.omicronengine.omicron.logic.engine;
 
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
+import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 
@@ -60,7 +61,7 @@ public class Engine {
 		
 		//execute the current scene
 		if (scene.execute()) {
-
+		    
 			//set the new scene
 			scene = scene.nextScene();
 			scene.init();

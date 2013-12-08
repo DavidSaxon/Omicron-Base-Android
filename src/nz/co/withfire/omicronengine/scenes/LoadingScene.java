@@ -119,8 +119,8 @@ public class LoadingScene extends Scene {
         //super call
         super.nextScene();
         
-        //release start up resources
-        ResourceManager.destroy(ResourceGroup.START_UP);
+        //release loading resources
+        ResourceManager.destroy(ResourceGroup.LOADING);
         
         return nextScene;
     }

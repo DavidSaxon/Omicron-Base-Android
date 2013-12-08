@@ -16,6 +16,8 @@ import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
+import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
+import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionProcess;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
@@ -43,6 +45,9 @@ public class TwoDDemoScene extends Scene {
         //set the camera
         OmicronRenderer.setCamera(camera);
         
+        //create collision groups
+        CollisionGroups.newGroup("fish");
+        
         //create entities
         initEntities();
         
@@ -55,6 +60,9 @@ public class TwoDDemoScene extends Scene {
         
         super.execute();
         
+        //process collisions
+        CollisionProcess.betweenGroups("fish", "fish");
+        
         return fadeOut != null && fadeOut.complete();
     }
     
@@ -65,7 +73,7 @@ public class TwoDDemoScene extends Scene {
         super.nextScene();
         
         //stop music
-        MusicManager.clear();
+        MusicManager.stop();
         
         ResourceManager.destroy(ResourceGroup.TWOD_DEMO);
         ResourceManager.load(ResourceGroup.MAIN_MENU);

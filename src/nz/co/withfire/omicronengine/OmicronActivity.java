@@ -1,6 +1,7 @@
 package nz.co.withfire.omicronengine;
 
 import nz.co.withfire.omicronengine.omicron.android.OmicronSurfaceView;
+import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
 import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.scenes.StartUpScene;
 import android.os.Bundle;
@@ -48,6 +49,16 @@ public class OmicronActivity extends Activity {
             new OmicronSurfaceView(this, new StartUpScene());
         
         frame.addView(surfaceView);
+	}
+	
+	@Override
+    protected void onPause() {
+	    
+	    //super call
+	    super.onPause();
+	    
+	    //stop the music player
+	    MusicManager.stop();
 	}
 	
 	@Override
