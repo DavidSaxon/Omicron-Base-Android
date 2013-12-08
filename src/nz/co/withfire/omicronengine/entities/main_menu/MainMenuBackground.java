@@ -36,8 +36,6 @@ public class MainMenuBackground extends Entity {
 		
 		//get the mesh
 	    mesh = (Mesh) ResourceManager.getRenderable("main_menu_background");
-		
-	    Log.v(Values.TAG, "" + TransformationsUtil.getOpenGLDim());
 	    
 		//scale to screen width
 	    mesh.setScale(new Vector3(

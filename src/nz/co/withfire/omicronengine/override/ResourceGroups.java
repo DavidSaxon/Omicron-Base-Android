@@ -18,6 +18,7 @@ public class ResourceGroups {
 		START_UP,
 		LOADING,
 		MAIN_MENU,
-		MATERIAL_DEMO
+		MATERIAL_DEMO,
+		TWOD_DEMO
 	};
 }

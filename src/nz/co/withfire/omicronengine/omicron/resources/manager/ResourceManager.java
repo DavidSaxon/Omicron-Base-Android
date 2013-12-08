@@ -27,6 +27,7 @@ import nz.co.withfire.omicronengine.resource_packs.LoadingPack;
 import nz.co.withfire.omicronengine.resource_packs.MainMenuPack;
 import nz.co.withfire.omicronengine.resource_packs.MaterialDemoPack;
 import nz.co.withfire.omicronengine.resource_packs.StartUpPack;
+import nz.co.withfire.omicronengine.resource_packs.TwoDDemoPack;
 
 import android.content.Context;
 import android.util.Log;
@@ -86,6 +87,7 @@ public class ResourceManager {
 		StartUpPack.build();
 		MainMenuPack.build();
 		MaterialDemoPack.build();
+		TwoDDemoPack.build();
 	}
 	
 	//LOAD

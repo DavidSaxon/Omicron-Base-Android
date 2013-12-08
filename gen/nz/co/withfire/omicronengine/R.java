@@ -19,6 +19,7 @@ public final class R {
         public static final int materialdemo_wood=0x7f020005;
         public static final int menu_main_background=0x7f020006;
         public static final int startup_omicron_splash=0x7f020007;
+        public static final int twoddemo_glow_beam=0x7f020008;
     }
     public static final class id {
         public static final int main_menu=0x7f060000;
@@ -39,11 +40,15 @@ public final class R {
         public static final int mesh_materialdemo_skybox=0x7f040003;
         public static final int mesh_materialdemo_sphere=0x7f040004;
         public static final int mesh_materialdemo_table=0x7f040005;
-        public static final int shader_fragment_default=0x7f040006;
-        public static final int shader_fragment_menu_main_background=0x7f040007;
-        public static final int shader_vertex_default=0x7f040008;
-        public static final int shader_vertex_menu_main_background=0x7f040009;
-        public static final int sprite_std=0x7f04000a;
+        public static final int mesh_twoddemo_strip=0x7f040006;
+        public static final int music_twod_demo_swarming=0x7f040007;
+        public static final int shader_fragment_default=0x7f040008;
+        public static final int shader_fragment_menu_main_background=0x7f040009;
+        public static final int shader_fragment_twoddemo_glow_fish=0x7f04000a;
+        public static final int shader_vertex_default=0x7f04000b;
+        public static final int shader_vertex_menu_main_background=0x7f04000c;
+        public static final int shader_vertex_twoddemo_glow_fish=0x7f04000d;
+        public static final int sprite_std=0x7f04000e;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;

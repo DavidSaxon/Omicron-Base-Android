@@ -77,7 +77,7 @@ public class Fader extends Entity {
 		colour.w = fade;
 		faderMesh.getMaterial().setColour(colour);
 		//shift forward
-		faderMesh.setTranslation(new Vector3(0.0f, 0.0f, -1.71f));
+		faderMesh.setTranslation(new Vector3(0.0f, 0.0f, -1.6f));
 		//scale
 		faderMesh.setScale(new Vector3(3.0f, 3.0f, 3.0f));
 		//add to the renderer

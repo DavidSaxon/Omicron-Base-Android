@@ -209,9 +209,19 @@ public class MainMenuScene extends Scene {
         @Override
         public void onClick(View view) {
             
-            //TODO: set loader values
+            //set load values
+            List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
+            loadList.add(ResourceGroup.TWOD_DEMO);
+            LoadingScene.setLoadGroups(loadList);
+            LoadingScene.setNextScene(new TwoDDemoScene());
             
-            //TODO: set new scene
+            //set the next scene
+            nextScene = new LoadingScene();
+            
+            //fade out
+            fadeOut();
+            
+            complete = true;
         }
     }
     

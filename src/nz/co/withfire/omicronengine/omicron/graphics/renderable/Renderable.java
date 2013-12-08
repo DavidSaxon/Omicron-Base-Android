@@ -227,9 +227,9 @@ public abstract class Renderable {
         Matrix.setIdentityM(modelMatrix, 0);
         Matrix.setIdentityM(mvMatrix, 0);
         
-        //post rotation translation
-        Matrix.translateM(modelMatrix, 0, postRotTrans.x,
-    		postRotTrans.y, postRotTrans.z);
+        //translation
+        Matrix.translateM(modelMatrix, 0, translation.x,
+            translation.y, translation.z);
         
         //local rotation
 		Matrix.rotateM(modelMatrix, 0, localRot.y, 0, 1, 0);
@@ -243,9 +243,9 @@ public abstract class Renderable {
 		Matrix.rotateM(modelMatrix, 0, globalRot.y, 0, 1, 0);
 		Matrix.rotateM(modelMatrix, 0, globalRot.z, 0, 0, 1);
 		
-		//translation
-        Matrix.translateM(modelMatrix, 0, translation.x,
-    		translation.y, translation.z);
+        //post rotation translation
+        Matrix.translateM(modelMatrix, 0, postRotTrans.x,
+            postRotTrans.y, postRotTrans.z);
         
         //scale
         Matrix.scaleM(modelMatrix, 0, scale.x, scale.y, scale.z);

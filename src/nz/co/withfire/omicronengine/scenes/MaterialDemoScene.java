@@ -6,7 +6,6 @@
 
 package nz.co.withfire.omicronengine.scenes;
 
-import android.util.Log;
 import nz.co.withfire.omicronengine.entities.gui.Fader;
 import nz.co.withfire.omicronengine.entities.gui.Fader.FadeDirection;
 import nz.co.withfire.omicronengine.entities.material_demo.BronzeSphere;
@@ -31,7 +30,6 @@ import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
-import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class MaterialDemoScene extends Scene {

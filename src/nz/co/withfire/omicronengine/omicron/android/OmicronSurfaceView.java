@@ -10,6 +10,7 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
 import nz.co.withfire.omicronengine.override.Values;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
@@ -36,6 +37,8 @@ public class OmicronSurfaceView extends GLSurfaceView {
 		
 		//initialise resources
 		ResourceManager.init(context);
+		//initialise the music manager
+		MusicManager.init(context);
 		
         //create an OpenGL ES 2.0 context
 		setEGLContextClientVersion(2);
