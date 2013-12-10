@@ -6,7 +6,7 @@
 
 package nz.co.withfire.omicronengine.entities.loading;
 
-import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
+import nz.co.withfire.omicronengine.omicron.graphics.renderable.Sprite;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
@@ -17,7 +17,7 @@ public class LoadingCog extends Entity {
 
     //VARIABLES
     //the mesh
-    private final Mesh cogMesh;
+    private final Sprite sprite;
     
     //the rotation
     private Vector3 rot = new Vector3();
@@ -26,12 +26,12 @@ public class LoadingCog extends Entity {
     /**Creates a new loading cog*/
     public LoadingCog() {
         
-        //get the mesh
-        cogMesh = (Mesh) ResourceManager.getRenderable("loading_cog");
+        //get the sprite
+        sprite = (Sprite) ResourceManager.getRenderable("loading_cog");
         //scale
-        cogMesh.setScale(new Vector3(0.5f, 0.5f, 1.0f));
+        sprite.setScale(new Vector3(0.5f, 0.5f, 1.0f));
         //add to the renderer
-        OmicronRenderer.add(cogMesh);
+        OmicronRenderer.add(sprite);
     }
     
     @Override
@@ -39,12 +39,12 @@ public class LoadingCog extends Entity {
         
         //spin
         rot.z += 2.0f * FPSManager.getTimeScale();
-        cogMesh.setGlobalRot(rot);
+        sprite.setGlobalRot(rot);
     }
     
     @Override
     public void cleanUp() {
         
-        OmicronRenderer.remove(cogMesh);
+        OmicronRenderer.remove(sprite);
     }
 }

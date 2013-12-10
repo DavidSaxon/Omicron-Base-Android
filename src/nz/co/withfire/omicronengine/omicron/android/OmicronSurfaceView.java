@@ -1,7 +1,7 @@
 /********************************************************************\
 | This surface needs to be set as the content view to begin Omicron. |
-|																     |
-| @author David Saxon												 |
+|                                                                     |
+| @author David Saxon                                                 |
 \********************************************************************/
 
 package nz.co.withfire.omicronengine.omicron.android;
@@ -20,66 +20,66 @@ import android.view.MotionEvent;
 
 public class OmicronSurfaceView extends GLSurfaceView {
 
-	//VARIABLES
-	//the renderer
-	private OmicronRenderer renderer;
-	//the game engine
-	private Engine engine;
-	
-	//CONSTRUCTOR
-	/**Creates a new Omicron surface view
-	@param context the android context
-	@param initScene the initial scene*/
-	public OmicronSurfaceView(Context context, Scene initScene) {
-		
-		//super call
-		super(context);
-		
-		//initialise resources
-		ResourceManager.init(context);
-		//initialise the music manager
-		MusicManager.init(context);
-		
+    //VARIABLES
+    //the renderer
+    private OmicronRenderer renderer;
+    //the game engine
+    private Engine engine;
+
+    //CONSTRUCTOR
+    /**Creates a new Omicron surface view
+    @param context the android context
+    @param initScene the initial scene*/
+    public OmicronSurfaceView(Context context, Scene initScene) {
+
+        //super call
+        super(context);
+
+        //initialise resources
+        ResourceManager.init(context);
+        //initialise the music manager
+        MusicManager.init(context);
+
         //create an OpenGL ES 2.0 context
-		setEGLContextClientVersion(2);
-		
-		//create a new engine
-		engine = new Engine(initScene);
-		
+        setEGLContextClientVersion(2);
+
+        //create a new engine
+        engine = new Engine(initScene);
+
         //create a new renderer
-		renderer = new OmicronRenderer(engine);
-        
+        renderer = new OmicronRenderer(engine);
+
         //set the configuration chooser
         setEGLConfigChooser(true);
-        
+
         //set the renderer
         setRenderer(renderer);
-        
+
         //set the rendering mode
         setRenderMode(RENDERMODE_CONTINUOUSLY);
-	}
-	
-	//PUBLIC METHODS
-	@Override
-	public boolean onTouchEvent(MotionEvent e) {
-		
-		renderer.touchEvent(e);
-		
-		return true;
-	}
-	
+    }
+
+    //PUBLIC METHODS
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+
+        renderer.touchEvent(e);
+
+        return true;
+    }
+
     /**Is called when the back button is pressed
     @return if this method has override the back button*/
     public boolean backPressed() {
-        
+
         return engine.backPressed();
     }
-	
-	/**Cleans up Omicron*/
-	public void cleanUp() {
-		
-	    MusicManager.stop();
-		ResourceManager.cleanUp();
-		renderer.cleanUp();
-	}
+
+    /**Cleans up Omicron*/
+    public void cleanUp() {
+
+        MusicManager.stop();
+        ResourceManager.cleanUp();
+        renderer.cleanUp();
+    }
 }

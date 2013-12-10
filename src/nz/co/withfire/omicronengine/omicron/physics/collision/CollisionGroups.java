@@ -60,6 +60,13 @@ public class CollisionGroups {
         }
     }
     
+    /**Removes a group
+    @param name the name of the group to remove*/
+    public static void removeGroup(String name) {
+        
+        groups.remove(name);
+    }
+    
     /**Adds a collidable to the given group
     @param name the name of the group to add to
     @param collidable the collidable to add*/

@@ -1,7 +1,7 @@
 /********************************************************************\
 | The fragment Omicron vertex shader, does all the necessary things. |
-|																	 |
-| @author David Saxon												 |
+|                                                                     |
+| @author David Saxon                                                 |
 \********************************************************************/
 
 //set the precision
@@ -41,54 +41,54 @@ uniform vec3 u_PointPos[16];
 //MAIN METHOD
 void main() {
 
-	//the diffuse colour
-	vec3 diffuseAll = vec3(0.0, 0.0, 0.0);
+    //the diffuse colour
+    vec3 diffuseAll = vec3(0.0, 0.0, 0.0);
 
-	//the colour of the texture
-	vec4 textureColour = vec4(1.0, 1.0, 1.0, 1.0);
-	if (u_HasTexture > 0.5) {
+    //the colour of the texture
+    vec4 textureColour = vec4(1.0, 1.0, 1.0, 1.0);
+    if (u_HasTexture > 0.5) {
 
-		textureColour = texture2D(u_Texture, v_UVCoord);
-	}
+        textureColour = texture2D(u_Texture, v_UVCoord);
+    }
 
-	//the colour before lighting
-	vec4 preLightColour = textureColour * u_Colour;
+    //the colour before lighting
+    vec4 preLightColour = textureColour * u_Colour;
 
-	//do not compute lighting
-	if (u_Shadeless > 0.5) {
+    //do not compute lighting
+    if (u_Shadeless > 0.5) {
 
-		//set the colour
-		gl_FragColor = preLightColour;
-	}
-	//compute lighting
-	else {
+        //set the colour
+        gl_FragColor = preLightColour;
+    }
+    //compute lighting
+    else {
 
-		//POINT LIGHTS
-		//iterate over the point lights
-		for (int i = 0; i < u_PointCount; ++i) {
+        //POINT LIGHTS
+        //iterate over the point lights
+        for (int i = 0; i < u_PointCount; ++i) {
 
-			//calculate the distance from the light
-        	float distance = length(u_PointPos[i] - v_Position) / 
-        		u_PointDistances[i];
+            //calculate the distance from the light
+            float distance = length(u_PointPos[i] - v_Position) /
+                u_PointDistances[i];
 
-    		//calculate the direction from the light to the vertex
-        	vec3 lightVector = normalize(u_PointPos[i] - v_Position);
+            //calculate the direction from the light to the vertex
+            vec3 lightVector = normalize(u_PointPos[i] - v_Position);
 
-        	//calculate the dot product between the normal and the light vector
-        	float diffuse = max(dot(v_Normal, lightVector), 0.0);
+            //calculate the dot product between the normal and the light vector
+            float diffuse = max(dot(v_Normal, lightVector), 0.0);
 
-        	//add attenuation
-    		diffuse = diffuse * (1.0 / (1.0 + (0.25 * distance * distance)));
+            //add attenuation
+            diffuse = diffuse * (1.0 / (1.0 + (0.25 * distance * distance)));
 
-	        //calculate the diffuse vector
-	        vec3 diffuseVector = vec3(diffuse, diffuse, diffuse);
-	        diffuseVector *= u_PointColour[i];
-	        
-	        diffuseAll += diffuseVector;
-		}
+            //calculate the diffuse vector
+            vec3 diffuseVector = vec3(diffuse, diffuse, diffuse);
+            diffuseVector *= u_PointColour[i];
 
-		//set the colour
-		gl_FragColor = preLightColour * (vec4(diffuseAll, 1.0) + u_Ambient);
-	}
-	
+            diffuseAll += diffuseVector;
+        }
+
+        //set the colour
+        gl_FragColor = preLightColour * (vec4(diffuseAll, 1.0) + u_Ambient);
+    }
+
 }

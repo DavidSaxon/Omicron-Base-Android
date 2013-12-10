@@ -13,6 +13,7 @@ import nz.co.withfire.omicronengine.omicron.resources.types.MaterialResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource.RenderableType;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
@@ -40,17 +41,15 @@ public class LoadingPack {
             MaterialResource.SHADELESS,
             ResourceGroup.LOADING));
         
-        //MESHES
+        //SPRITES
         //Cog
         ResourceManager.add("loading_cog", new RenderableResource(
-            RenderableType.MESH,
-            R.raw.sprite_std,
+            new Vector2(2.0f, 2.0f), 1,
             Renderable.Group.STD, 5, "loading_cog",
             ResourceGroup.LOADING));
         //bar
         ResourceManager.add("loading_bar", new RenderableResource(
-            RenderableType.MESH,
-            R.raw.sprite_std,
+            new Vector2(2.0f, 2.0f), 1,
             Renderable.Group.STD, 4, "loading_bar",
             ResourceGroup.LOADING));
     }

@@ -7,23 +7,22 @@
 package nz.co.withfire.omicronengine.entities.twod_demo;
 
 import android.opengl.GLES20;
-import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.graphics.material.Material;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.CustomShaderInputFunction;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable.CustomShaderInputMode;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
-import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
 import nz.co.withfire.omicronengine.omicron.physics.types.Collidable;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.utilities.ColourUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
-import nz.co.withfire.omicronengine.override.Values;
+import nz.co.withfire.omicronengine.scenes.TwoDDemoScene;
 
 public class GlowFish extends Collidable {
 
@@ -33,9 +32,6 @@ public class GlowFish extends Collidable {
     
     //is true if we should remove
     private boolean shouldRemove = false;
-    
-    //the position of the fish
-    private Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
     
     //the rotation of the fish
     private Vector3 rot = new Vector3(0.0f, 0.0f, 135.0f);
@@ -201,6 +197,13 @@ public class GlowFish extends Collidable {
         
         if (collidedWith.size() > 0) {
         
+            //combine colours
+            Vector4 thisColour = mesh.getMaterial().getColour();
+            GlowFish other = (GlowFish) collidedWith.get(0);
+            Vector4 otherColour = other.mesh.getMaterial().getColour();
+            Vector4 combine = ColourUtil.average(thisColour, otherColour);
+            
+            TwoDDemoScene.fishExplode(this, other, pos, combine);
             shouldRemove = true;
         }
     }

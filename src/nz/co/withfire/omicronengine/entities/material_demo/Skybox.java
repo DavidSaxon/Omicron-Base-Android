@@ -1,6 +1,6 @@
 /*********************\
 | The skybox.         |
-|					  |
+|                      |
 | @author David Saxon |
 \*********************/
 
@@ -13,24 +13,24 @@ import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 
 public class Skybox extends Entity {
 
-	//VARIABLES
-	//the mesh
-	private final Mesh boxMesh;
-	
-	//CONSTRUCTOR
-	/**Creates a new skybox*/
-	public Skybox() {
-		
-		//get the mesh
-		boxMesh = (Mesh) ResourceManager.getRenderable("skybox");
-		//add to the renderer
-		OmicronRenderer.add(boxMesh);
-	}
-	
-	//PUBLIC METHODS
-	@Override
-	public void cleanUp() {
-		
-		OmicronRenderer.remove(boxMesh);
-	}
+    //VARIABLES
+    //the mesh
+    private final Mesh boxMesh;
+
+    //CONSTRUCTOR
+    /**Creates a new skybox*/
+    public Skybox() {
+
+        //get the mesh
+        boxMesh = (Mesh) ResourceManager.getRenderable("skybox");
+        //add to the renderer
+        OmicronRenderer.add(boxMesh);
+    }
+
+    //PUBLIC METHODS
+    @Override
+    public void cleanUp() {
+
+        OmicronRenderer.remove(boxMesh);
+    }
 }

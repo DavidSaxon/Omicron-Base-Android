@@ -22,8 +22,8 @@ public class DebugPack {
     public static void build() {
         
         //MATERIALS
-        //bounding rect
-        ResourceManager.add("debug_bounding_rect", new MaterialResource(
+        //bounding
+        ResourceManager.add("debug_bounding", new MaterialResource(
             "default", new Vector4(0.0f, 1.0f, 0.0f, 1.0f), null, null,
             MaterialResource.SHADELESS,
             ResourceGroup.DEBUG));
@@ -31,9 +31,13 @@ public class DebugPack {
         //MESHES
         //bounding rect
         ResourceManager.add("debug_bounding_rect", new RenderableResource(
-            RenderableType.MESH,
             R.raw.sprite_std,
-            Renderable.Group.GUI, 5, "debug_bounding_rect",
+            Renderable.Group.GUI, 5, "debug_bounding",
+            ResourceGroup.DEBUG));
+        //bounding circle
+        ResourceManager.add("debug_bounding_circle", new RenderableResource(
+            R.raw.mesh_debug_bounding_circle,
+            Renderable.Group.GUI, 5, "debug_bounding",
             ResourceGroup.DEBUG));
     }
 }

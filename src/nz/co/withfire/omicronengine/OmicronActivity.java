@@ -18,61 +18,61 @@ import android.widget.RelativeLayout;
 
 public class OmicronActivity extends Activity {
 
-	//VARIABLES
-	//the context
-	public static Context context;
-	//the surface view
-	private OmicronSurfaceView surfaceView;
-	
-	//METHODS
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		
-		//super call
-		super.onCreate(savedInstanceState);
+    //VARIABLES
+    //the context
+    public static Context context;
+    //the surface view
+    private OmicronSurfaceView surfaceView;
 
-		//set the context
-		context = this;
-		
-		//set to full screen mode
+    //METHODS
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        //super call
+        super.onCreate(savedInstanceState);
+
+        //set the context
+        context = this;
+
+        //set to full screen mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        
+
         super.setContentView(R.layout.omicron);
-        
+
         FrameLayout frame =
             (FrameLayout)findViewById(R.id.omicron_frame_layout);
-        
+
         //create an Omicron surface view
         surfaceView =
             new OmicronSurfaceView(this, new StartUpScene());
-        
+
         frame.addView(surfaceView);
-	}
-	
-	@Override
+    }
+
+    @Override
     protected void onPause() {
-	    
-	    //super call
-	    super.onPause();
-	    
-	    //stop the music player
-	    MusicManager.stop();
-	}
-	
-	@Override
+
+        //super call
+        super.onPause();
+
+        //stop the music player
+        MusicManager.stop();
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        
-	    //back button
-	    if (keyCode == KeyEvent.KEYCODE_BACK) {
-	        
-    	    if (surfaceView.backPressed()) {
-    	        
-    	        return true;
-    	    }
-	    }
-    
-	    return super.onKeyDown(keyCode, event);
-	}
+
+        //back button
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            if (surfaceView.backPressed()) {
+
+                return true;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 }

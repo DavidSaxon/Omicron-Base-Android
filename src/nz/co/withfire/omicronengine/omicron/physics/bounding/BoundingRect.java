@@ -7,7 +7,6 @@
 package nz.co.withfire.omicronengine.omicron.physics.bounding;
 
 import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
-import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
@@ -18,16 +17,13 @@ public class BoundingRect extends Bounding {
     //VARIABLES
     //the dimensions of the bounding rectangle
     private Vector2 dim = new Vector2();
-    //the dimensions of the bounding box after scaling
+    //the dimensions of the bounding rectangle after scaling
     private Vector2 scaleDim = new Vector2();
-    
-    //the debug mesh
-    private Mesh debugMesh;
     
     //CONSTRUCTORS
     /**Creates a new bounding rectangle
-    @param dim the dimensions of the bounding box
-    @param offset the offset of the bounding box*/
+    @param dim the dimensions of the bounding rectangle
+    @param offset the offset of the bounding rectangle*/
     public BoundingRect(Vector2 dim, Vector3 offset) {
         
         this.dim.copy(dim);
@@ -45,7 +41,7 @@ public class BoundingRect extends Bounding {
         this.offset.copy(other.offset);
         scale();
         
-        //in debug mode create bounding outline
+        //in debug mode create the debug mesh
         if (DebugValues.DEBUG_BOUNDINGS) {
             
             debugMesh = (Mesh)
@@ -58,30 +54,9 @@ public class BoundingRect extends Bounding {
     
     //PUBLIC METHODS
     @Override
-    public void cleanUp() {
-        
-        //remove the debug shape
-        if (DebugValues.DEBUG_BOUNDINGS) {
-
-            OmicronRenderer.remove(debugMesh);
-        }
-    }
-    
-    @Override
     public Bounding clone() {
         
         return new BoundingRect(this);
-    }
-    
-    /**Adds the shape to the render lists in debug mode*/
-    public void addDebugMesh() {
-        
-        //in debug mode create bounding outline
-        if (DebugValues.DEBUG_BOUNDINGS) {
-            
-            debugMesh.setTranslation(pos.clone());
-            OmicronRenderer.add(debugMesh);
-        }
     }
     
     //GETTERS
@@ -89,18 +64,6 @@ public class BoundingRect extends Bounding {
     public final Vector2 getDim() {
         
         return scaleDim;
-    }
-
-    //SETTERS
-    @Override
-    public void setPos(Vector3 pos) {
-        
-        super.setPos(pos);
-        
-        if (DebugValues.DEBUG_BOUNDINGS) {
-            
-            debugMesh.setTranslation(pos.clone());
-        }
     }
     
     //PROTECTED METHODS

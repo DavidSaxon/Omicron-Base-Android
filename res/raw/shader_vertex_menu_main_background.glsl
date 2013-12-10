@@ -17,13 +17,13 @@ varying vec3 v_Position;
 varying vec2 v_UVCoord;
 
 void main() {
-	
-	//apply transformations to position
+
+    //apply transformations to position
     v_Position = vec3(u_MMatrix * a_Position);
 
-	//pass the uv co-ordinates through to the fragment shader
+    //pass the uv co-ordinates through to the fragment shader
     v_UVCoord = a_UVCoord;
 
-	//set the position
-	gl_Position = u_MVPMatrix * a_Position;
+    //set the position
+    gl_Position = u_MVPMatrix * a_Position;
 }

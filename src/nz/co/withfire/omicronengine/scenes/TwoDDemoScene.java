@@ -6,15 +6,18 @@
 
 package nz.co.withfire.omicronengine.scenes;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.entities.gui.Fader;
 import nz.co.withfire.omicronengine.entities.gui.Fader.FadeDirection;
+import nz.co.withfire.omicronengine.entities.twod_demo.Explosion;
 import nz.co.withfire.omicronengine.entities.twod_demo.GlowFish;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
+import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionProcess;
@@ -37,6 +40,11 @@ public class TwoDDemoScene extends Scene {
     
     //fade out
     private Fader fadeOut = null;
+    
+    //list of explosisons to add
+    private static List<Entity> explosions = new ArrayList<Entity>();
+    //the list of glow fish that have collided this frame
+    private static List<GlowFish> collidedFish = new ArrayList<GlowFish>();
     
     //PUBLIC METHODS
     @Override
@@ -63,6 +71,14 @@ public class TwoDDemoScene extends Scene {
         //process collisions
         CollisionProcess.betweenGroups("fish", "fish");
         
+        //add explosions
+        for (Entity e : explosions) {
+            
+            entities.add(e);
+        }
+        explosions.clear();
+        collidedFish.clear();
+        
         return fadeOut != null && fadeOut.complete();
     }
     
@@ -74,6 +90,9 @@ public class TwoDDemoScene extends Scene {
         
         //stop music
         MusicManager.stop();
+        
+        //remove the collision group
+        CollisionGroups.removeGroup("fish");
         
         ResourceManager.destroy(ResourceGroup.TWOD_DEMO);
         ResourceManager.load(ResourceGroup.MAIN_MENU);
@@ -93,6 +112,22 @@ public class TwoDDemoScene extends Scene {
         }
         
         return true;
+    }
+    
+    /**Creates a colour explosion for fish
+    @param a the first glow fish in the collision
+    @param b the second glow fish in the collision
+    @param pos the position of the explosion
+    @param colour the colour of the explosion*/
+    public static void fishExplode(GlowFish a, GlowFish b,
+        Vector3 pos, Vector4 colour) {
+        
+        if (!collidedFish.contains(a) && !collidedFish.contains(b)) {
+            
+            explosions.add(new Explosion(pos, colour));
+            collidedFish.add(a);
+            collidedFish.add(b);
+        }
     }
     
     //PRIVATE METHODS

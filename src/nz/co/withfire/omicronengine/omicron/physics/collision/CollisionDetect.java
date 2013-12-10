@@ -8,6 +8,7 @@ package nz.co.withfire.omicronengine.omicron.physics.collision;
 
 import android.util.Log;
 import nz.co.withfire.omicronengine.omicron.physics.bounding.Bounding;
+import nz.co.withfire.omicronengine.omicron.physics.bounding.BoundingCircle;
 import nz.co.withfire.omicronengine.omicron.physics.bounding.BoundingRect;
 import nz.co.withfire.omicronengine.override.Values;
 
@@ -26,6 +27,11 @@ public class CollisionDetect {
         if (a instanceof BoundingRect && b instanceof BoundingRect) {
             
             return dectectRectRect((BoundingRect) a,(BoundingRect) b);
+        }
+        //two circles
+        else if (a instanceof BoundingCircle && b instanceof BoundingCircle) {
+            
+            return dectectCircleCircle((BoundingCircle) a,(BoundingCircle) b);
         }
         
         return 0.0f;
@@ -57,5 +63,25 @@ public class CollisionDetect {
             Math.max(0, Math.min(ay2, by2) - Math.max(ay1, by1));
         
         return area;
+    }
+    
+    /**Checks if there is a collision between two circles
+    @param a the first bounding circle
+    @param b the second bounding circle
+    @return the value of the collision*/
+    private static float dectectCircleCircle(
+        BoundingCircle a, BoundingCircle b) {
+        
+        //get the distance bewteen the positions
+        float distance = a.getPos().distance(b.getPos());
+        //get the combined radius
+        float radius = a.getRadius() + b.getRadius();
+        
+        if (distance <= radius) {
+            
+            return 1.0f;
+        }
+        
+        return 0.0f;
     }
 }

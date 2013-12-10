@@ -1,7 +1,7 @@
 /*******************************************************************\
 | The default Omicron vertex shader, does all the necessary things. |
-|																	|
-| @author David Saxon												|
+|                                                                    |
+| @author David Saxon                                                |
 \*******************************************************************/
 
 //VARIABLES
@@ -26,16 +26,16 @@ varying vec3 v_Normal;
 
 //MAIN METHOD
 void main() {
-	
-	//apply transformations to position
+
+    //apply transformations to position
     v_Position = vec3(u_MMatrix * a_Position);
 
-	//pass the uv co-ordinates through to the fragment shader
+    //pass the uv co-ordinates through to the fragment shader
     v_UVCoord = a_UVCoord;
 
     //transform the normal into eye space
     v_Normal = vec3(u_MMatrix * vec4(a_Normal, 0.0));
 
-	//set the position
-	gl_Position = u_MVPMatrix * a_Position;
+    //set the position
+    gl_Position = u_MVPMatrix * a_Position;
 }

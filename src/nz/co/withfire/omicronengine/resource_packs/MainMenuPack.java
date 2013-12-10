@@ -14,6 +14,7 @@ import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.ShaderResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.TextureResource;
 import nz.co.withfire.omicronengine.omicron.resources.types.RenderableResource.RenderableType;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class MainMenuPack {
@@ -42,11 +43,10 @@ public class MainMenuPack {
             MaterialResource.SHADELESS,
             ResourceGroup.MAIN_MENU));
         
-        //MESHES
+        //SPRITES
         //Background
         ResourceManager.add("main_menu_background", new RenderableResource(
-            RenderableType.MESH,
-            R.raw.sprite_std,
+            new Vector2(2.0f, 2.0f), 1,
             Renderable.Group.STD, 5, "main_menu_background",
             ResourceGroup.MAIN_MENU));
     }

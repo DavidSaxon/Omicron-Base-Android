@@ -18,8 +18,8 @@ varying vec2 v_UVCoord;
 //MAIN METHOD
 void main() {
 
-	vec4 texCol = texture2D(u_Texture, v_UVCoord);
-	vec3 texDim = texCol.rgb * 0.7;
+    vec4 texCol = texture2D(u_Texture, v_UVCoord);
+    vec3 texDim = texCol.rgb * 0.7;
 
-	gl_FragColor = vec4(texDim, (texCol.a * v_Fade)) + vec4(u_Colour.rgb, 0.0);
+    gl_FragColor = vec4(texDim, (texCol.a * v_Fade)) + vec4(u_Colour.rgb, 0.0);
 }

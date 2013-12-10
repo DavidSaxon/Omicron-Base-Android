@@ -6,8 +6,11 @@
 
 package nz.co.withfire.omicronengine.omicron.physics.bounding;
 
+import nz.co.withfire.omicronengine.omicron.graphics.renderable.Mesh;
+import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.physics.types.Collidable;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
+import nz.co.withfire.omicronengine.override.DebugValues;
 
 public abstract class Bounding {
 
@@ -22,12 +25,30 @@ public abstract class Bounding {
     //the parent entity of the bounding
     protected Collidable parentEntity;
     
+    //the debug mesh of the bounding
+    protected Mesh debugMesh;
+    
     //PUBLIC METHODS
     /**Adds a debug mesh for the bounding*/
-    public abstract void addDebugMesh();
+    public void addDebugMesh() {
+        
+        //in debug mode create bounding outline
+        if (debugMesh != null && DebugValues.DEBUG_BOUNDINGS) {
+            
+            debugMesh.setTranslation(pos.clone());
+            OmicronRenderer.add(debugMesh);
+        }
+    }
     
     /**Cleans up the bounding box*/
-    public abstract void cleanUp();
+    public void cleanUp() {
+        
+        //remove the debug shape
+        if (debugMesh != null && DebugValues.DEBUG_BOUNDINGS) {
+
+            OmicronRenderer.remove(debugMesh);
+        }
+    }
     
     /**@return a copy of the bounding*/
     public abstract Bounding clone();
@@ -60,6 +81,11 @@ public abstract class Bounding {
     public void setPos(Vector3 pos) {
         
         this.pos.copy(pos);
+        
+        if (debugMesh != null && DebugValues.DEBUG_BOUNDINGS) {
+            
+            debugMesh.setTranslation(pos.clone());
+        }
     }
     
     /**@param scale the new scale of the bounding*/

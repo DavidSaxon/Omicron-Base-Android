@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import nz.co.withfire.omicronengine.omicron.physics.bounding.Bounding;
+import nz.co.withfire.omicronengine.omicron.physics.bounding.BoundingCircle;
 import nz.co.withfire.omicronengine.omicron.physics.bounding.BoundingRect;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
@@ -51,6 +52,20 @@ public class BoundingLoader {
             bounding = new BoundingRect(new Vector2(dimX, dimY),
                 new Vector3(offX, offY, offZ));
         }
+        
+        if (type.equals("#CIRCLE")) {
+            
+            float radius = Float.parseFloat(scanner.next());
+            float offX =  Float.parseFloat(scanner.next());
+            float offY =  Float.parseFloat(scanner.next());
+            float offZ =  Float.parseFloat(scanner.next());
+            
+            //create the circle
+            bounding = new BoundingCircle(radius,
+                new Vector3(offX, offY, offZ));
+        }
+        
+        
         
         //TODO: fix
         //create list

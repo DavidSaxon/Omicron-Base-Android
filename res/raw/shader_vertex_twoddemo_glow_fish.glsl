@@ -25,32 +25,32 @@ uniform vec3 u_Position;
 
 float wiggle(float value) {
 
-	return sin(value + (u_Time * 6.0)) * 0.03;
+    return sin(value + (u_Time * 6.0)) * 0.03;
 }
 
 void main() {
-	
-	vec4 pos = a_Position;
 
-	//apply transformations to position
+    vec4 pos = a_Position;
+
+    //apply transformations to position
     v_Position = vec3(u_MMatrix * pos);
 
-	//pass the uv co-ordinates through to the fragment shader
+    //pass the uv co-ordinates through to the fragment shader
     v_UVCoord = a_UVCoord;
 
     pos = u_MVPMatrix * pos;
 
     pos.y += wiggle(v_UVCoord.x);
 
-	//set the position
-	gl_Position = pos;
+    //set the position
+    gl_Position = pos;
 
-	if (v_UVCoord.x <= 11.0) {
+    if (v_UVCoord.x <= 11.0) {
 
-		v_Fade = v_UVCoord.x / 12.0;
-	}
-	else {
+        v_Fade = v_UVCoord.x / 12.0;
+    }
+    else {
 
-		v_Fade = 0.0;
-	}
+        v_Fade = 0.0;
+    }
 }

@@ -16,5 +16,5 @@ uniform vec3 u_ColourMultiplier;
 //MAIN METHOD
 void main() {
 
-	gl_FragColor = texture2D(u_Texture, v_UVCoord) * vec4(u_ColourMultiplier, 1.0);
+    gl_FragColor = texture2D(u_Texture, v_UVCoord) * vec4(u_ColourMultiplier, 1.0);
 }
