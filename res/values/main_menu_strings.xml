@@ -3,6 +3,7 @@
 
     <string name="material_demo">Materials Demo</string>
     <string name="twod_demo">2D Demo</string>
+    <string name="leaderboard_demo">Leaderboard Demo</string>
     <string name="exit">Exit</string>
 
 </resources>

@@ -1,38 +1,37 @@
 package nz.co.withfire.omicronengine;
 
+import com.google.example.games.basegameutils.BaseGameActivity;
+
 import nz.co.withfire.omicronengine.omicron.android.OmicronSurfaceView;
 import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
 import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.scenes.StartUpScene;
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
-public class OmicronActivity extends Activity {
-
+public class OmicronActivity extends BaseGameActivity {
+    
     //VARIABLES
     //the context
     public static Context context;
+    //The Activity
+    public static OmicronActivity activity;
     //the surface view
     private OmicronSurfaceView surfaceView;
-
+    
     //METHODS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //super call
-        super.onCreate(savedInstanceState);
-
         //set the context
         context = this;
+        activity = this;
 
         //set to full screen mode
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -49,8 +48,11 @@ public class OmicronActivity extends Activity {
             new OmicronSurfaceView(this, new StartUpScene());
 
         frame.addView(surfaceView);
+        
+        //super call
+        super.onCreate(savedInstanceState);
     }
-
+    
     @Override
     protected void onPause() {
 
@@ -74,5 +76,22 @@ public class OmicronActivity extends Activity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onSignInFailed() {
+        
+        Log.v(Values.TAG, "failed");
+    }
+
+    public void gamesSignIn() {
+        
+        beginUserInitiatedSignIn();
+    }
+    
+    @Override
+    public void onSignInSucceeded() {
+        
+        Log.v(Values.TAG, "signed in");
     }
 }

@@ -22,9 +22,6 @@ public abstract class Bounding {
     //the scale of the bounding
     protected Vector3 scale = new Vector3(1.0f, 1.0f, 1.0f);
     
-    //the parent entity of the bounding
-    protected Collidable parentEntity;
-    
     //the debug mesh of the bounding
     protected Mesh debugMesh;
     
@@ -70,12 +67,6 @@ public abstract class Bounding {
         return scale;
     }
     
-    /**@return the parent entity of the bounding*/
-    public Collidable getParentEntity() {
-        
-        return parentEntity;
-    }
-    
     //SETTERS
     /**@param pos the new position of the bounding*/
     public void setPos(Vector3 pos) {
@@ -93,12 +84,6 @@ public abstract class Bounding {
         
         this.scale.copy(scale);
         scale();
-    }
-    
-    /**@param parentEntity the parent entity of the bounding*/
-    public void setParentEntity(Collidable parentEntity) {
-        
-        this.parentEntity = parentEntity;
     }
     
     //PROTECTED METHODS

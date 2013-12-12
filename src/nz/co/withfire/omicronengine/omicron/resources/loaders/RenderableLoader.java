@@ -109,6 +109,8 @@ public class RenderableLoader {
                 scanner.nextLine();
             }
         }
+        
+        scanner.close();
 
         //get the triangle coords
         float coords[] = new float[faceVertices.size() * 3];
@@ -199,7 +201,7 @@ public class RenderableLoader {
         int length = 0;
         Vector2 uvDim = new Vector2();
         int rows = 0;
-        boolean stopAtEnd = false;
+        int playTimes = -1;
         
         //read the file
        String file = StringLoader.loadString(context, resourceId);
@@ -226,13 +228,11 @@ public class RenderableLoader {
                rows = Integer.parseInt(scanner.next());
            }
            else if(next.equals("#STOP")) {
-               
-               if (scanner.next().equals("1")) {
                    
-                   stopAtEnd = true;
-               }
+               playTimes = Integer.parseInt(scanner.next());
            }
        }
+       scanner.close();
         
         
         float lowX = -(dim.x / 2.0f);
@@ -272,6 +272,6 @@ public class RenderableLoader {
         };
         
         return new Animation(type, layer, coords, uv, normals,
-            length, uvDim, rows, stopAtEnd);
+            length, uvDim, rows, playTimes);
     }
 }

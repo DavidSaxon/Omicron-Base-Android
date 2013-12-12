@@ -51,7 +51,7 @@ public class StartUpScene extends Scene {
 
         //create and add the splash
         splash = new Splash(
-                (Sprite) ResourceManager.getRenderable("omicron_splash"));
+            (Sprite) ResourceManager.getRenderable("omicron_splash"));
         entities.add(splash);
     }
 
@@ -81,14 +81,14 @@ public class StartUpScene extends Scene {
         //release start up resources
         ResourceManager.destroy(ResourceGroup.START_UP);
 
-        //return new MainMenuScene();
+        return new MainMenuScene();
 
-        List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
-        loadList.add(ResourceGroup.TWOD_DEMO);
-        LoadingScene.setLoadGroups(loadList);
-        LoadingScene.setNextScene(new TwoDDemoScene());
-
-        return new LoadingScene();
+//        List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
+//        loadList.add(ResourceGroup.TWOD_DEMO);
+//        LoadingScene.setLoadGroups(loadList);
+//        LoadingScene.setNextScene(new TwoDDemoScene());
+//
+//        return new LoadingScene();
     }
 
     @Override

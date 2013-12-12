@@ -6,8 +6,8 @@
 
 package nz.co.withfire.omicronengine.scenes;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.entities.gui.Fader;
@@ -17,12 +17,14 @@ import nz.co.withfire.omicronengine.entities.twod_demo.GlowFish;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.PerspectiveCamera;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
-import nz.co.withfire.omicronengine.omicron.logic.entity.Entity;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
+import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionCallBack;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionProcess;
+import nz.co.withfire.omicronengine.omicron.physics.types.Collidable;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
+import nz.co.withfire.omicronengine.omicron.utilities.ColourUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
@@ -41,10 +43,12 @@ public class TwoDDemoScene extends Scene {
     //fade out
     private Fader fadeOut = null;
     
-    //list of explosisons to add
-    private static List<Entity> explosions = new ArrayList<Entity>();
-    //the list of glow fish that have collided this frame
-    private static List<GlowFish> collidedFish = new ArrayList<GlowFish>();
+    //the collision call back for fish
+    private CollisionCallBack fishCollisionCallBack =
+        new FishCollisionCallBack();
+    //map of fish collisions this frame
+    private Map<GlowFish,GlowFish> fishCollisions =
+        new HashMap<GlowFish, GlowFish>();
     
     //PUBLIC METHODS
     @Override
@@ -66,18 +70,13 @@ public class TwoDDemoScene extends Scene {
     @Override
     public boolean execute() {
         
+        //super call
         super.execute();
         
         //process collisions
-        CollisionProcess.betweenGroups("fish", "fish");
-        
-        //add explosions
-        for (Entity e : explosions) {
-            
-            entities.add(e);
-        }
-        explosions.clear();
-        collidedFish.clear();
+        CollisionProcess.betweenGroup("fish", fishCollisionCallBack);
+        createFishExplosions();
+        fishCollisions.clear();
         
         return fadeOut != null && fadeOut.complete();
     }
@@ -114,23 +113,23 @@ public class TwoDDemoScene extends Scene {
         return true;
     }
     
-    /**Creates a colour explosion for fish
-    @param a the first glow fish in the collision
-    @param b the second glow fish in the collision
-    @param pos the position of the explosion
-    @param colour the colour of the explosion*/
-    public static void fishExplode(GlowFish a, GlowFish b,
-        Vector3 pos, Vector4 colour) {
+    //PRIVATE METHODS
+    /**Creates explosions from collisions between two fish*/
+    private void createFishExplosions() {
         
-        if (!collidedFish.contains(a) && !collidedFish.contains(b)) {
+        for (Map.Entry<GlowFish, GlowFish> e : fishCollisions.entrySet()) {
             
-            explosions.add(new Explosion(pos, colour));
-            collidedFish.add(a);
-            collidedFish.add(b);
+            //combine the colours
+            Vector4 combine = ColourUtil.combine(
+                e.getKey().getColour(), e.getValue().getColour());
+            entities.add(new Explosion(e.getKey().getPos().clone(), combine));
+            e.getKey().remove();
+            e.getValue().remove();
         }
     }
     
-    //PRIVATE METHODS
+    
+    /**Adds the initial entities*/
     private void initEntities() {
         
         for (int i = 0; i < 15; ++i) {
@@ -145,6 +144,17 @@ public class TwoDDemoScene extends Scene {
             float rot = ValuesUtil.rand.nextFloat() * 360.0f;
             
             entities.add(new GlowFish(pos, new Vector3(0.0f, 0.0f, rot)));
+        }
+    }
+    
+    //PRIVARE CLASSES
+    private class FishCollisionCallBack implements CollisionCallBack {
+
+        //PUBLIC METHODS
+        @Override
+        public void collision(Collidable c1, Collidable c2) {
+
+            fishCollisions.put((GlowFish) c1, (GlowFish) c2);
         }
     }
 }

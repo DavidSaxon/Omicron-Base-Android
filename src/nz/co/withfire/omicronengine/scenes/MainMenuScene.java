@@ -9,6 +9,8 @@ package nz.co.withfire.omicronengine.scenes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.example.games.basegameutils.BaseGameActivity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -127,6 +129,8 @@ public class MainMenuScene extends Scene {
                             new MaterialDemoListener(), tableRow);
                         createButton(R.string.twod_demo,
                             new TwoDDemoListener(), tableRow);
+                        createButton(R.string.leaderboard_demo,
+                            new LeaderboardDemoListener(), tableRow);
                         createButton(R.string.exit,
                             new ExitListener(), tableRow);
                         
@@ -229,6 +233,30 @@ public class MainMenuScene extends Scene {
             fadeOut();
             
             complete = true;
+        }
+    }
+    
+    private class LeaderboardDemoListener implements OnClickListener {
+        
+        //PUBLIC METHODS
+        @Override
+        public void onClick(View view) {
+            
+//            //set load values
+//            List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
+//            //loadList.add(ResourceGroup.TWOD_DEMO);
+//            LoadingScene.setLoadGroups(loadList);
+//            LoadingScene.setNextScene(new LeaderboardDemoScene());
+            
+            //set the next scene
+//            nextScene = new LeaderboardDemoScene();
+//            
+//            //fade out
+//            fadeOut();
+//            
+//            complete = true;
+            
+            OmicronActivity.activity.gamesSignIn();
         }
     }
     

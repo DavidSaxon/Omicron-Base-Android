@@ -17,16 +17,14 @@ public abstract class Scene {
 
     //PUBLIC METHODS
     /**Initialises the scene*/
-    public void init() {
-    }
+    public abstract void init();
 
     /**Executes one frame of the scene
     @return true if the scene has finished*/
     public boolean execute() {
 
-        //update entities and collision data
+        //update entities
         entities.update();
-        //TODO:collision data
 
         return false;
     }
@@ -36,7 +34,6 @@ public abstract class Scene {
 
         //clean up
         entities.clear();
-        //TODO:collision data
 
         return null;
     }

@@ -23,8 +23,12 @@ public class Animation extends Sprite {
     //the current frame of the animation
     private int frame = 0;
     
-    //if the animation should stop at end
-    private boolean stopAtEnd;
+    //the number of times the animation should play
+    //(-1 for infinte)
+    private int playTimes = -1;
+    
+    //the number of times the animation has played
+    private int playCount = 0;
     
     //CONSTRUCTOR
     /**Creates a new animation
@@ -36,10 +40,10 @@ public class Animation extends Sprite {
     @param length the length of the animation
     @param blockDim the dimensions of the texture block
     @param rows the number of rows of the animation has
-    @param stopAtEnd if the animation has stop at the end*/
+    @param playTimes the number of times the animation should play*/
     public Animation(Group group, int layer,
         float vertices[], float uvCoords[], float normals[],
-        int length, Vector2 blockDim, int rows, boolean stopAtEnd) {
+        int length, Vector2 blockDim, int rows, int playTimes) {
         
         super(group, layer, vertices, uvCoords, normals);
         
@@ -47,26 +51,28 @@ public class Animation extends Sprite {
         this.length = length;
         this.blockDim = blockDim.clone();
         this.rows = rows;
-        this.stopAtEnd = stopAtEnd;
+        this.playTimes = playTimes;
     }
     
     //PUBLIC METHODS
     @Override
     public void render(float viewMatrix[], float projectionMatrix[]) {
         
-        if (frame < length) {
+        Log.v(Values.TAG, "count: " + playCount);
+        Log.v(Values.TAG, "times: " + playTimes);
+        
+        if (playCount < playTimes || playTimes == -1) {
         
             updateUV();
             super.render(viewMatrix, projectionMatrix);
         }        
         
-        if (!stopAtEnd) {
+        ++frame;
+        
+        while (frame >= length) {
             
-            frame = (frame + 1) % length;
-        }
-        else {
-            
-            ++frame;
+            ++playCount;
+            frame -= length;
         }
         
     }
@@ -93,7 +99,7 @@ public class Animation extends Sprite {
     
         Animation copy = new Animation(group, layer,
             verticesCopy, uvCopy, normalsCopy,
-            length, blockDim, rows, stopAtEnd);
+            length, blockDim, rows, playTimes);
     
         //copy over the common renderable elements
         copyCommonElements(copy);
@@ -104,7 +110,7 @@ public class Animation extends Sprite {
     /**@return if the animation has finished playing*/
     public boolean finished() {
         
-        return frame >= length;
+        return playCount >= playTimes;
     }
     
     //PRIVATE METHODS
@@ -129,11 +135,6 @@ public class Animation extends Sprite {
             w2, h1,
             w1, h1
         };
-        
-        Log.v(Values.TAG, "w1: " + w1);
-        Log.v(Values.TAG, "w2: " + w2);
-        Log.v(Values.TAG, "h1: " + h1);
-        Log.v(Values.TAG, "h2: " + h2);
         
         //copy
         for(int i = 0; i < newUV.length; ++i) {

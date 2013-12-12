@@ -47,7 +47,10 @@ public abstract class Collidable extends Entity {
     
     //PROTECTED METHODS
     /**Processes collision data*/
-    protected abstract void processCollisions();
+    protected void processCollisions() {
+        
+        //TO OVERIDE
+    }
     
     /**Sets the positions of the boundings
     @param pos the new position of the boundings*/
@@ -56,16 +59,6 @@ public abstract class Collidable extends Entity {
         for (Bounding b : boundings) {
             
             b.setPos(pos);
-        }
-    }
-    
-    /**Sets the parent entities of the boundings
-    @param parent the parent entity*/
-    protected void setBoundingParent(Collidable parent) {
-        
-        for (Bounding b : boundings) {
-            
-            b.setParentEntity(parent);
         }
     }
     

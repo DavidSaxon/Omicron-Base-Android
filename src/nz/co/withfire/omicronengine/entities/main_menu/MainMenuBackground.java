@@ -34,9 +34,7 @@ public class MainMenuBackground extends Entity {
     public MainMenuBackground() {
 
         //get the spirte
-        Log.v(Values.TAG, "start");
         sprite = (Sprite) ResourceManager.getRenderable("main_menu_background");
-        Log.v(Values.TAG, "done");
 
         //scale to screen width
         sprite.setScale(new Vector3(

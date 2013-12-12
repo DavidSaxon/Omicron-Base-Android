@@ -78,7 +78,6 @@ public class GlowFish extends Collidable {
         //boundings
         boundings = ResourceManager.getBounding("glow_fish");
         setBoundingPos(pos);
-        setBoundingParent(this);
         addBoundingDebugMesh();
         
         //add to the collision group
@@ -87,11 +86,6 @@ public class GlowFish extends Collidable {
     
     @Override
     public void update() {
-        
-        //process collision
-        processCollisions();
-        //clear the collision data
-        collidedWith.clear();
         
         //move
         pos.x -= MOVE_SPEED * FPSManager.getTimeScale() * 
@@ -133,6 +127,18 @@ public class GlowFish extends Collidable {
         
         CollisionGroups.remove("fish", this);
         OmicronRenderer.remove(mesh);
+    }
+    
+    /**Sets the fish to remove*/
+    public void remove() {
+        
+        shouldRemove = true;
+    }
+    
+    /**@return the colour of the fish*/
+    public Vector4 getColour() {
+        
+        return mesh.getMaterial().getColour().clone();
     }
     
     //PRIVATE METHODS
@@ -189,22 +195,6 @@ public class GlowFish extends Collidable {
             GLES20.glUniform3fv(
                 GLES20.glGetUniformLocation(program, "u_Position"),
                 1, pos.toArray(), 0);
-        }
-    }
-
-    @Override
-    protected void processCollisions() {
-        
-        if (collidedWith.size() > 0) {
-        
-            //combine colours
-            Vector4 thisColour = mesh.getMaterial().getColour();
-            GlowFish other = (GlowFish) collidedWith.get(0);
-            Vector4 otherColour = other.mesh.getMaterial().getColour();
-            Vector4 combine = ColourUtil.average(thisColour, otherColour);
-            
-            TwoDDemoScene.fishExplode(this, other, pos, combine);
-            shouldRemove = true;
         }
     }
 }
