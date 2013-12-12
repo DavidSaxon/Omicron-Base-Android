@@ -10,6 +10,7 @@ import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 
 public class Engine {
@@ -54,10 +55,11 @@ public class Engine {
         //update the fps manager
         fps.update();
 
-        //Log.v(Values.TAG, "fps: " + fps.getFPS());
-
         //perform a loading cycle
         ResourceManager.loadCycle();
+        
+        //update the music manager
+        MusicManager.update();
 
         //execute the current scene
         if (scene.execute()) {

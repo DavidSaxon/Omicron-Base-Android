@@ -70,7 +70,7 @@ public class MainMenuScene extends Scene {
         initButtons();
         
         //start playing music
-        MusicManager.play(R.raw.music_mainmenu_drone, 1.0f);
+        MusicManager.fadeIn(R.raw.music_mainmenu_drone, 1.0f, 0.02f);
     }
     
     @Override

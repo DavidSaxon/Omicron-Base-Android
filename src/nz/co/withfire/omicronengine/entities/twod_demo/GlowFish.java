@@ -16,13 +16,11 @@ import nz.co.withfire.omicronengine.omicron.logic.fps_manager.FPSManager;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
 import nz.co.withfire.omicronengine.omicron.physics.types.Collidable;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
-import nz.co.withfire.omicronengine.omicron.utilities.ColourUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
-import nz.co.withfire.omicronengine.scenes.TwoDDemoScene;
 
 public class GlowFish extends Collidable {
 

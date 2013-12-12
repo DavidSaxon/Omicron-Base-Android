@@ -54,15 +54,35 @@ public class OmicronActivity extends BaseGameActivity {
     }
     
     @Override
+    protected void onResume() {
+        
+        //super call
+        super.onResume();
+        
+        //resume the music player
+        MusicManager.resume();
+    }
+    
+    @Override
     protected void onPause() {
 
         //super call
         super.onPause();
 
         //stop the music player
-        MusicManager.stop();
+        MusicManager.pause();
     }
 
+    @Override
+    protected void onDestroy() {
+        
+        //super call
+        super.onDestroy();
+        
+        //stop the music player
+        MusicManager.stop();
+    }
+    
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -78,15 +98,16 @@ public class OmicronActivity extends BaseGameActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    public void onSignInFailed() {
-        
-        Log.v(Values.TAG, "failed");
-    }
-
     public void gamesSignIn() {
         
         beginUserInitiatedSignIn();
+    }
+    
+
+    @Override
+    public void onSignInFailed() {
+        
+        //Log.v(Values.TAG, "failed");
     }
     
     @Override

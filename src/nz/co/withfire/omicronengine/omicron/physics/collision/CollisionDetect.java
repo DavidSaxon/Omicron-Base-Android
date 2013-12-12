@@ -18,8 +18,8 @@ public class CollisionDetect {
     /**Checks if there is a collision between two boundings
     @param a the first bounding
     @param b the second bounding
-    @return the value of the collision, where 0 means there is no collision*/
-    public static float detect(Bounding a, Bounding b) {
+    @return if there is a collision*/
+    public static boolean detect(Bounding a, Bounding b) {
         
         
         
@@ -34,15 +34,15 @@ public class CollisionDetect {
             return dectectCircleCircle((BoundingCircle) a,(BoundingCircle) b);
         }
         
-        return 0.0f;
+        return false;
     }
     
     //PRIVATE METHODS
     /**Checks if there is a collision between two rectangles
     @param a the first bounding rect
     @param b the second bounding rect
-    @return the value of the collision*/
-    private static float dectectRectRect(BoundingRect a, BoundingRect b) {
+    @return if there is a collision*/
+    private static boolean dectectRectRect(BoundingRect a, BoundingRect b) {
         
         //get the values of the bounding rectangles
         float ahdx = a.getDim().x * 2.0f;
@@ -62,14 +62,14 @@ public class CollisionDetect {
         float area = Math.max(0, Math.min(ax2, bx2) - Math.max(ax1, bx1)) *
             Math.max(0, Math.min(ay2, by2) - Math.max(ay1, by1));
         
-        return area;
+        return area > 0.0f;
     }
     
     /**Checks if there is a collision between two circles
     @param a the first bounding circle
     @param b the second bounding circle
-    @return the value of the collision*/
-    private static float dectectCircleCircle(
+    @return if there is a collision*/
+    private static boolean dectectCircleCircle(
         BoundingCircle a, BoundingCircle b) {
         
         //get the distance bewteen the positions
@@ -79,9 +79,9 @@ public class CollisionDetect {
         
         if (distance <= radius) {
             
-            return 1.0f;
+            return true;
         }
         
-        return 0.0f;
+        return false;
     }
 }

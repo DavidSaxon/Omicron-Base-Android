@@ -201,6 +201,7 @@ public class RenderableLoader {
         int length = 0;
         Vector2 uvDim = new Vector2();
         int rows = 0;
+        float framerate = 30.0f;
         int playTimes = -1;
         
         //read the file
@@ -226,6 +227,10 @@ public class RenderableLoader {
            else if(next.equals("#ROWS")) {
                
                rows = Integer.parseInt(scanner.next());
+           }
+           else if(next.equals("#FPS")) {
+               
+               framerate = Float.parseFloat(scanner.next());
            }
            else if(next.equals("#STOP")) {
                    
@@ -272,6 +277,6 @@ public class RenderableLoader {
         };
         
         return new Animation(type, layer, coords, uv, normals,
-            length, uvDim, rows, playTimes);
+            length, uvDim, rows, framerate, playTimes);
     }
 }

@@ -75,7 +75,9 @@ public abstract class Bounding {
         
         if (debugMesh != null && DebugValues.DEBUG_BOUNDINGS) {
             
-            debugMesh.setTranslation(pos.clone());
+            Vector3 meshPos = pos.clone();
+            meshPos.add(offset);
+            debugMesh.setTranslation(meshPos);
         }
     }
     

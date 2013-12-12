@@ -73,4 +73,10 @@ public class FPSManager {
 
         return fps;
     }
+    
+    /**@return the standard framerate*/
+    public static float getStdFrameRate() {
+        
+        return ValuesUtil.MS_IN_SEC / STD_FRAME_LENGTH;
+    }
 }

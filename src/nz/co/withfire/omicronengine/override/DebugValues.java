@@ -16,7 +16,7 @@ public class DebugValues {
     //is true to disable sounds
     public static final boolean DISABLE_SOUNDS = false;
     //is true to disable music
-    public static final boolean DISABLE_MUSIC = true;
+    public static final boolean DISABLE_MUSIC = false;
     
     //PUBLIC METHODS
     /**@return if at least one debug mode is active*/

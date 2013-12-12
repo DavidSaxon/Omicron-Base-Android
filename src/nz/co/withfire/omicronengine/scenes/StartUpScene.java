@@ -6,8 +6,8 @@
 
 package nz.co.withfire.omicronengine.scenes;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import nz.co.withfire.omicronengine.entities.start_up.Splash;
 import nz.co.withfire.omicronengine.omicron.graphics.camera.Camera;
@@ -81,14 +81,14 @@ public class StartUpScene extends Scene {
         //release start up resources
         ResourceManager.destroy(ResourceGroup.START_UP);
 
-        return new MainMenuScene();
+        //return new MainMenuScene();
 
-//        List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
-//        loadList.add(ResourceGroup.TWOD_DEMO);
-//        LoadingScene.setLoadGroups(loadList);
-//        LoadingScene.setNextScene(new TwoDDemoScene());
-//
-//        return new LoadingScene();
+        List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
+        loadList.add(ResourceGroup.TWOD_DEMO);
+        LoadingScene.setLoadGroups(loadList);
+        LoadingScene.setNextScene(new TwoDDemoScene());
+
+        return new LoadingScene();
     }
 
     @Override

@@ -112,7 +112,7 @@ public class CollisionProcess {
         for (Bounding b1 : c1.getBoundings()) {
             for (Bounding b2 : c2.getBoundings()) {
                 
-                if (CollisionDetect.detect(b1, b2) > 0.0f) {
+                if (CollisionDetect.detect(b1, b2)) {
                     
                     //pass in collision data and break
                     c1.collision(c2);
@@ -142,7 +142,7 @@ public class CollisionProcess {
         for (Bounding b1 : c1.getBoundings()) {
             for (Bounding b2 : c2.getBoundings()) {
                 
-                if (CollisionDetect.detect(b1, b2) > 0.0f) {
+                if (CollisionDetect.detect(b1, b2)) {
                     
                     //pass in collisiosn and break
                     callBack.collision(c1, c2);

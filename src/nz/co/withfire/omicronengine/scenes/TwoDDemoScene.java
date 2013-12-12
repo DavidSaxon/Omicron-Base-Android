@@ -64,7 +64,7 @@ public class TwoDDemoScene extends Scene {
         initEntities();
         
         //start playing music
-        MusicManager.play(R.raw.music_twod_demo_swarming, 1.0f);
+        MusicManager.fadeIn(R.raw.music_twod_demo_swarming, 1.0f, 0.02f);
     }
     
     @Override
@@ -78,7 +78,8 @@ public class TwoDDemoScene extends Scene {
         createFishExplosions();
         fishCollisions.clear();
         
-        return fadeOut != null && fadeOut.complete();
+        return fadeOut != null && fadeOut.complete() &&
+            !MusicManager.isFading();
     }
     
     @Override
@@ -108,6 +109,7 @@ public class TwoDDemoScene extends Scene {
             fadeOut = new Fader(FadeDirection.FADE_OUT, 0.02f,
                 new Vector4(0.0f, 0.0f, 0.0f, 1.0f), false);
             entities.add(fadeOut);
+            MusicManager.fadeOut(0.02f);
         }
         
         return true;
@@ -145,6 +147,10 @@ public class TwoDDemoScene extends Scene {
             
             entities.add(new GlowFish(pos, new Vector3(0.0f, 0.0f, rot)));
         }
+        
+        //fader
+        entities.add(new Fader(FadeDirection.FADE_IN, 0.02f,
+            new Vector4(0.0f, 0.0f, 0.0f, 1.0f), true));
     }
     
     //PRIVARE CLASSES
