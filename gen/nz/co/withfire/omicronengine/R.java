@@ -245,7 +245,8 @@ containing a value of this type.
         public static final int shader_vertex_default=0x7f04000f;
         public static final int shader_vertex_menu_main_background=0x7f040010;
         public static final int shader_vertex_twoddemo_glow_fish=0x7f040011;
-        public static final int sprite_std=0x7f040012;
+        public static final int sound_fish_explosion=0x7f040012;
+        public static final int sprite_std=0x7f040013;
     }
     public static final class string {
         public static final int action_settings=0x7f070020;

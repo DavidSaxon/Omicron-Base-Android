@@ -9,6 +9,7 @@ package nz.co.withfire.omicronengine.scenes;
 import java.util.HashMap;
 import java.util.Map;
 
+import nz.co.withfire.omicronengine.OmicronActivity;
 import nz.co.withfire.omicronengine.R;
 import nz.co.withfire.omicronengine.entities.gui.Fader;
 import nz.co.withfire.omicronengine.entities.gui.Fader.FadeDirection;
@@ -23,12 +24,14 @@ import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionGroups;
 import nz.co.withfire.omicronengine.omicron.physics.collision.CollisionProcess;
 import nz.co.withfire.omicronengine.omicron.physics.types.Collidable;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.sound.FxManager;
 import nz.co.withfire.omicronengine.omicron.sound.MusicManager;
 import nz.co.withfire.omicronengine.omicron.utilities.ColourUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.ValuesUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
+import nz.co.withfire.omicronengine.override.DebugValues;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
 public class TwoDDemoScene extends Scene {
@@ -50,6 +53,9 @@ public class TwoDDemoScene extends Scene {
     private Map<GlowFish,GlowFish> fishCollisions =
         new HashMap<GlowFish, GlowFish>();
     
+    //TODO: FIX ME
+    int sound = 0;
+    
     //PUBLIC METHODS
     @Override
     public void init() {
@@ -64,7 +70,11 @@ public class TwoDDemoScene extends Scene {
         initEntities();
         
         //start playing music
-        MusicManager.fadeIn(R.raw.music_twod_demo_swarming, 1.0f, 0.02f);
+        MusicManager.fadeIn(R.raw.music_twod_demo_swarming, 0.6f, 0.02f);
+        
+        //load the sound
+        //TODO move!
+        sound = FxManager.load(OmicronActivity.context, R.raw.sound_fish_explosion);
     }
     
     @Override
@@ -79,7 +89,7 @@ public class TwoDDemoScene extends Scene {
         fishCollisions.clear();
         
         return fadeOut != null && fadeOut.complete() &&
-            !MusicManager.isFading();
+            (DebugValues.DISABLE_MUSIC || !MusicManager.isFading());
     }
     
     @Override
@@ -127,6 +137,9 @@ public class TwoDDemoScene extends Scene {
             entities.add(new Explosion(e.getKey().getPos().clone(), combine));
             e.getKey().remove();
             e.getValue().remove();
+            
+            //play sound
+            FxManager.play3d(sound, e.getKey().getPos(), 1.0f);
         }
     }
     
