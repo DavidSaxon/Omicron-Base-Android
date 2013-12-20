@@ -16,6 +16,7 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Sprite;
 import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.override.DebugValues;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
 
@@ -23,7 +24,7 @@ public class StartUpScene extends Scene {
 
     //VARIABLES
     //the camera
-      private Camera camera = new PerspectiveCamera(60.0f, 0.1f, 100.0f);
+    private Camera camera = new PerspectiveCamera(60.0f, 0.01f, 100.0f);
 
     //true once loading has been completed
     private boolean loaded = false;
@@ -36,7 +37,8 @@ public class StartUpScene extends Scene {
     public void init() {
 
         //set the camera
-          OmicronRenderer.setCamera(camera);
+        camera.setPos(new Vector3(0.0f, 0.0f, 1.7f));
+        OmicronRenderer.setCamera(camera);
 
         //load the start up resources
         ResourceManager.load(ResourceGroup.ALL);
@@ -84,9 +86,9 @@ public class StartUpScene extends Scene {
         //return new MainMenuScene();
 
         List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
-        loadList.add(ResourceGroup.TWOD_DEMO);
+        loadList.add(ResourceGroup.PHYSICS_DEMO);
         LoadingScene.setLoadGroups(loadList);
-        LoadingScene.setNextScene(new TwoDDemoScene());
+        LoadingScene.setNextScene(new PhysicsDemoScene());
 
         return new LoadingScene();
     }

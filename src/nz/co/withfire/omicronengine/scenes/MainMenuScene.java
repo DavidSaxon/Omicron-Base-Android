@@ -53,12 +53,14 @@ public class MainMenuScene extends Scene {
     
     //the table of buttons
     private TableLayout tableLayout;
+
     
     //PUBLIC METHODS
     @Override
     public void init() {
         
         //set the camera
+        camera.setPos(new Vector3(0.0f, 0.0f, 1.7f));
         OmicronRenderer.setCamera(camera);
         
         //add the background
@@ -129,6 +131,8 @@ public class MainMenuScene extends Scene {
                             new MaterialDemoListener(), tableRow);
                         createButton(R.string.twod_demo,
                             new TwoDDemoListener(), tableRow);
+                        createButton(R.string.physics_demo,
+                            new PhysicsDemoListener(), tableRow);
                         createButton(R.string.leaderboard_demo,
                             new LeaderboardDemoListener(), tableRow);
                         createButton(R.string.exit,
@@ -198,6 +202,11 @@ public class MainMenuScene extends Scene {
         @Override
         public void onClick(View view) {
             
+            if (nextScene != null) {
+                
+                return;
+            }
+            
             //set load values
             List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
             loadList.add(ResourceGroup.MATERIAL_DEMO);
@@ -220,6 +229,11 @@ public class MainMenuScene extends Scene {
         @Override
         public void onClick(View view) {
             
+            if (nextScene != null) {
+                
+                return;
+            }
+            
             //set load values
             List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
             loadList.add(ResourceGroup.TWOD_DEMO);
@@ -236,11 +250,43 @@ public class MainMenuScene extends Scene {
         }
     }
     
+    private class PhysicsDemoListener implements OnClickListener {
+
+        //PUBLIC METHODS
+        @Override
+        public void onClick(View view) {
+            
+            if (nextScene != null) {
+                
+                return;
+            }
+            
+            //set load values
+            List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
+            loadList.add(ResourceGroup.PHYSICS_DEMO);
+            LoadingScene.setLoadGroups(loadList);
+            LoadingScene.setNextScene(new PhysicsDemoScene());
+            
+            //set the next scene
+            nextScene = new LoadingScene();
+            
+            //fade out
+            fadeOut();
+            
+            complete = true;
+        }
+    }
+    
     private class LeaderboardDemoListener implements OnClickListener {
         
         //PUBLIC METHODS
         @Override
         public void onClick(View view) {
+            
+            if (nextScene != null) {
+                
+                return;
+            }
             
 //            //set load values
 //            List<ResourceGroup> loadList = new ArrayList<ResourceGroup>();
@@ -266,6 +312,11 @@ public class MainMenuScene extends Scene {
         @Override
         public void onClick(View view) {
 
+            if (nextScene != null) {
+                
+                return;
+            }
+            
             //fade out
             fadeOut();
             

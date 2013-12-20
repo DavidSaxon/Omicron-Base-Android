@@ -148,6 +148,12 @@ public class RenderList {
         }
     }
 
+    /**Clears the lights from the renderer*/
+    public void clearLights() {
+        
+        pointLights.clear();
+    }
+    
     //GETTERS
     /**@return the number of point lights currently in the lists*/
     public int getPointCount() {

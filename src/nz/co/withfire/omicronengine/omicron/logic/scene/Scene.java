@@ -6,6 +6,7 @@
 
 package nz.co.withfire.omicronengine.omicron.logic.scene;
 
+import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.entity.EntityList;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
 
@@ -34,6 +35,7 @@ public abstract class Scene {
 
         //clean up
         entities.clear();
+        OmicronRenderer.getRenderList().clearLights();
 
         return null;
     }

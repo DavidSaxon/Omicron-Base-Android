@@ -77,7 +77,7 @@ public class Fader extends Entity {
         colour.w = fade;
         sprite.getMaterial().setColour(colour);
         //shift forward
-        sprite.setTranslation(new Vector3(0.0f, 0.0f, -1.6f));
+        sprite.setTranslation(new Vector3(0.0f, 0.0f, 0.02f));
         //scale
         sprite.setScale(new Vector3(3.0f, 3.0f, 3.0f));
         //add to the renderer

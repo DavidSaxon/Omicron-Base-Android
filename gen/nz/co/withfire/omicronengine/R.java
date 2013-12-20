@@ -236,17 +236,19 @@ containing a value of this type.
         public static final int mesh_materialdemo_skybox=0x7f040006;
         public static final int mesh_materialdemo_sphere=0x7f040007;
         public static final int mesh_materialdemo_table=0x7f040008;
-        public static final int mesh_twoddemo_glow_fish=0x7f040009;
-        public static final int music_mainmenu_drone=0x7f04000a;
-        public static final int music_twod_demo_swarming=0x7f04000b;
-        public static final int shader_fragment_default=0x7f04000c;
-        public static final int shader_fragment_menu_main_background=0x7f04000d;
-        public static final int shader_fragment_twoddemo_glow_fish=0x7f04000e;
-        public static final int shader_vertex_default=0x7f04000f;
-        public static final int shader_vertex_menu_main_background=0x7f040010;
-        public static final int shader_vertex_twoddemo_glow_fish=0x7f040011;
-        public static final int sound_fish_explosion=0x7f040012;
-        public static final int sprite_std=0x7f040013;
+        public static final int mesh_physicsdemo_cube=0x7f040009;
+        public static final int mesh_physicsdemo_room=0x7f04000a;
+        public static final int mesh_twoddemo_glow_fish=0x7f04000b;
+        public static final int music_mainmenu_drone=0x7f04000c;
+        public static final int music_twod_demo_swarming=0x7f04000d;
+        public static final int shader_fragment_default=0x7f04000e;
+        public static final int shader_fragment_menu_main_background=0x7f04000f;
+        public static final int shader_fragment_twoddemo_glow_fish=0x7f040010;
+        public static final int shader_vertex_default=0x7f040011;
+        public static final int shader_vertex_menu_main_background=0x7f040012;
+        public static final int shader_vertex_twoddemo_glow_fish=0x7f040013;
+        public static final int sound_fish_explosion=0x7f040014;
+        public static final int sprite_std=0x7f040015;
     }
     public static final class string {
         public static final int action_settings=0x7f070020;
@@ -346,13 +348,14 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f070013;
-        public static final int exit=0x7f070024;
+        public static final int exit=0x7f070025;
         public static final int gamehelper_app_misconfigured=0x7f07001b;
         public static final int gamehelper_license_failed=0x7f07001c;
         public static final int gamehelper_sign_in_failed=0x7f07001a;
         public static final int gamehelper_unknown_error=0x7f07001d;
-        public static final int leaderboard_demo=0x7f070023;
+        public static final int leaderboard_demo=0x7f070024;
         public static final int material_demo=0x7f070021;
+        public static final int physics_demo=0x7f070023;
         public static final int twod_demo=0x7f070022;
     }
     public static final class styleable {
@@ -389,7 +392,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:adSize
+          @attr name nz.co.withfire.omicronengine:adSize
         */
         public static final int AdsAttrs_adSize = 0;
         /**
@@ -405,7 +408,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:adUnitId
+          @attr name nz.co.withfire.omicronengine:adUnitId
         */
         public static final int AdsAttrs_adUnitId = 1;
         /** Attributes that can be used with a MapAttrs.
@@ -461,7 +464,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraBearing
+          @attr name nz.co.withfire.omicronengine:cameraBearing
         */
         public static final int MapAttrs_cameraBearing = 1;
         /**
@@ -475,7 +478,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLat
+          @attr name nz.co.withfire.omicronengine:cameraTargetLat
         */
         public static final int MapAttrs_cameraTargetLat = 2;
         /**
@@ -489,7 +492,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLng
+          @attr name nz.co.withfire.omicronengine:cameraTargetLng
         */
         public static final int MapAttrs_cameraTargetLng = 3;
         /**
@@ -503,7 +506,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTilt
+          @attr name nz.co.withfire.omicronengine:cameraTilt
         */
         public static final int MapAttrs_cameraTilt = 4;
         /**
@@ -517,7 +520,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraZoom
+          @attr name nz.co.withfire.omicronengine:cameraZoom
         */
         public static final int MapAttrs_cameraZoom = 5;
         /**
@@ -537,7 +540,7 @@ containing a value of this type.
 <tr><td><code>terrain</code></td><td>3</td><td></td></tr>
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
-          @attr name android:mapType
+          @attr name nz.co.withfire.omicronengine:mapType
         */
         public static final int MapAttrs_mapType = 0;
         /**
@@ -551,7 +554,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiCompass
+          @attr name nz.co.withfire.omicronengine:uiCompass
         */
         public static final int MapAttrs_uiCompass = 6;
         /**
@@ -565,7 +568,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiRotateGestures
+          @attr name nz.co.withfire.omicronengine:uiRotateGestures
         */
         public static final int MapAttrs_uiRotateGestures = 7;
         /**
@@ -579,7 +582,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiScrollGestures
+          @attr name nz.co.withfire.omicronengine:uiScrollGestures
         */
         public static final int MapAttrs_uiScrollGestures = 8;
         /**
@@ -593,7 +596,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiTiltGestures
+          @attr name nz.co.withfire.omicronengine:uiTiltGestures
         */
         public static final int MapAttrs_uiTiltGestures = 9;
         /**
@@ -607,7 +610,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomControls
+          @attr name nz.co.withfire.omicronengine:uiZoomControls
         */
         public static final int MapAttrs_uiZoomControls = 10;
         /**
@@ -621,7 +624,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomGestures
+          @attr name nz.co.withfire.omicronengine:uiZoomGestures
         */
         public static final int MapAttrs_uiZoomGestures = 11;
         /**
@@ -635,7 +638,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:useViewLifecycle
+          @attr name nz.co.withfire.omicronengine:useViewLifecycle
         */
         public static final int MapAttrs_useViewLifecycle = 12;
         /**
@@ -649,7 +652,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:zOrderOnTop
+          @attr name nz.co.withfire.omicronengine:zOrderOnTop
         */
         public static final int MapAttrs_zOrderOnTop = 13;
     };

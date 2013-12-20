@@ -22,6 +22,7 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderer.OmicronRenderer;
 import nz.co.withfire.omicronengine.omicron.logic.scene.Scene;
 import nz.co.withfire.omicronengine.omicron.resources.manager.ResourceManager;
 import nz.co.withfire.omicronengine.omicron.utilities.MathUtil;
+import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector3;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector4;
 import nz.co.withfire.omicronengine.override.Values;
 import nz.co.withfire.omicronengine.override.ResourceGroups.ResourceGroup;
@@ -30,7 +31,7 @@ public class LoadingScene extends Scene {
 
     //VARIABLES
     //the camera
-    private Camera camera = new PerspectiveCamera(60.0f, 0.1f, 100.0f);
+    private Camera camera = new PerspectiveCamera(60.0f, 0.01f, 100.0f);
     
     //the fader
     private Fader fader;
@@ -55,10 +56,16 @@ public class LoadingScene extends Scene {
     public void init() {
         
         //set the camera
+        camera.setPos(new Vector3(0.0f, 0.0f, 1.729f));
         OmicronRenderer.setCamera(camera);
         
         //load the start up resources
         ResourceManager.load(ResourceGroup.LOADING);
+        
+        //create and add the fader
+        fader = new Fader(FadeDirection.FADE_IN, 0.02f,
+            new Vector4(0.0f, 0.0f, 0.0f, 1.0f), true);
+        entities.add(fader);
         
         //create and add the cog
         cog = new LoadingCog();
@@ -67,11 +74,6 @@ public class LoadingScene extends Scene {
         //create and add the bar
         loadingBar = new LoadingBar();
         entities.add(loadingBar);
-        
-        //create and add the fader
-        fader = new Fader(FadeDirection.FADE_IN, 0.02f,
-            new Vector4(0.0f, 0.0f, 0.0f, 1.0f), true);
-        entities.add(fader);
     }
     
     @Override

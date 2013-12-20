@@ -19,6 +19,7 @@ public class ResourceGroups {
         LOADING,
         MAIN_MENU,
         MATERIAL_DEMO,
+        PHYSICS_DEMO,
         TWOD_DEMO
     };
 }

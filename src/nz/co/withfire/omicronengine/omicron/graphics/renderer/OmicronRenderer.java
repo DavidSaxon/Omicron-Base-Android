@@ -21,8 +21,10 @@ import nz.co.withfire.omicronengine.omicron.graphics.renderable.Renderable;
 import nz.co.withfire.omicronengine.omicron.logic.engine.Engine;
 import nz.co.withfire.omicronengine.omicron.utilities.TransformationsUtil;
 import nz.co.withfire.omicronengine.omicron.utilities.vector.Vector2;
+import nz.co.withfire.omicronengine.override.Values;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class OmicronRenderer implements GLSurfaceView.Renderer{
@@ -178,6 +180,12 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
     }
 
     //GETTERS
+    /**@return the render lists*/
+    public static RenderList getRenderList() {
+        
+        return renderList;
+    }
+    
     /**@return the current camera of the renderer*/
     public static Camera getCamera() {
 
@@ -211,7 +219,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         for (MotionEvent e : touchEvents) {
 
             for (int index = 0; index < e.getPointerCount(); ++index) {
-
+                
                 //get the touch point
                 Vector2 touchPos = new Vector2(e.getX(index),
                     e.getY(index));
@@ -228,6 +236,7 @@ public class OmicronRenderer implements GLSurfaceView.Renderer{
         if (touchEvents.size() > 0) {
 
             camera.setProjection(projectionMatrix);
+            touchEvents.clear();
         }
     }
 

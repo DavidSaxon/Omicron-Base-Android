@@ -61,6 +61,7 @@ public class TwoDDemoScene extends Scene {
     public void init() {
         
         //set the camera
+        camera.setPos(new Vector3(0.0f, 0.0f, 1.7f));
         OmicronRenderer.setCamera(camera);
         
         //create collision groups

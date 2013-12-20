@@ -1,7 +1,7 @@
 /****************************************\
 | Resources for the material demo scene. |
-|                                         |
-| @author David Saxon                     |
+|                                        |
+| @author David Saxon                    |
 \****************************************/
 
 package nz.co.withfire.omicronengine.resource_packs;

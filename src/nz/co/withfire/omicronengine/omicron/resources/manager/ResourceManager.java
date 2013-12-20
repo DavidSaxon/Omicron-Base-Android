@@ -29,6 +29,7 @@ import nz.co.withfire.omicronengine.resource_packs.GUIPack;
 import nz.co.withfire.omicronengine.resource_packs.LoadingPack;
 import nz.co.withfire.omicronengine.resource_packs.MainMenuPack;
 import nz.co.withfire.omicronengine.resource_packs.MaterialDemoPack;
+import nz.co.withfire.omicronengine.resource_packs.PhysicsDemoPack;
 import nz.co.withfire.omicronengine.resource_packs.StartUpPack;
 import nz.co.withfire.omicronengine.resource_packs.TwoDDemoPack;
 
@@ -97,6 +98,7 @@ public class ResourceManager {
         StartUpPack.build();
         MainMenuPack.build();
         MaterialDemoPack.build();
+        PhysicsDemoPack.build();
         TwoDDemoPack.build();
     }
 
