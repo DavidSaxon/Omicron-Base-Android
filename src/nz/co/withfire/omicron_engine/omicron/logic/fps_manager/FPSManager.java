@@ -85,23 +85,6 @@ public class FPSManager {
 
         //get the fps
         fps = ValuesUtil.MS_IN_SEC / deltaTime;
-        
-        //TESTING
-        if (counter < 0.0f) {
-            
-            counterStartTime = System.currentTimeMillis();
-            counter = 0.0f;
-        }
-        else if (counter < 1.0f) {
-            
-            counter += 0.01f * timeScale;
-        }
-        else {
-            
-            counter = -1.0f;
-            Log.v(Values.TAG, "count time: " +
-                (System.currentTimeMillis() - counterStartTime));
-        }
     }
 
     /**Zeros the last update time to now*/
